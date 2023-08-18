@@ -14,7 +14,7 @@ class Restaurants(models.Model):
 
 class Tables(models.Model):
     table_nr = models.IntegerField(default=0)
-    restaurant_id = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='', blank=True)
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='', blank=True)
     min_pers = models.IntegerField(default=0)
     max_pers = models.IntegerField(default=0)
     duration_hours = models.IntegerField(default=0)

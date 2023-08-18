@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-18 16:35+0200\n"
+"POT-Creation-Date: 2023-08-18 17:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:7
+#: .\templates\index.html:23
 msgid "hello"
 msgstr "Boungiorno"
+
+#: .\templates\index.html:28
+msgid "make_reservation"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
 msgid "Messages"
@@ -1227,4 +1231,20 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:248
 msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\we_book\settings.py:143
+msgid "English"
+msgstr ""
+
+#: .\we_book\settings.py:144
+msgid "Français"
+msgstr ""
+
+#: .\we_book\settings.py:145
+msgid "Italiano"
+msgstr ""
+
+#: .\we_book\settings.py:146
+msgid "Deutsch"
 msgstr ""
