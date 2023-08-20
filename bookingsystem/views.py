@@ -15,6 +15,7 @@ def index(request):
         restaurantID = request.session['restaurantID']
 
     restaurant = Restaurants.objects.get(id=restaurantID)
+    #TODO: only select timeslots based on availability
     reservationform = ReservationForm(initial={'restaurant': restaurant, 'number_of_persons': 2,
                                        'reservation_date': date.today(),
                                     'reservation_time': datetime.now().strftime("%H:%M:%S")})
@@ -27,14 +28,19 @@ def make_reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST, request.FILES)
         if form.is_valid():
-            restaurant = request.GET['restaurantID']
+            restaurant_id = request.GET['restaurantID']
             number_of_persons = form['number_of_persons'].value()
             reservation_date = form['reservation_date'].value()
             reservation_time = form['reservation_time'].value()
             bookingmaker = BookingMaker()
-            context = bookingmaker.make_booking(restaurant, number_of_persons, reservation_date, reservation_time)
+            context = bookingmaker.make_booking(restaurant_id, number_of_persons, reservation_date, reservation_time)
         else:
             message = _("booking_failed")
             print(form.errors)
             context = {'message': message}
     return render(request, 'booking_confirmation.html', context)
+
+
+def confirm_booking():
+    #TODO: change confirmed to true and add Customer and Id
+    return
