@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form class="login-form" role="form" method="POST" action="see_reservations">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button-4" role="button">Submit</button>
+</form>
+</body>
+</html>

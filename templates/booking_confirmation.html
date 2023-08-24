@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>{{ message }}</h1>
-{{ reservation_date|date:"d-m-Y" }} <br><br>
-{{ start_time }} <br><br>
-{{ number_of_persons }}
-</body>
-</html>
+{#<h2>{{ request.user_agent }}</h2>#}
+{% if request.user_agent.is_pc %}
+    {% include 'booking_confirmation/booking_confirmation_desktop.html' %}
+{% endif %}
+{% if request.user_agent.is_mobile %}
+    {% include 'booking_confirmation/booking_confirmation_mobile.html' %}
+{% endif %}
+{% if request.user_agent.is_tablet %}
+    {% include 'booking_confirmation/booking_confirmation_tablet.html' %}
+{% endif %}

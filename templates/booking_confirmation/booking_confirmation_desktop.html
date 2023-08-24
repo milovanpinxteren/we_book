@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>{{ message }}</h1>
+{% if held_reservation_id %}
+{{ reservation_date|date:"d-m-Y" }} <br><br>
+{{ start_time }} <br><br>
+{{ number_of_persons }}
+
+{#    {% trans "confirm_booking" %}#}
+<form action="./confirm_booking?reservationID={{ held_reservation_id }}" method="post">
+    {% csrf_token %}
+    {{ confirmation_form.name }}
+    {{ confirmation_form.email }}
+    {{ confirmation_form.telephone_nr }}
+    <button type="submit">{% trans "make_reservation" %}</button>
+</form>
+{% elif confirmed_reservation %}
+    Wijzigen? {{ reservation }} {{ customer }}
+{% endif %}
+
+
+</body>
+</html>

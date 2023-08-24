@@ -13,7 +13,7 @@ class RestaurantsAdmin(admin.ModelAdmin):
 
 @admin.register(Tables)
 class TablesAdmin(admin.ModelAdmin):
-    list_display = ['table_nr', 'min_pers', 'max_pers', 'duration_hours', 'min_time', 'max_time']
+    list_display = ['table_nr', 'min_pers', 'max_pers']
 
 @admin.register(Customers)
 class CustomersAdmin(admin.ModelAdmin):
