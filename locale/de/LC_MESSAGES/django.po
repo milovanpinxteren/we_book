@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-18 17:49+0200\n"
+"POT-Creation-Date: 2023-08-25 11:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\index.html:23
-msgid "hello"
-msgstr "Gutentag"
+#: .\bookingsystem\Classes\booking_maker.py:21
+msgid "restaurant_closed"
+msgstr ""
 
-#: .\templates\index.html:28
+#: .\bookingsystem\Classes\booking_maker.py:49
+msgid "possible_reservation_found"
+msgstr ""
+
+#: .\bookingsystem\Classes\booking_maker.py:54
+msgid "no_possible_reservation_found"
+msgstr ""
+
+#: .\bookingsystem\views.py:41 .\bookingsystem\views.py:59
+msgid "booking_failed"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:22
 msgid "make_reservation"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:36
+msgid "reserve_table"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:42
+msgid "no_persons"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:51
+msgid "reservation_date"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:60
+msgid "reservation_time"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
@@ -1233,18 +1261,21 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: .\we_book\settings.py:143
+#: .\we_book\settings.py:145
 msgid "English"
 msgstr ""
 
-#: .\we_book\settings.py:144
+#: .\we_book\settings.py:146
 msgid "Français"
 msgstr ""
 
-#: .\we_book\settings.py:145
+#: .\we_book\settings.py:147
 msgid "Italiano"
 msgstr ""
 
-#: .\we_book\settings.py:146
+#: .\we_book\settings.py:148
 msgid "Deutsch"
 msgstr ""
+
+#~ msgid "hello"
+#~ msgstr "Gutentag"
