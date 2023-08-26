@@ -146,4 +146,5 @@ LANGUAGES = (
     ('fr', _('Français')),
     ('it', _('Italiano')),
     ('de', _('Deutsch')),
+    ('nl', _('Nederlands'))
 )

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-25 11:15+0200\n"
+"POT-Creation-Date: 2023-08-26 13:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,39 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\bookingsystem\Classes\booking_maker.py:21
-msgid "restaurant_closed"
-msgstr ""
-
-#: .\bookingsystem\Classes\booking_maker.py:49
-msgid "possible_reservation_found"
-msgstr ""
-
-#: .\bookingsystem\Classes\booking_maker.py:54
-msgid "no_possible_reservation_found"
-msgstr ""
-
 #: .\bookingsystem\views.py:41 .\bookingsystem\views.py:59
 msgid "booking_failed"
 msgstr ""
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:22
-msgid "make_reservation"
-msgstr ""
-
-#: .\templates\index\index_desktop.html:36
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:20
+#: .\templates\index\index_desktop.html:20
 msgid "reserve_table"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:42
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:21
+msgid "possible_reservation_found"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:32
+msgid "make_reservation"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:29
 msgid "no_persons"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:51
+#: .\templates\index\index_desktop.html:49
 msgid "reservation_date"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:60
+#: .\templates\index\index_desktop.html:69
 msgid "reservation_time"
 msgstr ""
 
@@ -1275,6 +1268,10 @@ msgstr ""
 
 #: .\we_book\settings.py:148
 msgid "Deutsch"
+msgstr ""
+
+#: .\we_book\settings.py:149
+msgid "Nederlands"
 msgstr ""
 
 #~ msgid "hello"

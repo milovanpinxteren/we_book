@@ -18,7 +18,7 @@ class BookingMaker():
         #check if restaurant is open on date
         valid_reservation = self.get_restaurant_availability(restaurant_id, reservation_date, reservation_time)
         if not valid_reservation:
-            context = {'message': _("restaurant_closed"),
+            context = {'status': "restaurant_closed",
                        'table_id': '', 'start_time': reservation_time,
                        'number_of_persons': number_of_persons}
             return context
@@ -45,12 +45,12 @@ class BookingMaker():
                                             end_time=end_time, paid=False, paid_amount=0, created_at=datetime.now(),
                                             updated_at=datetime.now(), restaurant_id=restaurant_id, customer_id=0,
                                             table_id=possible_table.id, confirmed=False)
-                context = {'message': _("possible_reservation_found"),
+                context = {'status': "possible_reservation_found",
                            'table_id': possible_table.id, 'reservation_date': reservation_date,
                            'start_time': reservation_time, 'number_of_persons': number_of_persons,
                            'held_reservation_id': held_reservation.id}
                 return context
-        context = {'message': _("no_possible_reservation_found"),
+        context = {'status': "no_possible_reservation_found",
                    'table_id': '', 'start_time': reservation_time,
                    'number_of_persons': number_of_persons}
         return context
