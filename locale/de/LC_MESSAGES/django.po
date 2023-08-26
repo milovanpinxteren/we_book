@@ -40,7 +40,7 @@ msgstr ""
 
 #: .\templates\index\index_desktop.html:36
 msgid "reserve_table"
-msgstr ""
+msgstr "einen Tisch buchen bei"
 
 #: .\templates\index\index_desktop.html:42
 msgid "no_persons"

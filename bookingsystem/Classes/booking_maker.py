@@ -10,7 +10,7 @@ from django.utils.translation import get_language
 
 class BookingMaker():
     def make_booking(self, restaurant_id, number_of_persons, reservation_date, reservation_time):
-        reservation_date = self.format_reservation_date(reservation_date)
+        reservation_date, reservation_time = self.format_reservation_date_time(reservation_date, reservation_time)
         context = self.check_availability(restaurant_id, number_of_persons, reservation_date, reservation_time)
         return context
 
@@ -25,12 +25,11 @@ class BookingMaker():
         #get possible tables
         table_query = Q(restaurant_id=restaurant_id) & Q(min_pers__lte=number_of_persons) & Q(max_pers__gte=number_of_persons)
         possible_tables = Tables.objects.filter(table_query)
-        # reservation_date = datetime.strptime(reservation_date, "%Y-%m-%d")
         date_condition = Q(reservation_date=reservation_date)
 
         for possible_table in possible_tables:
             duration = Restaurants.objects.filter(id=restaurant_id).values_list('meal_duration', flat=True)[0]
-            start_time = datetime.strptime(reservation_time, "%H:%M:%S")
+            start_time = reservation_time
             end_time = (start_time + timedelta(hours=duration)).strftime("%H:%M:%S")
 
             reservations = Reservations.objects.filter(
@@ -58,9 +57,7 @@ class BookingMaker():
 
     def get_restaurant_availability(self, restaurant_id, reservation_date, reservation_time):
         valid_reservation = False
-        # reservation_date = reservation_date.strftime("%Y-%m-%d")
         restaurant = Restaurants.objects.filter(id=restaurant_id)
-        reservation_time = datetime.strptime(reservation_time, '%H:%M:%S')
 
         changed_availability = CustomRestaurantAvailability.objects.filter(date=reservation_date)
 
@@ -74,13 +71,11 @@ class BookingMaker():
                 restaurant_closing_time = restaurant.values_list('closing_time', flat=True)[0]
                 meal_duration = restaurant.values_list('meal_duration', flat=True)[0]
 
-
                 fixed_date = datetime(1900, 1, 1)
                 restaurant_opening_time = fixed_date.replace(hour=restaurant_opening_time.hour, minute=restaurant_opening_time.minute)
                 restaurant_closing_time = fixed_date.replace(hour=restaurant_closing_time.hour, minute=restaurant_closing_time.minute)
                 last_reservation_time = restaurant_closing_time - timedelta(hours=meal_duration)
                 reservation_time = fixed_date.replace(hour=reservation_time.hour, minute=reservation_time.minute)
-
 
                 valid_reservation = restaurant_opening_time <= reservation_time <= last_reservation_time
                 if valid_reservation:
@@ -103,15 +98,16 @@ class BookingMaker():
 
         return valid_reservation
 
-    def format_reservation_date(self, reservation_date):
+    def format_reservation_date_time(self, reservation_date, reservation_time):
         current_language = get_language()
+        reservation_time = datetime.strptime(reservation_time, "%H:%M")
         if current_language == 'de':
             reservation_date = datetime.strptime(reservation_date, '%d.%M.%Y')
         elif current_language == 'fr' or current_language == 'it':
             reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
         elif current_language == 'en':
             reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
-        return reservation_date
+        return reservation_date, reservation_time
 
 
 
