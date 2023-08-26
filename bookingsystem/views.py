@@ -66,8 +66,10 @@ def confirm_booking(request):
             telephone_nr = confirmation_form['telephone_nr'].value()
             bookingconfirmer = BookingConfirmer()
             context = bookingconfirmer.confirm_booking(reservationID, name, email, telephone_nr)
+            request.session['status'] = context['status']
         else:
             print(confirmation_form.errors)
+            request.session['status'] = 'booking_failed'
             context = {'status': request.session['status'],
                        'table_id': request.session['status'], 'reservation_date': request.session['reservation_date'],
                        'start_time': request.session['start_time'],
@@ -78,7 +80,8 @@ def confirm_booking(request):
 
     else:
         confirmation_form = ConfirmBookingForm()
-        context = {'status': request.session['status'] ,
+        request.session['status'] = 'booking_failed'
+        context = {'status': request.session['status'],
                    'table_id': request.session['status'], 'reservation_date': request.session['reservation_date'],
                    'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
                    'held_reservation_id': request.session['held_reservation_id'], 'confirmation_form': confirmation_form}
@@ -97,9 +100,15 @@ def drop_reservation(request):
     return HttpResponse("Session expired")
 
 def delete_reservation(request):
-    reservation_id = int(request.GET.get('reservation_id'))
+    reservation_id = request.GET['reservationID']
     Reservations.objects.filter(id=reservation_id).delete()
-    return
+    request.session['status'] = 'reservation_cancelled'
+    context = {'status': request.session['status'],
+               'table_id': request.session['table_id'], 'reservation_date': request.session['reservation_date'],
+               'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
+               'held_reservation_id': request.session['held_reservation_id']}
+    return render(request, 'booking_confirmed.html', context)
+
 
 ###########################################FOR RESTAURANTS##############################################################
 

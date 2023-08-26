@@ -17,18 +17,24 @@
 <div class="page-container">
     <div class="form-div">
         <div class="form_main">
-            <p class="heading" id="heading">{% trans "booking_confirmed" %}</p> <br>
-            <p class="subHeading">{{ restaurant }}</p>
-            <p class="reservation-info">
-                {% trans "reservation_date" %}: {{ reservation_date|date:"d-m-Y" }} <br>
-                {% trans "start_time" %}: {{ start_time|time:"H:i" }} <br>
-                {% trans "number_of_persons" %}: {{ number_of_persons }} <br>
-                {% trans "name" %}: {{ name }} <br>
-                {% trans "email_adress" %}: {{ email_adress }} <br>
-                {% trans "telephone_number" %}: {{ telephone_number }} <br>
-            </p>
+            {% if status == 'reservation_cancelled' %}
+                <p class="heading" id="heading">{% trans "booking_cancelled" %}</p> <br>
+            {% elif status == 'booking_confirmed' %}
+                <p class="heading" id="heading">{% trans "booking_confirmed" %}</p> <br>
+                <p class="subHeading">{{ restaurant }}</p>
+                <p class="reservation-info">
+                    {% trans "reservation_date" %}: {{ reservation_date|date:"d-m-Y" }} <br>
+                    {% trans "start_time" %}: {{ start_time|time:"H:i" }} <br>
+                    {% trans "number_of_persons" %}: {{ number_of_persons }} <br>
+                    {% trans "name" %}: {{ name }} <br>
+                    {% trans "email_adress" %}: {{ email_adress }} <br>
+                    {% trans "telephone_number" %}: {{ telephone_number }} <br>
+                    {{ reservationID }}
+                </p>
+                <a class="cancelLink"
+                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}">{% trans 'cancel_reservation' %}</a>
+            {% endif %}
 
-                <a class="cancelLink" href="{% url 'delete_reservation?' %}?reservationID={{ reservationID }}">{% trans 'cancel_reservation' %}</a>
 
         </div>
     </div>

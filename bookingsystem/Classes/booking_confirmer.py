@@ -12,10 +12,11 @@ class BookingConfirmer():
         restaurantID = reservation.values_list('restaurant', flat=True)[0]
         restaurant = Restaurants.objects.filter(id=restaurantID).values_list('name', flat=True)[0]
         #TODO: send email
-        context = {'confirmed_reservation': True, 'reservation_date': reservation.values_list('reservation_date', flat=True)[0],
+        context = {'confirmed_reservation': True, 'status': 'booking_confirmed',
+                   'reservation_date': reservation.values_list('reservation_date', flat=True)[0],
                    'start_time': reservation.values_list('arrival_time', flat=True)[0],
                    'number_of_persons': reservation.values_list('number_of_persons', flat=True)[0],
                    'name': customer.full_name, 'email_adress': customer.email, 'telephone_number': customer.telephone_nr,
-                   'restaurant': restaurant, 'restaurantID': restaurantID
+                   'restaurant': restaurant, 'restaurantID': restaurantID, 'reservationID': reservationID
                    }
         return context
