@@ -3,36 +3,28 @@
 {% get_current_language as CURRENT_LANG %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
-
+{% csrf_token %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmation_desktop.css' %}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 
     <title>Title</title>
 </head>
 <body>
+
 <div class="page-container">
     {#    <h1>{{ status }}</h1>#}
     {% if held_reservation_id %}
         <div class="form-div">
 
-            {#        <form action="./confirm_booking?reservationID={{ held_reservation_id }}" method="post" class="form_main">#}
-            {#            {% csrf_token %}#}
-            {#            {{ confirmation_form.name }}#}
-            {#            {{ confirmation_form.email }}#}
-            {#            {{ confirmation_form.telephone_nr }}#}
-            {#            <button type="submit">{% trans "make_reservation" %}</button>#}
-            {#        </form>#}
-
-
-            {#        <div class="page-container">#}
-            {#        <div class="form-div">#}
             <form action="./confirm_booking?reservationID={{ held_reservation_id }}" method="post"
                   class="form_main">
                 {% csrf_token %}
-                <p class="heading">{% trans "possible_reservation_found" %}</p> <br>
+                <p class="heading" id="heading">{% trans "possible_reservation_found" %}</p> <br>
+                <p class="subHeading">{% trans "fill_in_contact_info" %}</p>
                 <p class="reservation-info">
                     {% trans "reservation_date" %}: {{ reservation_date|date:"d-m-Y" }} <br>
                     {% trans "start_time" %}: {{ start_time|time:"H:i" }} <br>
@@ -46,7 +38,7 @@
                     </svg>
 
 
-                    <input type="number" class="inputField" id="name" placeholder="{% trans "name" %}"
+                    <input type="text" class="inputField" id="name" placeholder="{% trans "name" %}"
                            name="name">
                 </div>
 
@@ -73,33 +65,13 @@
                 </div>
 
                 <button class="submit-button" id="button">Submit</button>
-
-
                 <div class="language-picker-div">
-                    {#                <a href="/{{ lang.code }}/">{{ lang.name_local }}#}
-                    <img class="lang-img" src="{% static 'language_icons/' %}{{ CURRENT_LANG }}.png"
-                         alt="country-icon"
-                         width="25px"
-                         height="25px">
-                    <div class="dropdown-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                            <path d="M1.5 4L8 11.5 14.5 4H1.5z" fill="#000"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-content">
-                        <ul class="dropdown-ul">
-                            {% for lang in languages %}
-                                <li>
-                                    <a href="/{{ lang.code }}/">{{ lang.name_local }}
-                                        <img src="{% static 'language_icons/' %}{{ lang.code }}.png"
-                                             alt="country-icon"
-                                             width="15px"
-                                             height="15px">
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    {% include 'components/language_picker.html' %}
+                </div>
+                <div class="countdown-timer">
+                    {% trans 'booking_held_for' %}
+                    <div id="timer">10:00</div>
+                    {% trans 'minutes' %}
                 </div>
 
             </form>
@@ -108,5 +80,57 @@
         Wijzigen? {{ reservation }} {{ customer }}
     {% endif %}
 </div>
+
+<script>
+    // Wrap your JavaScript code in a DOMContentLoaded event listener
+    document.addEventListener("DOMContentLoaded", function () {
+        // Set the target time (10 minutes from now)
+        const targetTime = new Date().getTime() + 600000;
+
+        // Update the countdown every second
+        const interval = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+
+            // Calculate minutes and seconds
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the countdown in the "timer" div
+            const timerElement = document.getElementById("timer");
+            const heading = document.getElementById("heading")
+            if (timerElement) {
+                timerElement.innerHTML = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            // If the countdown is over, clear the interval
+            if (distance < 0) {
+                clearInterval(interval);
+                if (timerElement) {
+                    {#window.open("{% url 'bookingsystem:drop_reservation' %}")#}
+                    console.log('drop reservation')
+                    timerElement.innerHTML = "{% trans 'booking_no_longer_held' %}";
+                    heading.innerHTML = "{% trans 'booking_no_longer_held' %}"
+
+{#                    {% csrf_token %}#}
+                    $.ajax({
+                        url: "{% url 'bookingsystem:drop_reservation' %}",
+                        type: "GET",
+                        data: {
+                            'reservation_id': {{ held_reservation_id }},
+                            csrfmiddlewaretoken: '{% csrf_token %}'
+                        },
+                        success: function (result) {
+                            //your code
+                        },
+                        error: function (error) {
+                            //error handal
+                        }
+                    });
+                }
+            }
+        }, 1000); // Update every 1 second (1000 milliseconds)
+    });
+</script>
 </body>
 </html>

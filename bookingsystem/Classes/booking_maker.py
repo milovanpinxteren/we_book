@@ -44,7 +44,7 @@ class BookingMaker():
                 held_reservation = Reservations.objects.create(reservation_date=reservation_date, arrival_time=reservation_time,
                                             end_time=end_time, paid=False, paid_amount=0, created_at=datetime.now(),
                                             updated_at=datetime.now(), restaurant_id=restaurant_id, customer_id=0,
-                                            table_id=possible_table.id, confirmed=False)
+                                            table_id=possible_table.id, confirmed=False, number_of_persons=number_of_persons)
                 context = {'status': "possible_reservation_found",
                            'table_id': possible_table.id, 'reservation_date': reservation_date,
                            'start_time': reservation_time, 'number_of_persons': number_of_persons,
@@ -101,11 +101,16 @@ class BookingMaker():
     def format_reservation_date_time(self, reservation_date, reservation_time):
         current_language = get_language()
         reservation_time = datetime.strptime(reservation_time, "%H:%M")
-        if current_language == 'de':
-            reservation_date = datetime.strptime(reservation_date, '%d.%M.%Y')
-        elif current_language == 'fr' or current_language == 'it':
-            reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
-        elif current_language == 'en':
+        try:
+            if current_language == 'de':
+                reservation_date = datetime.strptime(reservation_date, '%d.%M.%Y')
+            elif current_language == 'fr' or current_language == 'it':
+                reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
+            elif current_language == 'en':
+                reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
+            elif current_language == 'nl':
+                reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
+        except Exception as e:
             reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
         return reservation_date, reservation_time
 

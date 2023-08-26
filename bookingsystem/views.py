@@ -1,4 +1,6 @@
 import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
@@ -29,12 +31,22 @@ def make_reservation(request):
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST, request.FILES)
         if reservation_form.is_valid():
+            #Form is valid, check if you can find a possible table
             restaurant_id = request.GET['restaurantID']
             number_of_persons = reservation_form['number_of_persons'].value()
             reservation_date = reservation_form['reservation_date'].value()
             reservation_time = reservation_form['reservation_time'].value()
             bookingmaker = BookingMaker()
             context = bookingmaker.make_booking(restaurant_id, number_of_persons, reservation_date, reservation_time)
+
+            if context['status'] == 'possible_reservation_found':
+                request.session['status'] = context['status']
+                request.session['table_id'] = context['table_id']
+                request.session['reservation_date'] = str(context['reservation_date'])
+                request.session['start_time'] = str(context['start_time'])
+                request.session['number_of_persons'] = context['number_of_persons']
+                request.session['held_reservation_id'] = context['held_reservation_id']
+                request.session['held_reservation_id'] = context['held_reservation_id']
             confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
             context['confirmation_form'] = confirmation_form
         else:
@@ -45,7 +57,6 @@ def make_reservation(request):
 
 
 def confirm_booking(request):
-    #TODO: change confirmed to true and add Customer and Id
     if request.method == 'POST':
         confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
         if confirmation_form.is_valid():
@@ -56,10 +67,41 @@ def confirm_booking(request):
             bookingconfirmer = BookingConfirmer()
             context = bookingconfirmer.confirm_booking(reservationID, name, email, telephone_nr)
         else:
-            message = _("booking_failed")
             print(confirmation_form.errors)
-            context = {'message': message}
-    return render(request, 'booking_confirmation.html', context)
+            context = {'status': request.session['status'],
+                       'table_id': request.session['status'], 'reservation_date': request.session['reservation_date'],
+                       'start_time': request.session['start_time'],
+                       'number_of_persons': request.session['number_of_persons'],
+                       'held_reservation_id': False,
+                       'confirmation_form': confirmation_form}
+            render(request, 'booking_confirmation.html', context)
+
+    else:
+        confirmation_form = ConfirmBookingForm()
+        context = {'status': request.session['status'] ,
+                   'table_id': request.session['status'], 'reservation_date': request.session['reservation_date'],
+                   'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
+                   'held_reservation_id': request.session['held_reservation_id'], 'confirmation_form': confirmation_form}
+        render(request, 'booking_confirmation.html', context)
+    return render(request, 'booking_confirmed.html', context)
+
+
+def drop_reservation(request):
+    reservation_id_1 = int(request.GET.get('reservation_id'))
+    reservation_id_2 = request.session['held_reservation_id']
+    if reservation_id_1 == reservation_id_2:
+        if Reservations.objects.filter(id=reservation_id_1).values_list('confirmed', flat=True)[0] == False:
+            Reservations.objects.filter(id=reservation_id_1).delete()
+            print('deleted reservation')
+    # return index(request)
+    return HttpResponse("Session expired")
+
+def delete_reservation(request):
+    reservation_id = int(request.GET.get('reservation_id'))
+    Reservations.objects.filter(id=reservation_id).delete()
+    return
+
+###########################################FOR RESTAURANTS##############################################################
 
 def see_reservations(request):
     current_user = request.user.id
@@ -67,3 +109,5 @@ def see_reservations(request):
     reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id)
     context = {'reservations': reservations}
     return render(request, 'see_reservations.html', context)
+
+

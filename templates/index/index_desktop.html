@@ -73,29 +73,9 @@
 
 
             <div class="language-picker-div">
-                {#                <a href="/{{ lang.code }}/">{{ lang.name_local }}#}
-                <img class="lang-img" src="{% static 'language_icons/' %}{{ CURRENT_LANG }}.png" alt="country-icon"
-                     width="25px"
-                     height="25px">
-                <div class="dropdown-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <path d="M1.5 4L8 11.5 14.5 4H1.5z" fill="#000"/>
-                    </svg>
-                </div>
-                <div class="dropdown-content">
-                    <ul class="dropdown-ul">
-                        {% for lang in languages %}
-                            <li>
-                                <a href="/{{ lang.code }}/">{{ lang.name_local }}
-                                    <img src="{% static 'language_icons/' %}{{ lang.code }}.png" alt="country-icon"
-                                         width="15px"
-                                         height="15px">
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                {% include 'components/language_picker.html' %}
             </div>
+
 
         </form>
 

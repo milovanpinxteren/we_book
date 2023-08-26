@@ -10,10 +10,11 @@ body {
 }
 
 .form-div {
-    left: 36%;
-    top: 10%;
-    padding: 10px;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 5%;
 }
 
 .form_main {
@@ -81,7 +82,7 @@ body {
 
 .inputField:focus {
     outline: none;
-    border-bottom: 2px solid rgb(199, 114, 255);
+    border-bottom: 2px solid #e8701a;
 }
 
 .inputField::placeholder {

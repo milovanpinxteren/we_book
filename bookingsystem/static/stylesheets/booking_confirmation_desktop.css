@@ -10,10 +10,11 @@ body {
 }
 
 .form-div {
-    left: 15%;
-    top: 10%;
-    padding: 10px;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 5%;
 }
 
 .form_main {
@@ -51,12 +52,21 @@ body {
     z-index: 2;
 }
 
+.subHeading {
+    font-size: 1.5em;
+    color: #2e2e2e;
+    font-weight: 700;
+    margin: 5px 0 10px 0;
+    z-index: 2;
+}
+
 .reservation-info {
     font-size: 1em;
     color: #2e2e2e;
     font-weight: 400;
     margin: 5px 0 10px 0;
     z-index: 2;
+    text-align: left;
 }
 
 .inputContainer {
@@ -89,7 +99,7 @@ body {
 
 .inputField:focus {
     outline: none;
-    border-bottom: 2px solid rgb(199, 114, 255);
+    border-bottom: 2px solid #e8701a;
 }
 
 .inputField::placeholder {
@@ -163,7 +173,6 @@ body {
 }
 
 
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -177,4 +186,10 @@ body {
 
 .dropdown-ul {
     list-style-type: none;
+}
+
+.countdown-timer {
+    font-size: 0.9em;
+    color: #2e2e2e;
+    font-weight: 40;
 }

@@ -1,0 +1,10 @@
+{#<h2>{{ request.user_agent }}</h2>#}
+{% if request.user_agent.is_pc %}
+    {% include 'booking_confirmed/booking_confirmed_desktop.html' %}
+{% endif %}
+{% if request.user_agent.is_mobile %}
+    {% include 'booking_confirmed/booking_confirmed_mobile.html' %}
+{% endif %}
+{% if request.user_agent.is_tablet %}
+    {% include 'booking_confirmed/booking_confirmed_tablet.html' %}
+{% endif %}

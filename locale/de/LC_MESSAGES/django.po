@@ -29,7 +29,7 @@ msgstr "einen Tisch buchen bei"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:21
 msgid "possible_reservation_found"
-msgstr ""
+msgstr "Wir haben ein Tabel gefünden."
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:32
 msgid "make_reservation"

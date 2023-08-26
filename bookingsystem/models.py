@@ -54,6 +54,7 @@ class Customers(models.Model):
 
 class Reservations(models.Model):
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE, default='', blank=True)
+    number_of_persons = models.IntegerField(default=0)
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='', blank=True)
     table = models.ForeignKey(Tables, on_delete=models.CASCADE, default='', blank=True)
     reservation_date = models.DateTimeField()
