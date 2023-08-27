@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmed_desktop.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmed/booking_confirmed_desktop.css' %}"/>
 
     <title>Title</title>
 </head>
@@ -19,6 +19,8 @@
         <div class="form_main">
             {% if status == 'reservation_cancelled' %}
                 <p class="heading" id="heading">{% trans "booking_cancelled" %}</p> <br>
+                <a class="goHomeLink"
+                   href="{% url 'bookingsystem:index' %}">{% trans 'go_to_home' %}</a>
             {% elif status == 'booking_confirmed' %}
                 <p class="heading" id="heading">{% trans "booking_confirmed" %}</p> <br>
                 <p class="subHeading">{{ restaurant }}</p>
@@ -29,7 +31,7 @@
                     {% trans "name" %}: {{ name }} <br>
                     {% trans "email_adress" %}: {{ email_adress }} <br>
                     {% trans "telephone_number" %}: {{ telephone_number }} <br>
-                    {{ reservationID }}
+                    {% trans "reservation_number" %}: {{ reservationID }}
                 </p>
                 <a class="cancelLink"
                    href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}">{% trans 'cancel_reservation' %}</a>

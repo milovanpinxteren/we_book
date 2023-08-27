@@ -148,3 +148,5 @@ LANGUAGES = (
     ('de', _('Deutsch')),
     ('nl', _('Nederlands'))
 )
+
+LOGIN_REDIRECT_URL = "bookingsystem:restaurant_portal"

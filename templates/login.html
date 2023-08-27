@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form class="login-form" role="form" method="POST" action="see_reservations">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="button-4" role="button">Submit</button>
-</form>
-</body>
-</html>
+{#<h2>{{ request.user_agent }}</h2>#}
+{% if request.user_agent.is_pc %}
+    {% include 'login/login_desktop.html' %}
+{% endif %}
+{% if request.user_agent.is_mobile %}
+    {% include 'login/login_mobile.html' %}
+{% endif %}
+{% if request.user_agent.is_tablet %}
+    {% include 'login/login_tablet.html' %}
+{% endif %}

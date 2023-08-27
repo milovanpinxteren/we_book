@@ -1,0 +1,102 @@
+{% load i18n %}
+<nav class="main-menu">
+    <ul>
+        <li>
+            <a href="./restaurant_portal">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                           {% trans 'home' %}
+                        </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'bookingsystem:show_reservations' %}">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">
+                           {% trans 'show_reservations' %}
+                        </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'bookingsystem:show_dashboard' %}">
+                <i class="fa fa-dashboard fa-2x"></i>
+                <span class="nav-text">
+                           {% trans 'show_dashboard' %}
+                        </span>
+            </a>
+        </li>
+        <li class="has-subnav">
+            <a href="#">
+                <i class="fa fa-globe fa-2x"></i>
+                <span class="nav-text">
+                            {% trans 'go_to_own_website' %}
+                        </span>
+            </a>
+
+        </li>
+        <li class="has-subnav">
+            <a href="#">
+                <i class="fa fa-comments fa-2x"></i>
+                <span class="nav-text">
+                            {% trans 'get_support' %}
+                        </span>
+            </a>
+
+        </li>
+        {#                <li class="has-subnav">#}
+        {#                    <a href="#">#}
+        {#                       <i class="fa fa-camera-retro fa-2x"></i>#}
+        {#                        <span class="nav-text">#}
+        {#                            Survey Photos#}
+        {#                        </span>#}
+        {#                    </a>#}
+        {##}
+        {#                </li>#}
+        {#                <li>#}
+        {#                    <a href="#">#}
+        {#                        <i class="fa fa-film fa-2x"></i>#}
+        {#                        <span class="nav-text">#}
+        {#                            Surveying Tutorials#}
+        {#                        </span>#}
+        {#                    </a>#}
+        {#                </li>#}
+
+        <li>
+            <a href="#">
+                <i class="fa fa-cogs fa-2x"></i>
+                <span class="nav-text">
+                            {% trans 'settings' %}
+                        </span>
+            </a>
+        </li>
+        <li>
+            {#                   <a href="#">#}
+            {#                        <i class="fa fa-map-marker fa-2x"></i>#}
+            {#                        <span class="nav-text">#}
+            {#                            Member Map#}
+            {#                        </span>#}
+            {#                    </a>#}
+            {#                </li>#}
+        <li>
+            <a href="#">
+                <i class="fa fa-info fa-2x"></i>
+                <span class="nav-text">
+                            {% trans 'documentation' %}
+                        </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="logout">
+        <li>
+            <a href="#">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                            Logout
+                        </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{#  </body>#}
+{#    </html>#}

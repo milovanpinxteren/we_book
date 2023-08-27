@@ -8,7 +8,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/index_desktop.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/index/index_desktop.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/footer.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/we-book-icon.ico' %}" >
     <title>Title</title>
 </head>
 <body>
@@ -80,6 +83,8 @@
         </form>
 
     </div>
+
+{% include 'components/footer.html' %}
 </div>
 </body>
 </html>

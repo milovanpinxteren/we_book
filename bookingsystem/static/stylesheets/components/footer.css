@@ -1,0 +1,48 @@
+footer {
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #d1d1d1;
+    margin-left: -1%;
+    display: flex;
+    /*flex-direction: row;*/
+    align-items: center;
+    justify-content: center;
+    padding-left: 1%;
+}
+
+footer p {
+    padding-right: 2%;
+    flex: 1; /* Expand to fill remaining space */
+    text-align: center;
+    max-width: 10%;
+
+}
+
+.footer-logo {
+    margin-right: 30px;
+}
+
+a {
+    margin: 5px;
+    padding: 5px;
+    color: black;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'stylesheets/restaurant_portal/restaurant_portal_desktop.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/sidebar.css' %}"/>
+
+    <title>Title</title>
+</head>
+<body>
+<div class="page-container">
+    {% include 'components/sidebar.html' %}
+
+    <div class="contents">
+        {% include action %}
+    </div>
+</div>
+
+{#<h1>see reservations</h1>#}
+{#{% for reservation in reservations %}#}
+{#    {% if reservation.confirmed %}#}
+{#        <div class="reservation-div">#}
+{#           <p> {{ reservation.reservation_date }}</p>#}
+{#           <p> {{ reservation.arrival_time }}</p>#}
+{#           <p> {{ reservation.created_at }}</p>#}
+{#            <p> {{ reservation.updated_at }}</p>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#{% endfor %}#}
+</body>
+</html>

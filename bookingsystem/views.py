@@ -2,7 +2,6 @@ import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render
-
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
@@ -10,12 +9,16 @@ from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations
 from datetime import date, datetime
 from django.utils.translation import gettext as _
 
+
 def index(request):
     try:
         restaurantID = request.GET['restaurantID']
         request.session['restaurantID'] = restaurantID
     except Exception as e:
-        restaurantID = request.session['restaurantID']
+        try:
+            restaurantID = request.session['restaurantID']
+        except Exception as e:
+            restaurantID = 1
 
     restaurant = Restaurants.objects.get(id=restaurantID)
     #TODO: only select timeslots based on availability
@@ -53,6 +56,15 @@ def make_reservation(request):
             message = _("booking_failed")
             print(reservation_form.errors)
             context = {'message': message}
+    else:
+        context = {}
+        context['status'] = request.session['status']
+        context['table_id'] = request.session['table_id']
+        context['reservation_date'] = request.session['reservation_date']
+        context['start_time'] = request.session['start_time']
+        context['number_of_persons'] = request.session['number_of_persons']
+        context['held_reservation_id'] = request.session['held_reservation_id']
+        context['held_reservation_id'] = request.session['held_reservation_id']
     return render(request, 'booking_confirmation.html', context)
 
 
@@ -112,11 +124,22 @@ def delete_reservation(request):
 
 ###########################################FOR RESTAURANTS##############################################################
 
-def see_reservations(request):
+def restaurant_portal(request):
+    return render(request, 'restaurant_portal.html')
+
+
+def show_reservations(request):
     current_user = request.user.id
-    current_restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
-    reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id)
-    context = {'reservations': reservations}
-    return render(request, 'see_reservations.html', context)
+    try:
+        current_restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
+        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id)
+        context = {'reservations': reservations, 'action': './show_reservations/show_reservations.html'}
+    except Exception as e: #No restaurant found for current user
+        context = {'status': 'no_restaurant_known_for_user'}
+        return render(request, 'restaurant_portal.html', context)
+    return render(request, 'restaurant_portal.html', context)
 
 
+def show_dashboard(request):
+    context = {'action': './show_dashboard/show_dashboard.html'}
+    return render(request, 'restaurant_portal.html', context)
