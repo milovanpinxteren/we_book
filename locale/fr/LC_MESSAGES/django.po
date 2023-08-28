@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-26 13:52+0200\n"
+"POT-Creation-Date: 2023-08-28 15:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,33 +18,152 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\bookingsystem\views.py:41 .\bookingsystem\views.py:59
+#: .\bookingsystem\views.py:56
 msgid "booking_failed"
 msgstr ""
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:20
-#: .\templates\index\index_desktop.html:20
-msgid "reserve_table"
-msgstr ""
-
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:21
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:26
 msgid "possible_reservation_found"
 msgstr ""
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:32
-msgid "make_reservation"
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:27
+msgid "fill_in_contact_info"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:29
-msgid "no_persons"
-msgstr ""
-
-#: .\templates\index\index_desktop.html:49
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:29
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:28
+#: .\templates\index\index_desktop.html:52
 msgid "reservation_date"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:69
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:30
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:29
+msgid "start_time"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:31
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:30
+msgid "number_of_persons"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:41
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:31
+msgid "name"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:53
+msgid "email"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:64
+msgid "telephone_nr"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:72
+msgid "booking_held_for"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:74
+msgid "minutes"
+msgstr ""
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:112
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:113
+msgid "booking_no_longer_held"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:21
+msgid "booking_cancelled"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:23
+msgid "go_to_home"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:25
+msgid "booking_confirmed"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:32
+msgid "email_adress"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:33
+msgid "telephone_number"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:34
+msgid "reservation_number"
+msgstr ""
+
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:37
+msgid "cancel_reservation"
+msgstr ""
+
+#: .\templates\components\footer.html:5 .\templates\login\login_desktop.html:20
+msgid "partner_login"
+msgstr ""
+
+#: .\templates\components\footer.html:6
+msgid "cookie_policy"
+msgstr ""
+
+#: .\templates\components\footer.html:7
+msgid "terms_conditions"
+msgstr ""
+
+#: .\templates\components\footer.html:8
+msgid "become_partner"
+msgstr ""
+
+#: .\templates\components\sidebar.html:8
+msgid "home"
+msgstr ""
+
+#: .\templates\components\sidebar.html:16
+msgid "show_reservations"
+msgstr ""
+
+#: .\templates\components\sidebar.html:24
+msgid "show_dashboard"
+msgstr ""
+
+#: .\templates\components\sidebar.html:32
+msgid "go_to_own_website"
+msgstr ""
+
+#: .\templates\components\sidebar.html:41
+msgid "get_support"
+msgstr ""
+
+#: .\templates\components\sidebar.html:68
+msgid "settings"
+msgstr ""
+
+#: .\templates\components\sidebar.html:84
+msgid "documentation"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:23
+msgid "reserve_table"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:32
+msgid "no_persons"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:72
 msgid "reservation_time"
+msgstr ""
+
+#: .\templates\login\login_desktop.html:25
+msgid "login"
+msgstr ""
+
+#: .\templates\restaurant_portal.html:15
+#: .\templates\restaurant_portal\show_dashboard\show_dashboard.html:15
+#: .\templates\restaurant_portal\show_reservations\show_reservations.html:15
+msgid "restaurant_not_confirmed_yet"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15

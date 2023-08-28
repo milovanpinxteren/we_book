@@ -1,0 +1,82 @@
+.reservation-header {
+    margin-left: 2%;
+}
+
+.reservation-date {
+    width: 15%;
+    height: 5%;
+    background-color: #f2f2f2;
+    font-style: italic;
+    font-size: 20px;
+    /*margin-left: 1%;*/
+}
+
+.reservation-div {
+    max-width: 85%;
+    /*height: 150px;*/
+    background-color: rgba(232, 112, 26, 0.7);
+    /*border-radius: 1%;*/
+    margin-bottom: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+    margin-left: 2%;
+    line-height: 0.6;
+    border-radius: 15px;
+    border: 2px solid #e8701a;
+}
+
+
+.reservation-info {
+    margin-left: 2%;
+
+}
+
+.customer-info {
+    display: none;
+    margin-left: 2%;
+}
+
+.toggle-customer-info-button {
+    border: none;
+    background: none;
+
+}
+
+.toggle-customer-info-button:hover {
+    /*border: none;*/
+    text-decoration: 3px underline;
+    /*transform: scaleX(1);*/
+    /*transform-origin: bottom right;*/
+    /*transition: transform 0.25s ease-out;*/
+
+}
+
+
+.toggle-customer-info-button::after {
+    content: "\25BC"; /* Unicode arrow down character */
+    padding-left: 5%;
+    font-size: 15px;
+    opacity: 1;
+
+}
+
+/* Show arrow icon on button hover */
+.toggle-customer-info-button:hover::after {
+    opacity: 1;
+}
+
+.toggle-customer-info-button.active::after {
+    content: "\25B2"; /* Unicode arrow up character */
+}
+
+.cancel-booking-button {
+    float: right;
+    margin-right: 2%;
+    color: red;
+    border: none;
+    background: none;
+}
+
+.cancel-booking-button:hover {
+    text-decoration: 3px underline;
+}

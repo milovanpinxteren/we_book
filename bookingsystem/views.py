@@ -113,14 +113,22 @@ def drop_reservation(request):
 
 def delete_reservation(request):
     reservation_id = request.GET['reservationID']
+    path = request.GET['path']
     Reservations.objects.filter(id=reservation_id).delete()
+    #TODO: send email
     request.session['status'] = 'reservation_cancelled'
-    context = {'status': request.session['status'],
-               'table_id': request.session['table_id'], 'reservation_date': request.session['reservation_date'],
-               'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
-               'held_reservation_id': request.session['held_reservation_id']}
-    return render(request, 'booking_confirmed.html', context)
-
+    if path == 'confirmed_booking':
+        context = {'status': request.session['status'],
+                   'table_id': request.session['table_id'], 'reservation_date': request.session['reservation_date'],
+                   'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
+                   'held_reservation_id': request.session['held_reservation_id']}
+        return render(request, 'booking_confirmed.html', context)
+    elif path == 'show_reservations':
+        current_restaurant_id = UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
+        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by('reservation_date', 'arrival_time')
+        dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
+        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html'}
+        return render(request, 'restaurant_portal.html', context)
 
 ###########################################FOR RESTAURANTS##############################################################
 
@@ -132,8 +140,9 @@ def show_reservations(request):
     current_user = request.user.id
     try:
         current_restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
-        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id)
-        context = {'reservations': reservations, 'action': './show_reservations/show_reservations.html'}
+        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by('reservation_date', 'arrival_time')
+        dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
+        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html'}
     except Exception as e: #No restaurant found for current user
         context = {'status': 'no_restaurant_known_for_user'}
         return render(request, 'restaurant_portal.html', context)

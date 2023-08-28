@@ -12,6 +12,7 @@ class Restaurants(models.Model):
     closing_time = models.TimeField(default='22:00:00')
     meal_duration = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
+    payment_per_booking = models.DecimalField(default=0.0, decimal_places=2, max_digits=5)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     open_monday = models.BooleanField(default=True)

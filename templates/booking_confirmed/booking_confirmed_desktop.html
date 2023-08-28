@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmed/booking_confirmed_desktop.css' %}"/>
 
-    <title>Title</title>
+    <title>Booking confirmed</title>
 </head>
 <body>
 <div class="page-container">
@@ -34,7 +34,7 @@
                     {% trans "reservation_number" %}: {{ reservationID }}
                 </p>
                 <a class="cancelLink"
-                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}">{% trans 'cancel_reservation' %}</a>
+                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>
             {% endif %}
 
 
