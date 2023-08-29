@@ -9,13 +9,12 @@ body {
     width: 99%;
     height: 99%;
     position: absolute;
-
 }
 
 .contents {
     min-width: 80%;
     min-height: 95%;
-    background-color: rgba(113, 116, 151, 0.25);
+    /*background-color: rgba(113, 116, 151, 0.25);*/
     border-radius: 1%;
     margin-left: 4%;
 }

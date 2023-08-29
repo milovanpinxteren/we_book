@@ -11,10 +11,28 @@
 </head>
 <body>
 <h2 class="reservation-header">{% trans 'current_reservations' %}</h2>
+<hr>
 <div class="reservation-container">
     <div class="reservation-list">
+        {% if deleted_reservation %}
+            <div class="deleted-reservation-div">
+                <h3>{% trans 'deleted_reservation' %} {{ deleted_reservation }}</h3>
+                <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
+                <a class="rollback-deletion-link"
+                   href="{% url 'bookingsystem:rollback_deletion' %}?reservationID={{ deleted_reservation }}"
+                   onclick="rollbackDeletion()">{% trans 'rollback_deletion' %}</a>
+            </div>
+        {% endif %}
+        {% if rolled_back_deletion %}
+            <div class="deleted-reservation-div">
+                <h3>{% trans 'rolled_back_deletion' %} {{ rolled_back_deletion }}</h3>
+                <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
+            </div>
+        {% endif %}
         {% for date in dates %}
+            {#            <hr>#}
             <div class="reservation-date"> {{ date|date:"j F Y" }}</div>
+            <hr>
             {% for reservation in reservations %}
                 {% if reservation.reservation_date == date %}
                     <div class="reservation-div">
@@ -24,7 +42,8 @@
                             <p>{% trans 'comments' %}: {{ reservation.comments }}</p>
                         </div>
                         <button class="toggle-customer-info-button">{% trans 'show_customer_info' %}</button>
-                        <a class="cancel-booking-button" href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservation.id }}&path=show_reservations">{% trans 'cancel_booking' %}</a>
+                        <a class="cancel-booking-button"
+                           href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservation.id }}&path=show_reservations">{% trans 'cancel_booking' %}</a>
 
                         <div class="customer-info">
                             <p>{% trans 'customer_name' %}: {{ reservation.customer.full_name }}</p>
@@ -40,7 +59,22 @@
 
 
 </div>
+<script>
+    function hideMessage() {
+        const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
+        deletedReservationDiv.forEach(content => {
+            content.style.display = 'none'
+        })
+    }
 
+    function rollbackDeletion() {
+        const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
+        deletedReservationDiv.forEach(content => {
+            content.innerHTML = '{% trans 'rolled_back_deletion' %}'
+        })
+    }
+
+</script>
 <script>
 
     // Get all toggle buttons and content elements

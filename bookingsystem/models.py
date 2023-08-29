@@ -63,6 +63,7 @@ class Reservations(models.Model):
     end_time = models.TimeField()
     comments = models.CharField(max_length=2500, default='', blank=True)
     confirmed = models.BooleanField(default=False)
+    cancelled = models.BooleanField(default=False)
     paid = models.BooleanField()
     paid_amount = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)

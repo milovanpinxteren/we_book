@@ -106,7 +106,7 @@ def drop_reservation(request):
     reservation_id_2 = request.session['held_reservation_id']
     if reservation_id_1 == reservation_id_2:
         if Reservations.objects.filter(id=reservation_id_1).values_list('confirmed', flat=True)[0] == False:
-            Reservations.objects.filter(id=reservation_id_1).delete()
+            Reservations.objects.filter(id=reservation_id_1).update(cancelled=True, confirmed=False)
             print('deleted reservation')
     # return index(request)
     return HttpResponse("Session expired")
@@ -114,7 +114,7 @@ def drop_reservation(request):
 def delete_reservation(request):
     reservation_id = request.GET['reservationID']
     path = request.GET['path']
-    Reservations.objects.filter(id=reservation_id).delete()
+    Reservations.objects.filter(id=reservation_id).update(cancelled=True, confirmed=False)
     #TODO: send email
     request.session['status'] = 'reservation_cancelled'
     if path == 'confirmed_booking':
@@ -127,7 +127,8 @@ def delete_reservation(request):
         current_restaurant_id = UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
         reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by('reservation_date', 'arrival_time')
         dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
-        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html'}
+        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html',
+                   'deleted_reservation': reservation_id}
         return render(request, 'restaurant_portal.html', context)
 
 ###########################################FOR RESTAURANTS##############################################################
@@ -151,4 +152,16 @@ def show_reservations(request):
 
 def show_dashboard(request):
     context = {'action': './show_dashboard/show_dashboard.html'}
+    return render(request, 'restaurant_portal.html', context)
+
+
+def rollback_deletion(request):
+    reservation_id = request.GET['reservationID']
+    Reservations.objects.filter(id=reservation_id).update(cancelled=False, confirmed=True)
+    current_restaurant_id = UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
+    reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by(
+        'reservation_date', 'arrival_time')
+    dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
+    context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html',
+               'rolled_back_deletion': reservation_id}
     return render(request, 'restaurant_portal.html', context)
