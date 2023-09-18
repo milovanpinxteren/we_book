@@ -100,3 +100,78 @@
 .cancel-booking-button:hover {
     text-decoration: 3px underline;
 }
+
+
+.reservations-table {
+    width: 100%;
+    min-height: 60%;
+    border-collapse: collapse;
+
+}
+
+.table-nr {
+    background-color: #54585d;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 13px;
+    border: 1px solid #54585d;
+    text-align: left;
+    padding-left: 2px;
+}
+
+
+.reservation-table-thead {
+
+}
+
+.reservation-table-header-row {
+    border-bottom: 2px solid #363636;
+}
+
+.reservation-table-body {
+
+}
+
+.reservation-table-body-row {
+    color: blue;
+    border-bottom: 1px solid #363636;
+}
+
+
+.reservation-table-body-row:nth-child(even) {
+    background-color: rgba(232, 112, 26, 0.1);
+}
+
+.reservation-table-body-row:hover {
+    background-color: rgba(232, 112, 26, 0.4);
+}
+
+.reservation-table-body-row:nth-child(odd) {
+    color: blue;
+}
+
+.reservation-table-value- {
+    /*color: green;*/
+    background-color: rgba(144, 238, 144, 0.7);
+
+}
+
+.reservation-table-value-booked {
+    /*color: red;*/
+    background-color: #e65107;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: purple;
+}
+
+th {
+    word-wrap: break-word;
+    max-width: 20px;
+}
+
+td {
+    border-right: solid 1px #363636;
+    word-wrap: break-word;
+    max-width: 20px;
+}

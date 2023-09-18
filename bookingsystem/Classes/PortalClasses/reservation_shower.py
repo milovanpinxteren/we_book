@@ -39,9 +39,9 @@ class reservationShower:
                                 reservation_date=date) & Q(end_time__gte=timeslot)
                             table_booked = Reservations.objects.filter(lower_bound_query & upper_bound_query)
                             if table_booked:
-                                availability[index] = 'booked'
+                                availability[index] = 'booked', table_booked
                             else:
-                                availability[index] = 'free'
+                                availability[index] = ''
 
                     reservation_matrix.append(availability)
                 all_reservations_dict[str(date)] = reservation_matrix

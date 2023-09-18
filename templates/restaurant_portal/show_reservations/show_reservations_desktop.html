@@ -34,26 +34,27 @@
             <hr>
             <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">
                 <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}
-                    <button onclick="toggleDate({{ date|date:"d" }}{{ date|date:"m" }})"
+                    {{ date|date:"d-m" }}
+                    <button onclick="toggleDate('{{ date|date:"d" }}{{ date|date:"m" }}')"
                             id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"
                             class="toggle-date-button">{% trans 'hide_date' %}</button>
                 </div>
                 <hr>
-                <table>
-                    <thead>
-                    <tr>
+                <table class="reservations-table">
+                    <thead class="reservation-table-thead">
+                    <tr class="reservation-table-header-row">
                         {% for table in tables %}
-                            <th>{{ table }}</th>
+                            <th class="table-nr">{{ table }}</th>
                         {% endfor %}
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="reservation-table-body">
                     {% for key, values in all_reservations_dict.items %}
                         {% if key == date|date:"Y-m-d" %}
                             {% for dict in values %}
-                                <tr>
+                                <tr class="reservation-table-body-row">
                                     {% for key, value in dict.items %}
-                                        <td>
+                                        <td class="reservation-table-value-{{ value.0 }}">
                                             {{ value }}
                                         </td>
                                     {% endfor %}
@@ -88,6 +89,7 @@
         console.log('date', date)
         const dayDiv = document.getElementById('day-div-' + date);
         const toggleDateButton = document.getElementById('toggle-date-button-' + date);
+        console.log(dayDiv)
 
         if (dayDiv.style.height === '23px') {
             dayDiv.style.height = '100%';
