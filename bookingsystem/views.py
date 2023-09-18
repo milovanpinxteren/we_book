@@ -2,6 +2,9 @@ import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render
+
+from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
+from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
@@ -22,11 +25,16 @@ def index(request):
 
     restaurant = Restaurants.objects.get(id=restaurantID)
     #TODO: only select timeslots based on availability
+    availability_checker = AvailabilityChecker()
+    availability, closed_list = availability_checker.get_availability(restaurantID)
     reservationform = ReservationForm(initial={'restaurant': restaurant, 'number_of_persons': 2,
                                        'reservation_date': date.today(),
                                     'reservation_time': datetime.now().strftime("%H:%M:%S")})
 
-    context = {'restaurant': restaurant, 'reservationform': reservationform}
+    json_availabilitydata = str(availability).replace("'", '"')
+    json_disable_datesdata = str(closed_list).replace("'", '"')
+    context = {'restaurant': restaurant, 'reservationform': reservationform, 'availability': json_availabilitydata,
+               'json_disable_datesdata': json_disable_datesdata}
     return render(request, 'index.html', context)
 
 
@@ -139,14 +147,9 @@ def restaurant_portal(request):
 
 def show_reservations(request):
     current_user = request.user.id
-    try:
-        current_restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
-        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by('reservation_date', 'arrival_time')
-        dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
-        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html'}
-    except Exception as e: #No restaurant found for current user
-        context = {'status': 'no_restaurant_known_for_user'}
-        return render(request, 'restaurant_portal.html', context)
+    reservation_shower = reservationShower()
+    context = reservation_shower.prepare_table(current_user)
+
     return render(request, 'restaurant_portal.html', context)
 
 

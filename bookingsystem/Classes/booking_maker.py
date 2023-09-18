@@ -33,7 +33,7 @@ class BookingMaker():
             end_time = (start_time + timedelta(hours=duration)).strftime("%H:%M:%S")
 
             reservations = Reservations.objects.filter(
-                Q(restaurant_id=restaurant_id) & Q(table_id=possible_table.id) & date_condition)
+                Q(restaurant_id=restaurant_id) & Q(table_id=possible_table.id) & date_condition & Q(confirmed=True))
 
             before_timeslot_query = Q(arrival_time__lt=end_time) | Q(end_time__gt=start_time)
             overlapping_reservations = reservations.filter(before_timeslot_query)
@@ -99,19 +99,8 @@ class BookingMaker():
         return valid_reservation
 
     def format_reservation_date_time(self, reservation_date, reservation_time):
-        current_language = get_language()
+        reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
         reservation_time = datetime.strptime(reservation_time, "%H:%M")
-        try:
-            if current_language == 'de':
-                reservation_date = datetime.strptime(reservation_date, '%d.%M.%Y')
-            elif current_language == 'fr' or current_language == 'it':
-                reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
-            elif current_language == 'en':
-                reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
-            elif current_language == 'nl':
-                reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
-        except Exception as e:
-            reservation_date = datetime.strptime(reservation_date, '%Y-%M-%d')
         return reservation_date, reservation_time
 
 

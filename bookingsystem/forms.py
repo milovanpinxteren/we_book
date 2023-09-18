@@ -3,7 +3,7 @@ from django import forms
 
 class ReservationForm(forms.Form):
     number_of_persons = forms.IntegerField()
-    reservation_date = forms.DateField()
+    reservation_date = forms.DateField(input_formats=['%d/%M/%Y'])
     reservation_time = forms.TimeField()
 
 class ConfirmBookingForm(forms.Form):

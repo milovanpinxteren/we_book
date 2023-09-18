@@ -26,8 +26,8 @@ class Restaurants(models.Model):
 class CustomRestaurantAvailability(models.Model): #overrides regular availability
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
     date = models.DateField()
-    start_time = models.TimeField(default='10:00')
-    end_time = models.TimeField(default='23:59')
+    start_time = models.TimeField(default='10:00', null=True)
+    end_time = models.TimeField(default='23:59', null=True)
     open = models.BooleanField(default=True)
 
 class Tables(models.Model):
@@ -58,7 +58,7 @@ class Reservations(models.Model):
     number_of_persons = models.IntegerField(default=0)
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='', blank=True)
     table = models.ForeignKey(Tables, on_delete=models.CASCADE, default='', blank=True)
-    reservation_date = models.DateTimeField()
+    reservation_date = models.DateField()
     arrival_time = models.TimeField()
     end_time = models.TimeField()
     comments = models.CharField(max_length=2500, default='', blank=True)

@@ -1,3 +1,4 @@
+{% load custom_filters %}
 {% load static %}
 {% load i18n %}
 
@@ -11,7 +12,7 @@
 </head>
 <body>
 <h2 class="reservation-header">{% trans 'current_reservations' %}</h2>
-<hr>
+
 <div class="reservation-container">
     <div class="reservation-list">
         {% if deleted_reservation %}
@@ -29,36 +30,50 @@
                 <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
             </div>
         {% endif %}
+
+        {{ timeslots }}
+    {{ all_reservations_dict }}
         {% for date in dates %}
-            {#            <hr>#}
-            <div class="reservation-date"> {{ date|date:"j F Y" }}</div>
             <hr>
-            {% for reservation in reservations %}
-                {% if reservation.reservation_date == date %}
-                    <div class="reservation-div">
-                        <div class="reservation-info">
-                            <p>{% trans 'reservation_time' %}: {{ reservation.arrival_time }}</p>
-                            <p>{% trans 'no_persons' %}: {{ reservation.number_of_persons }}</p>
-                            <p>{% trans 'comments' %}: {{ reservation.comments }}</p>
-                        </div>
-                        <button class="toggle-customer-info-button">{% trans 'show_customer_info' %}</button>
-                        <a class="cancel-booking-button"
-                           href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservation.id }}&path=show_reservations">{% trans 'cancel_booking' %}</a>
+            <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">
+                <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}
+                    <button onclick="toggleDate({{ date|date:"d" }}{{ date|date:"m" }})"
+                            id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"
+                            class="toggle-date-button">{% trans 'hide_date' %}</button>
+                </div>
+                <hr>
+                <table>
+                    {% for key, value_dict in all_reservations_dict.items %}
+                        {% if key == date|date:"Y-m-d" %}
+                            <tr style="left: 50px; position: relative">
+                                {% for value in value_dict %}
+                                    <th>{{ value }}</th> <!-- tables -->
 
-                        <div class="customer-info">
-                            <p>{% trans 'customer_name' %}: {{ reservation.customer.full_name }}</p>
-                            <p>{% trans 'email' %}: {{ reservation.customer.email }}</p>
-                            <p>{% trans 'telephone_nr' %}: {{ reservation.customer.telephone_nr }}</p>
-                        </div>
+                                {% endfor %}
+                            </tr>
+                            {% for timeslot in timeslots %}
+                                <tr>
+                                    <td>{{ timeslot }}</td>
+                                </tr>
+                            {% endfor %}
 
-                    </div>
-                {% endif %}
-            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    {#                    {% for timeslot in timeslots %}#}
+                    {#                        <tr>{{ timeslot }}</tr>#}
+                    {#                    {% endfor %}#}
+                </table>
+                {#            {{ date|date:"Y-m-d" }}#}
+                {#            {{ all_reservations_dict.date|date:"Y-m-d"  }}#}
+                {#            {{ all_reservations_dict }}#}
+
+
+            </div>
         {% endfor %}
     </div>
-
-
 </div>
+
+
 <script>
     function hideMessage() {
         const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
@@ -74,7 +89,47 @@
         })
     }
 
+    function toggleDate(date) {
+        console.log('date', date)
+        const dayDiv = document.getElementById('day-div-' + date);
+        const toggleDateButton = document.getElementById('toggle-date-button-' + date);
+
+        if (dayDiv.style.height === '23px') {
+            dayDiv.style.height = '100%';
+            toggleDateButton.innerHTML = "{% trans 'hide_date' %}";
+        } else {
+            dayDiv.style.height = '23px';
+            dayDiv.style.overflow = 'hidden';
+            toggleDateButton.innerHTML = "{% trans 'show_date' %}";
+        }
+
+    }
+
 </script>
+{#<script>#}
+{##}
+{#    // Get all toggle buttons and content elements#}
+{#    const toggleDateButtons = document.querySelectorAll('.toggle-date-button');#}
+{#    const dateContentDivs = document.querySelectorAll('.day-div');#}
+{##}
+{#    dateContentDivs.forEach(content => {#}
+{#        content.style.display = 'none';#}
+{#    });#}
+{#    // Add event listeners to each toggle button#}
+{#    toggleDateButtons.forEach((button, index) => {#}
+{#        button.addEventListener('click', () => {#}
+{#            if (dateContentDivs[index].style.display === 'none') {#}
+{#                dateContentDivs[index].style.display = 'block';#}
+{#                toggleDateButtons[index].classList.add('active')#}
+{#                toggleDateButtons[index].innerHTML = "{% trans 'show_date' %}";#}
+{#            } else {#}
+{#                dateContentDivs[index].style.display = 'none';#}
+{#                toggleDateButtons[index].classList.remove('active')#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#</script>#}
 <script>
 
     // Get all toggle buttons and content elements
