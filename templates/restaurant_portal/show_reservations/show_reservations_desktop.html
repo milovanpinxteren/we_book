@@ -30,9 +30,6 @@
                 <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
             </div>
         {% endif %}
-
-        {{ timeslots }}
-    {{ all_reservations_dict }}
         {% for date in dates %}
             <hr>
             <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">
@@ -43,31 +40,29 @@
                 </div>
                 <hr>
                 <table>
-                    {% for key, value_dict in all_reservations_dict.items %}
+                    <thead>
+                    <tr>
+                        {% for table in tables %}
+                            <th>{{ table }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, values in all_reservations_dict.items %}
                         {% if key == date|date:"Y-m-d" %}
-                            <tr style="left: 50px; position: relative">
-                                {% for value in value_dict %}
-                                    <th>{{ value }}</th> <!-- tables -->
-
-                                {% endfor %}
-                            </tr>
-                            {% for timeslot in timeslots %}
+                            {% for dict in values %}
                                 <tr>
-                                    <td>{{ timeslot }}</td>
+                                    {% for key, value in dict.items %}
+                                        <td>
+                                            {{ value }}
+                                        </td>
+                                    {% endfor %}
                                 </tr>
                             {% endfor %}
-
                         {% endif %}
                     {% endfor %}
-                    {#                    {% for timeslot in timeslots %}#}
-                    {#                        <tr>{{ timeslot }}</tr>#}
-                    {#                    {% endfor %}#}
+                    </tbody>
                 </table>
-                {#            {{ date|date:"Y-m-d" }}#}
-                {#            {{ all_reservations_dict.date|date:"Y-m-d"  }}#}
-                {#            {{ all_reservations_dict }}#}
-
-
             </div>
         {% endfor %}
     </div>
