@@ -34,7 +34,6 @@
             <hr>
             <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">
                 <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}
-                    {{ date|date:"d-m" }}
                     <button onclick="toggleDate('{{ date|date:"d" }}{{ date|date:"m" }}')"
                             id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"
                             class="toggle-date-button">{% trans 'hide_date' %}</button>
@@ -56,7 +55,13 @@
                                     {% for key, value in dict.items %}
                                         <td class="reservation-table-value-{{ value.0 }}">
                                             {{ value }}
+                                            <div class="reservation-info">
+                                                <p class="customer-info">
+                                                <span>{{ value.1 }}</span>
+                                                </p>
+                                            </div>
                                         </td>
+
                                     {% endfor %}
                                 </tr>
                             {% endfor %}
@@ -66,6 +71,8 @@
                 </table>
             </div>
         {% endfor %}
+
+
     </div>
 </div>
 
@@ -101,54 +108,6 @@
         }
 
     }
-
-</script>
-{#<script>#}
-{##}
-{#    // Get all toggle buttons and content elements#}
-{#    const toggleDateButtons = document.querySelectorAll('.toggle-date-button');#}
-{#    const dateContentDivs = document.querySelectorAll('.day-div');#}
-{##}
-{#    dateContentDivs.forEach(content => {#}
-{#        content.style.display = 'none';#}
-{#    });#}
-{#    // Add event listeners to each toggle button#}
-{#    toggleDateButtons.forEach((button, index) => {#}
-{#        button.addEventListener('click', () => {#}
-{#            if (dateContentDivs[index].style.display === 'none') {#}
-{#                dateContentDivs[index].style.display = 'block';#}
-{#                toggleDateButtons[index].classList.add('active')#}
-{#                toggleDateButtons[index].innerHTML = "{% trans 'show_date' %}";#}
-{#            } else {#}
-{#                dateContentDivs[index].style.display = 'none';#}
-{#                toggleDateButtons[index].classList.remove('active')#}
-{#            }#}
-{#        });#}
-{#    });#}
-{##}
-{#</script>#}
-<script>
-
-    // Get all toggle buttons and content elements
-    const toggleButtons = document.querySelectorAll('.toggle-customer-info-button');
-    const contentDivs = document.querySelectorAll('.customer-info');
-
-    contentDivs.forEach(content => {
-        content.style.display = 'none';
-    });
-    // Add event listeners to each toggle button
-    toggleButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            if (contentDivs[index].style.display === 'none') {
-                contentDivs[index].style.display = 'block';
-                toggleButtons[index].classList.add('active')
-                toggleButtons[index].innerHTML = "{% trans 'hide_customer_info' %}";
-            } else {
-                contentDivs[index].style.display = 'none';
-                toggleButtons[index].classList.remove('active')
-            }
-        });
-    });
 
 </script>
 </body>
