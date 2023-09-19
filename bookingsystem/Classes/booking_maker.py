@@ -51,8 +51,9 @@ class BookingMaker():
                            'held_reservation_id': held_reservation.id}
                 return context
         context = {'status': "no_possible_reservation_found",
-                   'table_id': '', 'start_time': reservation_time,
-                   'number_of_persons': number_of_persons}
+                   'table_id': '', 'start_time': reservation_time, 'reservation_date': reservation_date,
+                   'number_of_persons': number_of_persons,
+                   'restaurant_phone_nr': Restaurants.objects.filter(id=restaurant_id).values_list('telephone_nr', flat=True)[0]}
         return context
 
     def get_restaurant_availability(self, restaurant_id, reservation_date, reservation_time):

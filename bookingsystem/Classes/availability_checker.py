@@ -13,7 +13,6 @@ class AvailabilityChecker():
         opening_time = Restaurants.objects.filter(id=restaurant_id).values_list("opening_time", flat=True)[0]
         closing_time = Restaurants.objects.filter(id=restaurant_id).values_list("closing_time", flat=True)[0]
         for day in availability_list:
-            print(day)
             day_dict = self.get_available_timeslots(restaurant_id, day, opening_time, closing_time)
             availability_dict[str(day)] = day_dict
         return availability_dict, closed_list

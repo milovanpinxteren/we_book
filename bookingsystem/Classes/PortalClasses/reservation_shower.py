@@ -33,13 +33,21 @@ class reservationShower:
                             availability[index] = str(timeslot)
                         else:
                             # table_id = Tables.table_nr
-                            lower_bound_query = Q(restaurant_id=current_restaurant_id) & Q(table__table_nr=table_nr) & Q(
+                            lower_bound_query = Q(restaurant_id=current_restaurant_id) & Q(
+                                table__table_nr=table_nr) & Q(
                                 reservation_date=date) & Q(arrival_time__lte=timeslot)
-                            upper_bound_query = Q(restaurant_id=current_restaurant_id) & Q(table__table_nr=table_nr) & Q(
+                            upper_bound_query = Q(restaurant_id=current_restaurant_id) & Q(
+                                table__table_nr=table_nr) & Q(
                                 reservation_date=date) & Q(end_time__gte=timeslot)
                             table_booked = Reservations.objects.filter(lower_bound_query & upper_bound_query)
                             if table_booked:
-                                availability[index] = 'booked', table_booked
+                                availability[index] = 'booked', table_booked[0].customer.full_name, \
+                                                      table_booked[0].customer.email, \
+                                                      table_booked[0].customer.telephone_nr, \
+                                                      table_booked[0].arrival_time, \
+                                                      table_booked[0].reservation_date, \
+                                                      table_booked[0].number_of_persons, \
+                                                      table_booked[0].table.table_nr
                             else:
                                 availability[index] = ''
 

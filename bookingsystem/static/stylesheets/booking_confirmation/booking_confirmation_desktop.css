@@ -193,3 +193,16 @@ body {
     color: #2e2e2e;
     font-weight: 40;
 }
+
+.goHomeLink {
+    z-index: 2;
+    font-size: .8em;
+    font-weight: 500;
+    /*color: rgba(255, 0, 0, 0.63);*/
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-align: right;
+    margin-top: 2%;
+    width: 100%;
+}

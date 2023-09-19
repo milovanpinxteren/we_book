@@ -1,10 +1,45 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as CURRENT_LANG %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% csrf_token %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmed/booking_confirmed_tablet.css' %}"/>
+
+    <title>Booking confirmed</title>
 </head>
 <body>
+<div class="page-container">
+    <div class="form-div">
+        <div class="form_main">
+            {% if status == 'reservation_cancelled' %}
+                <p class="heading" id="heading">{% trans "booking_cancelled" %}</p> <br>
+                <a class="goHomeLink"
+                   href="{% url 'bookingsystem:index' %}">{% trans 'go_to_home' %}</a>
+            {% elif status == 'booking_confirmed' %}
+                <p class="heading" id="heading">{% trans "booking_confirmed" %}</p> <br>
+                <p class="subHeading">{{ restaurant }}</p>
+                <p class="reservation-info">
+                    {% trans "reservation_date" %}: {{ reservation_date|date:"d-m-Y" }} <br>
+                    {% trans "start_time" %}: {{ start_time|time:"H:i" }} <br>
+                    {% trans "number_of_persons" %}: {{ number_of_persons }} <br>
+                    {% trans "name" %}: {{ name }} <br>
+                    {% trans "email_adress" %}: {{ email_adress }} <br>
+                    {% trans "telephone_number" %}: {{ telephone_number }} <br>
+                    {% trans "reservation_number" %}: {{ reservationID }}
+                </p>
+                <a class="cancelLink"
+                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>
+            {% endif %}
 
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

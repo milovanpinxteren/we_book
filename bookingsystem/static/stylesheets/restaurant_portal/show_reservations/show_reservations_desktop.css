@@ -123,21 +123,39 @@
     color: purple;
 }
 
-.reservation-info {
+.reservation-info-div {
     display: none;
-    width: 20%;
-    height: 20%;
-    background-color: green;
+    width: 25%;
+    height: 25%;
+    background-color: rgba(239, 206, 146, 0.9);
+    border: solid 2px black;
+    border-radius: 2%;
     position: fixed;
+    padding-left: 1%;
+    color: black;
     top: 40%;
     left: 20%;
-
 }
 
-.reservation-table-value-booked:hover .reservation-info {
+.customer-info {
+    text-indent: 0;
+}
+
+.reservation-info {
+    text-indent: 0;
+}
+
+.reservation-table-value-booked:hover .reservation-info-div {
     display: block;
 }
 
+.reservation-table-value-booked:active .reservation-info-div {
+    display: block;
+}
+
+.reservation-table-value-booked:focus .reservation-info-div {
+    display: block;
+}
 
 th {
     word-wrap: break-word;

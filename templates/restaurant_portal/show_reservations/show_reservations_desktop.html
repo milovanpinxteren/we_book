@@ -53,11 +53,20 @@
                             {% for dict in values %}
                                 <tr class="reservation-table-body-row">
                                     {% for key, value in dict.items %}
-                                        <td class="reservation-table-value-{{ value.0 }}">
+                                        <td class="reservation-table-value-{{ value.0 }}"  tabindex="1">
                                             {{ value }}
-                                            <div class="reservation-info">
+                                            <div class="reservation-info-div">
                                                 <p class="customer-info">
-                                                <span>{{ value.1 }}</span>
+                                                    {% trans 'customer_name' %}: <span>{{ value.1 }}</span><br>
+                                                    {% trans 'email' %}: <span>{{ value.2 }}</span><br>
+                                                    {% trans 'telephone' %}: <span>{{ value.3 }}</span><br>
+                                                <hr>
+                                                </p>
+                                                <p class="reservation-info">
+                                                    {% trans 'reservation_date' %}: <span>{{ value.5 }}</span><br>
+                                                    {% trans 'arrival_time' %}: <span>{{ value.4 }}</span><br>
+                                                    {% trans 'number_of_persons' %}: <span>{{ value.6 }}</span><br>
+                                                    {% trans 'table_nr' %}: <span>{{ value.7 }}</span><br>
                                                 </p>
                                             </div>
                                         </td>
