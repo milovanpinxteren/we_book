@@ -1,5 +1,70 @@
+.reservation-header-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
 .reservation-header {
     margin-left: 2%;
+    float: left;
+    width: 40%;
+}
+
+#add-reservation-div {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.85);
+    width: 40%;
+    height: 45%;
+    left: 30%;
+    top: 5%;
+    padding: 1%;
+    border-radius: 1%;
+}
+
+.add-reservation-text {
+    color: #e2e2e2;
+    margin-bottom: 15px;
+}
+
+.inputField {
+    margin-bottom: 10px; /* Adjust the value to increase or decrease spacing */
+}
+
+.add-reservation-button {
+    display: block;
+    float: right;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.add-reservation-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+    .add-reservation-button {
+        padding: 10px 30px;
+    }
 }
 
 
@@ -46,19 +111,6 @@
     line-height: 0.6;
     border-radius: 2px;
     border: 2px solid #e8701a;
-}
-
-
-.cancel-booking-button {
-    float: right;
-    margin-right: 2%;
-    color: red;
-    border: none;
-    background: none;
-}
-
-.cancel-booking-button:hover {
-    text-decoration: 3px underline;
 }
 
 
@@ -126,7 +178,7 @@
 .reservation-info-div {
     display: none;
     width: 25%;
-    height: 25%;
+    height: 30%;
     background-color: rgba(239, 206, 146, 0.9);
     border: solid 2px black;
     border-radius: 2%;
@@ -144,6 +196,20 @@
 .reservation-info {
     text-indent: 0;
 }
+
+.cancel-booking-button {
+    float: right;
+    margin-right: 2%;
+    color: red;
+    border: none;
+    background: none;
+    text-indent: 0;
+}
+
+.cancel-booking-button:hover {
+    text-decoration: 3px underline;
+}
+
 
 .reservation-table-value-booked:hover .reservation-info-div {
     display: block;

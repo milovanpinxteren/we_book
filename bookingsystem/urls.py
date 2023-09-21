@@ -14,5 +14,6 @@ urlpatterns = [
     path("rollback_deletion", views.rollback_deletion, name="rollback_deletion"),
     path("show_reservations", views.show_reservations, name="show_reservations"),
     path("show_dashboard", views.show_dashboard, name="show_dashboard"),
+    path("make_reservation_in_portal", views.make_reservation_in_portal, name="make_reservation_in_portal"),
 
 ]

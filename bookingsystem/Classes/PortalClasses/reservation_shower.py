@@ -1,9 +1,6 @@
 import datetime
-
 from django.db.models import Q
-
 from bookingsystem.models import UserRestaurantLink, Reservations, Tables, Restaurants
-
 
 class reservationShower:
     def prepare_table(self, current_user):
@@ -11,7 +8,7 @@ class reservationShower:
             UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
         try:
             dates = sorted(list(
-                Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).values_list(
+                Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True, cancelled=False).values_list(
                     "reservation_date", flat=True).distinct()))
             timeslots = self.get_timeslots(current_restaurant_id)
 
@@ -39,7 +36,7 @@ class reservationShower:
                             upper_bound_query = Q(restaurant_id=current_restaurant_id) & Q(
                                 table__table_nr=table_nr) & Q(
                                 reservation_date=date) & Q(end_time__gte=timeslot)
-                            table_booked = Reservations.objects.filter(lower_bound_query & upper_bound_query)
+                            table_booked = Reservations.objects.filter(lower_bound_query & upper_bound_query & Q(confirmed=True) & Q(cancelled=False))
                             if table_booked:
                                 availability[index] = 'booked', table_booked[0].customer.full_name, \
                                                       table_booked[0].customer.email, \
@@ -47,27 +44,14 @@ class reservationShower:
                                                       table_booked[0].arrival_time, \
                                                       table_booked[0].reservation_date, \
                                                       table_booked[0].number_of_persons, \
-                                                      table_booked[0].table.table_nr
+                                                      table_booked[0].table.table_nr, \
+                                                      table_booked[0].id
                             else:
                                 availability[index] = ''
 
                     reservation_matrix.append(availability)
                 all_reservations_dict[str(date)] = reservation_matrix
 
-            # reservation_matrix = [
-            #     # [101, 102, 103, 104, 105],
-            #     {1: '12:00', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '12:15', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '12:30', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '12:45', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '13:00', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '13:15', 2: 'reservation1', 3: 'none', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '13:30', 2: 'none', 3: 'reservation2', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '13:45', 2: 'none', 3: 'reservation2', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '14:00', 2: 'none', 3: 'reservation2', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '14:15', 2: 'none', 3: 'reservation2', 4: 'none', 5: 'none', 6: 'none'},
-            #     {1: '14:30', 2: 'none', 3: 'reservation2', 4: 'none', 5: 'none', 6: 'none'},
-            # ]
 
             context = {'dates': dates, 'action': './show_reservations/show_reservations.html',
                        'all_reservations_dict': all_reservations_dict,

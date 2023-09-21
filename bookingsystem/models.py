@@ -1,7 +1,30 @@
 from django.db import models
+import os
+
+def dish_photo_upload_path(instance, filename):
+    restaurant_name = instance.restaurant.name
+    course_name = instance.course.name
+    # Sanitize the restaurant and course names to create valid directory names
+    restaurant_name = restaurant_name.replace(" ", "_")
+    course_name = course_name.replace(" ", "_")
+    # Combine the names to create the upload path
+    upload_path = os.path.join('dishphotos', restaurant_name, course_name)
+    # Combine the upload path and filename
+    return os.path.join(upload_path, filename)
+
+################################################Back-end#############################################################
+
+class PaymentFrequencies(models.Model):
+    name = models.CharField(max_length=250, default='', blank=True)
+    amount_of_months = models.IntegerField(default=0)
+
+class Subscriptions(models.Model):
+    name = models.CharField(max_length=250, default='', blank=True)
+    price = models.DecimalField(default=0, max_digits=6, decimal_places=2)
 
 
 ################################################Restaurants#############################################################
+
 
 class Restaurants(models.Model):
     name = models.CharField(max_length=250, default='', blank=True)
@@ -22,6 +45,8 @@ class Restaurants(models.Model):
     open_friday = models.BooleanField(default=True)
     open_saturday = models.BooleanField(default=True)
     open_sunday = models.BooleanField(default=True)
+    payment_frequency = models.ForeignKey(PaymentFrequencies, on_delete=models.CASCADE, default=0)
+    discount = models.FloatField(default=0, null=True)
 
 class CustomRestaurantAvailability(models.Model): #overrides regular availability
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
@@ -30,6 +55,7 @@ class CustomRestaurantAvailability(models.Model): #overrides regular availabilit
     end_time = models.TimeField(default='23:59', null=True)
     open = models.BooleanField(default=True)
 
+
 class Tables(models.Model):
     table_nr = models.IntegerField(default=0)
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='', blank=True)
@@ -37,6 +63,23 @@ class Tables(models.Model):
     max_pers = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Courses(models.Model):
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250, default='', blank=True)
+    course_order = models.IntegerField(default=0) #1=top of page, 2= below, etc
+
+class Dishes(models.Model):
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250, default='', blank=True)
+    price = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    photo = models.ImageField(upload_to=dish_photo_upload_path)
+    dish_order = models.IntegerField(default=0) #1=top of page, 2= below, etc
+
+class RestaurantSubscriptionLink(models.Model):
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE, default='')
+    subscription = models.ForeignKey(Subscriptions, on_delete=models.CASCADE, default='')
 
 
 class UserRestaurantLink(models.Model):
@@ -64,7 +107,14 @@ class Reservations(models.Model):
     comments = models.CharField(max_length=2500, default='', blank=True)
     confirmed = models.BooleanField(default=False)
     cancelled = models.BooleanField(default=False)
-    paid = models.BooleanField()
-    paid_amount = models.FloatField()
+    created_by_restaurant = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+################################################Finance############################################################
+
+class Bills(models.Model):
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
+    date = models.DateField()
+    amount = models.DecimalField(default=0, max_digits=6, decimal_places=2)

@@ -1,4 +1,4 @@
-import datetime
+# import datetime
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -7,9 +7,9 @@ from bookingsystem.Classes.PortalClasses.reservation_shower import reservationSh
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
-from bookingsystem.forms import ReservationForm, ConfirmBookingForm
-from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations
-from datetime import date, datetime
+from bookingsystem.forms import ReservationForm, ConfirmBookingForm, AddReservationForm
+from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Tables
+from datetime import date, datetime, timedelta
 from django.utils.translation import gettext as _
 
 
@@ -132,12 +132,12 @@ def delete_reservation(request):
                    'held_reservation_id': request.session['held_reservation_id']}
         return render(request, 'booking_confirmed.html', context)
     elif path == 'show_reservations':
-        current_restaurant_id = UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
-        reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by('reservation_date', 'arrival_time')
-        dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
-        context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html',
-                   'deleted_reservation': reservation_id}
+        current_user = request.user.id
+        reservation_shower = reservationShower()
+        context = reservation_shower.prepare_table(current_user)
+        context['deleted_reservation'] = reservation_id
         return render(request, 'restaurant_portal.html', context)
+
 
 ###########################################FOR RESTAURANTS##############################################################
 
@@ -149,6 +149,8 @@ def show_reservations(request):
     current_user = request.user.id
     reservation_shower = reservationShower()
     context = reservation_shower.prepare_table(current_user)
+    add_reservation_form = AddReservationForm()
+    context['add_reservation_form'] = add_reservation_form
 
     return render(request, 'restaurant_portal.html', context)
 
@@ -161,10 +163,27 @@ def show_dashboard(request):
 def rollback_deletion(request):
     reservation_id = request.GET['reservationID']
     Reservations.objects.filter(id=reservation_id).update(cancelled=False, confirmed=True)
-    current_restaurant_id = UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
-    reservations = Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True).order_by(
-        'reservation_date', 'arrival_time')
-    dates = sorted(list(reservations.values_list("reservation_date", flat=True).distinct()))
-    context = {'reservations': reservations, 'dates': dates, 'action': './show_reservations/show_reservations.html',
-               'rolled_back_deletion': reservation_id}
+    current_user = request.user.id
+    reservation_shower = reservationShower()
+    context = reservation_shower.prepare_table(current_user)
+    context['rolled_back_deletion'] = reservation_id
+    return render(request, 'restaurant_portal.html', context)
+
+
+def make_reservation_in_portal(request):
+    if request.method == 'POST':
+        current_user = request.user.id
+        restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
+        table_id = Tables.objects.filter(restaurant_id=restaurant_id, table_nr=request.POST['table_nr'])[0].id
+        reservation_duration = Restaurants.objects.filter(id=restaurant_id).values_list('meal_duration', flat=True)[0]
+        input_time = datetime.strptime(request.POST['reservation_time'], '%H:%M')
+        result_time = input_time + timedelta(hours=reservation_duration)
+        end_time = result_time.strftime('%H:%M')
+        Reservations.objects.create(reservation_date=request.POST['reservation_date'], arrival_time=request.POST['reservation_time'],
+                                    end_time=end_time, comments='', created_at=datetime.now(), updated_at=datetime.now(),
+                                    customer_id=1, restaurant_id=restaurant_id, table_id=table_id, confirmed=True,
+                                    number_of_persons=request.POST['number_of_persons'], cancelled=False,
+                                    created_by_restaurant=True)
+
+    context = {'action': './show_dashboard/show_dashboard.html'}
     return render(request, 'restaurant_portal.html', context)
