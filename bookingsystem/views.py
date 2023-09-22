@@ -185,19 +185,23 @@ def view_menu(request):
 def update_menu(request):
     if request.method == 'POST':
         menu_updater = MenuUpdater()
-        context = menu_updater.update_menu(request)
-        return render(request, 'restaurant_portal.html', context)
+        menu_updater.update_menu(request)
+        # context = menu_updater.update_menu(request)
+        # return render(request, 'restaurant_portal.html', context)
+    return redirect('bookingsystem:view_menu')
 
 
 def delete_course(request, course_id):
     try:
         record = Courses.objects.get(pk=course_id)
         record.delete()
-        context = MenuShower().prepare_menu(request)
-        return render(request, 'restaurant_portal.html', context)
+        return redirect('bookingsystem:view_menu')
+        # context = MenuShower().prepare_menu(request)
+        # return render(request, 'restaurant_portal.html', context)
     except Courses.DoesNotExist:
-        context = MenuShower().prepare_menu(request)
-        return render(request, 'restaurant_portal.html', context)
+        # context = MenuShower().prepare_menu(request)
+        # return render(request, 'restaurant_portal.html', context)
+        return redirect('bookingsystem:view_menu')
 
 
 def delete_dish(request, dish_id):
@@ -211,3 +215,35 @@ def delete_dish(request, dish_id):
         # context = MenuShower().prepare_menu(request)
         # return render(request, 'restaurant_portal.html', context)
         print('asdfads')
+
+
+def add_dish(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    if request.method == 'POST':
+        try:
+            name = request.POST['name']
+            price = request.POST['price'].replace(',', '.')
+            dish_order = request.POST['dish_order']
+            course_id = request.POST['course_id']
+            Dishes.objects.create(name=name, price=price, dish_order=dish_order, course_id=course_id, restaurant_id=restaurant_id)
+        except Exception as e:
+            print('could not add course', e)
+        # context = MenuShower().prepare_menu(request)
+        return redirect('bookingsystem:view_menu')
+
+def add_course(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    if request.method == 'POST':
+        try:
+            name = request.POST['name']
+            course_order = request.POST['course_order']
+            Courses.objects.create(name=name, course_order=course_order, restaurant_id=restaurant_id)
+        except Exception as e:
+            print('could not add course', e)
+        # context = MenuShower().prepare_menu(request)
+        return redirect('bookingsystem:view_menu')
+        # return render(request, 'restaurant_portal.html', context)
