@@ -74,7 +74,7 @@ class Dishes(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, default='', blank=True)
     price = models.DecimalField(default=0, max_digits=6, decimal_places=2)
-    photo = models.ImageField(upload_to=dish_photo_upload_path)
+    photo = models.ImageField(upload_to=dish_photo_upload_path, null=True)
     dish_order = models.IntegerField(default=0) #1=top of page, 2= below, etc
 
 class RestaurantSubscriptionLink(models.Model):

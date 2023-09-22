@@ -136,11 +136,11 @@
         const toggleDateButton = document.getElementById('toggle-date-button-' + date);
         console.log(dayDiv)
 
-        if (dayDiv.style.height === '23px') {
+        if (dayDiv.style.height === '38px') {
             dayDiv.style.height = '100%';
             toggleDateButton.innerHTML = "{% trans 'hide_date' %}";
         } else {
-            dayDiv.style.height = '23px';
+            dayDiv.style.height = '38px';
             dayDiv.style.overflow = 'hidden';
             toggleDateButton.innerHTML = "{% trans 'show_date' %}";
         }
@@ -150,7 +150,6 @@
     function ToggleaddReservationDiv() {
         const addReservationDiv = document.getElementById('add-reservation-div');
         const addReservationButton = document.getElementById('add-reservation-button');
-        console.log('asdfasdfsdaf', addReservationDiv.style.display)
 
         if (addReservationDiv.style.display === 'none' || addReservationDiv.style.display === '') {
             console.log('show')

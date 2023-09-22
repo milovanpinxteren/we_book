@@ -42,7 +42,7 @@ class BookingMaker():
             else:
                 print('found table')
                 held_reservation = Reservations.objects.create(reservation_date=reservation_date, arrival_time=reservation_time,
-                                            end_time=end_time, paid=False, paid_amount=0, created_at=datetime.now(),
+                                            end_time=end_time, created_at=datetime.now(),
                                             updated_at=datetime.now(), restaurant_id=restaurant_id, customer_id=0,
                                             table_id=possible_table.id, confirmed=False, number_of_persons=number_of_persons)
                 context = {'status': "possible_reservation_found",
@@ -100,7 +100,7 @@ class BookingMaker():
         return valid_reservation
 
     def format_reservation_date_time(self, reservation_date, reservation_time):
-        reservation_date = datetime.strptime(reservation_date, '%d/%M/%Y')
+        reservation_date = datetime.strptime(reservation_date, '%d/%m/%Y')
         reservation_time = datetime.strptime(reservation_time, "%H:%M")
         return reservation_date, reservation_time
 

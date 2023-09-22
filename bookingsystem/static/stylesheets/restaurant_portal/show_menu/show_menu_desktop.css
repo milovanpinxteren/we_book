@@ -1,0 +1,60 @@
+
+.course {
+    background-color: #e2e2e2;
+}
+
+input.course-name-input-field {
+    display: inline-block;
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold like an h2 */
+    padding: 5px; /* Add padding for spacing */
+    border: none; /* Remove the border */
+    background-color: transparent; /* Make the background transparent */
+    width: 10%;
+}
+
+/* Style the input when it's being edited (optional) */
+input.course-name-input-field:focus {
+    outline: none; /* Remove the focus outline */
+    background-color: #f0f0f0; /* Change the background color when editing */
+}
+
+input.dish-name-input-field {
+    display: inline-block;
+    font-size: 18px; /* Adjust the font size as needed */
+    /*font-weight: bold; !* Make the text bold like an h2 *!*/
+    padding: 2px; /* Add padding for spacing */
+    border: none; /* Remove the border */
+    background-color: transparent; /* Make the background transparent */
+    /*width: 10%;*/
+}
+
+/* Style the input when it's being edited (optional) */
+input.dish-name-input-field:focus {
+    outline: none; /* Remove the focus outline */
+    background-color: #f0f0f0; /* Change the background color when editing */
+}
+
+.update-menu-button {
+    display: block;
+    float: left;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}

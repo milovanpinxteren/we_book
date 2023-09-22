@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'stylesheets/restaurant_portal/show_menu/show_menu_desktop.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<h1>MENU</h1>
+<form action="./update_menu" method="post">
+    {% csrf_token %}
+    {% for course, dishes in course_dishes.items %}
+        <hr>
+        <p class="course">
+            <label for="course-name">{% trans 'course_name' %}: </label>
+            <input type="text" id="course-name" value="{{ course.name }}" class="course-name-input-field"
+                   name="name-courseID={{ course.id }}">
+            <label for="course-order">{% trans 'course_order' %}: </label>
+            <input type="number" id="course-order" value="{{ course.course_order }}" class="course-input-field"
+                   name="course_order-courseID={{ course.id }}">
+        </p>
+        <hr>
+        {% for dish in dishes %}
+            <p class="dish">
+                <label for="dish-name">{% trans 'dish_name' %}: </label>
+                <input type="text" id="dish-name" value="{{ dish.name }}" class="dish-name-input-field"
+                       name="name-dishID={{ dish.id }}">
+                <label for="dish-price">{% trans 'dish_price' %}: </label>
+                <input type="text" id="dish-price" value="{{ dish.price }}" class="dish-price-input-field"
+                       name="price-dishID={{ dish.id }}">
+                <label for="dish-order">{% trans 'dish_order' %}: </label>
+                <input type="text" id="dish-order" value="{{ dish.dish_order }}" class="dish-order-input-field"
+                       name="dish_order-dishID={{ dish.id }}">
+                <select id="dish-course-{{ dish.id }}" name="course_id-dishID={{ dish.id }}">
+                    {% for course in course_dishes.keys %}
+                        <option value="{{ course.id }}"
+                                {% if dish.course == course %}selected{% endif %}>{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        {% endfor %}
+
+    {% endfor %}
+    <button class="update-menu-button" id="button">{% trans 'update_menu' %}</button>
+</form>
+
+
+</body>
+</html>
