@@ -1,8 +1,9 @@
 # import datetime
 
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
 
+from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
 from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMaker
 from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
@@ -10,7 +11,7 @@ from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
-from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Tables, Courses
+from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Tables, Courses, Dishes
 from datetime import date, datetime, timedelta
 from django.utils.translation import gettext as _
 
@@ -178,14 +179,7 @@ def make_reservation_in_portal(request):
 
 
 def view_menu(request):
-    current_user = request.user.id
-    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True)[0]
-    courses = Courses.objects.filter(restaurant_id=restaurant_id).order_by('course_order')
-    course_dishes = {}
-    for course in courses:
-        ordered_dishes = course.dishes_set.order_by('dish_order')
-        course_dishes[course] = ordered_dishes
-    context = {'action': './view_menu/view_menu.html', 'course_dishes': course_dishes}
+    context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
 
 def update_menu(request):
@@ -194,3 +188,26 @@ def update_menu(request):
         context = menu_updater.update_menu(request)
         return render(request, 'restaurant_portal.html', context)
 
+
+def delete_course(request, course_id):
+    try:
+        record = Courses.objects.get(pk=course_id)
+        record.delete()
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
+    except Courses.DoesNotExist:
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
+
+
+def delete_dish(request, dish_id):
+    try:
+        record = Dishes.objects.get(pk=dish_id)
+        record.delete()
+        # context = MenuShower().prepare_menu(request)
+        response_data = {'message': 'Record deleted successfully'}
+        return JsonResponse(response_data)
+    except Courses.DoesNotExist:
+        # context = MenuShower().prepare_menu(request)
+        # return render(request, 'restaurant_portal.html', context)
+        print('asdfads')
