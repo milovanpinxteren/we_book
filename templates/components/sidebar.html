@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="has-subnav">
-            <a href="#">
+            <a href="{{ request.session.restaurant_url }}" target="_blank">
                 <i class="fa fa-globe fa-2x"></i>
                 <span class="nav-text">
                             {% trans 'go_to_own_website' %}
@@ -43,15 +43,15 @@
             </a>
 
         </li>
-        <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-comments fa-2x"></i>
-                <span class="nav-text">
-                            {% trans 'get_support' %}
-                        </span>
-            </a>
-
-        </li>
+{#        <li class="has-subnav">#}
+{#            <a href="#">#}
+{#                <i class="fa fa-comments fa-2x"></i>#}
+{#                <span class="nav-text">#}
+{#                            {% trans 'get_support' %}#}
+{#                        </span>#}
+{#            </a>#}
+{##}
+{#        </li>#}
         {#                <li class="has-subnav">#}
         {#                    <a href="#">#}
         {#                       <i class="fa fa-camera-retro fa-2x"></i>#}

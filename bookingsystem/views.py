@@ -150,6 +150,11 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
+    request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
     return render(request, 'restaurant_portal.html')
 
 

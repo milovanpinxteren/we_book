@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 import os
 
@@ -29,11 +30,13 @@ class Errors(models.Model):
 
 
 ################################################Restaurants#############################################################
-
+def https_url_validator(value):
+    if not value.startswith('https://'):
+        raise ValidationError('URL must start with https://')
 
 class Restaurants(models.Model):
     name = models.CharField(max_length=250, default='', blank=True)
-    website = models.URLField()
+    website = models.URLField(validators=[https_url_validator])
     email = models.CharField(max_length=250, default='', blank=True)
     telephone_nr = models.CharField(max_length=250, default='', blank=True)
     opening_time = models.TimeField(default='12:00:00')
