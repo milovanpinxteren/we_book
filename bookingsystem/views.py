@@ -1,7 +1,10 @@
 # import datetime
 
+from datetime import date, datetime
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
 
 from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
@@ -11,9 +14,7 @@ from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
-from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Tables, Courses, Dishes
-from datetime import date, datetime, timedelta
-from django.utils.translation import gettext as _
+from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors
 
 
 def index(request):
@@ -27,12 +28,12 @@ def index(request):
             restaurantID = 1
 
     restaurant = Restaurants.objects.get(id=restaurantID)
-    #TODO: only select timeslots based on availability
+    # TODO: only select timeslots based on availability
     availability_checker = AvailabilityChecker()
     availability, closed_list = availability_checker.get_availability(restaurantID)
     reservationform = ReservationForm(initial={'restaurant': restaurant, 'number_of_persons': 2,
-                                       'reservation_date': date.today(),
-                                    'reservation_time': datetime.now().strftime("%H:%M:%S")})
+                                               'reservation_date': date.today(),
+                                               'reservation_time': datetime.now().strftime("%H:%M:%S")})
 
     json_availabilitydata = str(availability).replace("'", '"')
     json_disable_datesdata = str(closed_list).replace("'", '"')
@@ -45,7 +46,7 @@ def make_reservation(request):
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST, request.FILES)
         if reservation_form.is_valid():
-            #Form is valid, check if you can find a possible table
+            # Form is valid, check if you can find a possible table
             restaurant_id = request.GET['restaurantID']
             number_of_persons = reservation_form['number_of_persons'].value()
             reservation_date = reservation_form['reservation_date'].value()
@@ -106,8 +107,10 @@ def confirm_booking(request):
         request.session['status'] = 'booking_failed'
         context = {'status': request.session['status'],
                    'table_id': request.session['status'], 'reservation_date': request.session['reservation_date'],
-                   'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
-                   'held_reservation_id': request.session['held_reservation_id'], 'confirmation_form': confirmation_form}
+                   'start_time': request.session['start_time'],
+                   'number_of_persons': request.session['number_of_persons'],
+                   'held_reservation_id': request.session['held_reservation_id'],
+                   'confirmation_form': confirmation_form}
         render(request, 'booking_confirmation.html', context)
     return render(request, 'booking_confirmed.html', context)
 
@@ -122,16 +125,18 @@ def drop_reservation(request):
     # return index(request)
     return HttpResponse("Session expired")
 
+
 def delete_reservation(request):
     reservation_id = request.GET['reservationID']
     path = request.GET['path']
     Reservations.objects.filter(id=reservation_id).update(cancelled=True, confirmed=False)
-    #TODO: send email
+    # TODO: send email
     request.session['status'] = 'reservation_cancelled'
     if path == 'confirmed_booking':
         context = {'status': request.session['status'],
                    'table_id': request.session['table_id'], 'reservation_date': request.session['reservation_date'],
-                   'start_time': request.session['start_time'], 'number_of_persons': request.session['number_of_persons'],
+                   'start_time': request.session['start_time'],
+                   'number_of_persons': request.session['number_of_persons'],
                    'held_reservation_id': request.session['held_reservation_id']}
         return render(request, 'booking_confirmed.html', context)
     elif path == 'show_reservations':
@@ -149,16 +154,15 @@ def restaurant_portal(request):
 
 
 def show_reservations(request):
-    current_user = request.user.id
-    reservation_shower = reservationShower()
-    context = reservation_shower.prepare_table(current_user)
-    # add_reservation_form = AddReservationForm()
-    # context['add_reservation_form'] = add_reservation_form
-
+    context = {'action': './show_reservations/show_reservations.html'}
     return render(request, 'restaurant_portal.html', context)
 
 
-
+def calculate_reservation_table(request):
+    current_user = request.user.id
+    reservation_shower = reservationShower()
+    context = reservation_shower.prepare_table(current_user)
+    return JsonResponse(context)
 
 
 def rollback_deletion(request):
@@ -172,22 +176,27 @@ def rollback_deletion(request):
 
 
 def make_reservation_in_portal(request):
-    if request.method == 'POST':
-        reservation_maker = ReservationMaker()
-        context = reservation_maker.make_reservation(request)
-    return render(request, 'restaurant_portal.html', context)
+    try:
+        if request.method == 'POST':
+            reservation_maker = ReservationMaker()
+            reservation_maker.make_reservation(request)
+            return redirect('bookingsystem:show_reservations')
+    except Exception as e:
+        error_message = _("could_not_make_booking_check_table_nr_date_and_time")
+        Errors.objects.create(message=error_message, user_id=request.user.id, created_at=datetime.now())
+        context = {'error_message': error_message}
+        return render(request, 'error_page.html', context)
 
 
 def view_menu(request):
     context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
 
+
 def update_menu(request):
     if request.method == 'POST':
         menu_updater = MenuUpdater()
         menu_updater.update_menu(request)
-        # context = menu_updater.update_menu(request)
-        # return render(request, 'restaurant_portal.html', context)
     return redirect('bookingsystem:view_menu')
 
 
@@ -196,11 +205,7 @@ def delete_course(request, course_id):
         record = Courses.objects.get(pk=course_id)
         record.delete()
         return redirect('bookingsystem:view_menu')
-        # context = MenuShower().prepare_menu(request)
-        # return render(request, 'restaurant_portal.html', context)
     except Courses.DoesNotExist:
-        # context = MenuShower().prepare_menu(request)
-        # return render(request, 'restaurant_portal.html', context)
         return redirect('bookingsystem:view_menu')
 
 
@@ -208,13 +213,10 @@ def delete_dish(request, dish_id):
     try:
         record = Dishes.objects.get(pk=dish_id)
         record.delete()
-        # context = MenuShower().prepare_menu(request)
         response_data = {'message': 'Record deleted successfully'}
         return JsonResponse(response_data)
     except Courses.DoesNotExist:
-        # context = MenuShower().prepare_menu(request)
-        # return render(request, 'restaurant_portal.html', context)
-        print('asdfads')
+        print('course does not exist')
 
 
 def add_dish(request):
@@ -227,11 +229,12 @@ def add_dish(request):
             price = request.POST['price'].replace(',', '.')
             dish_order = request.POST['dish_order']
             course_id = request.POST['course_id']
-            Dishes.objects.create(name=name, price=price, dish_order=dish_order, course_id=course_id, restaurant_id=restaurant_id)
+            Dishes.objects.create(name=name, price=price, dish_order=dish_order, course_id=course_id,
+                                  restaurant_id=restaurant_id)
         except Exception as e:
             print('could not add course', e)
-        # context = MenuShower().prepare_menu(request)
         return redirect('bookingsystem:view_menu')
+
 
 def add_course(request):
     current_user = request.user.id
@@ -244,6 +247,4 @@ def add_course(request):
             Courses.objects.create(name=name, course_order=course_order, restaurant_id=restaurant_id)
         except Exception as e:
             print('could not add course', e)
-        # context = MenuShower().prepare_menu(request)
         return redirect('bookingsystem:view_menu')
-        # return render(request, 'restaurant_portal.html', context)

@@ -25,11 +25,5 @@ class ReservationMaker():
                                     number_of_persons=request.POST['number_of_persons'], cancelled=False,
                                     created_by_restaurant=True)
 
+        return 'reservation_made'
 
-        self.show_reservations(current_user)
-
-
-    def show_reservations(self, current_user):
-        reservation_shower = reservationShower()
-        context = reservation_shower.prepare_table(current_user)
-        return context

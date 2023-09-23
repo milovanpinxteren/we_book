@@ -11,24 +11,38 @@
     width: 40%;
 }
 
-.loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
+.loader-div {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 30%;
+    left: 35%;
+}
+
+.waiting-text {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid lightgray;
+    border-top: 16px solid #e65107;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    animation: spin 2s linear infinite;
     transform: translate(-50%, -50%);
     z-index: 9999; /* Make sure it's on top of other elements */
-    display: none; /* Initially hide the loader */
+    /*display: none; !* Initially hide the loader *!*/
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -84,8 +98,7 @@
 
 
 .toggle-date-button {
-    /*display: block;*/
-    /*float: right;*/
+    margin-left: 10px;
     background-color: rgba(19, 170, 82, 0.3);
     border: 1px solid #13aa52;
     border-radius: 4px;
@@ -237,11 +250,14 @@
     background-color: rgba(239, 206, 146, 0.9);
     border: solid 2px black;
     border-radius: 2%;
-    position: fixed;
     padding-left: 1%;
     color: black;
-    top: 40%;
-    left: 20%;
+    /*position: fixed;*/
+    /*top: 40%;*/
+    /*left: 20%;*/
+    position: absolute;
+    /*left: 10px;*/
+    /*top: 0;*/
 }
 
 .customer-info {
@@ -265,18 +281,21 @@
     text-decoration: 3px underline;
 }
 
+/*.reservation-table-value-booked:hover .reservation-info-div {*/
+/*    display: block;*/
+/*    background-color: purple;*/
+/*}*/
 
-.reservation-table-value-booked:hover .reservation-info-div {
-    display: block;
-}
+/*.reservation-table-value-booked:active .reservation-info-div {*/
+/*    display: block;*/
+/*    background-color: green;*/
+/*}*/
 
-.reservation-table-value-booked:active .reservation-info-div {
-    display: block;
-}
 
-.reservation-table-value-booked:focus .reservation-info-div {
-    display: block;
-}
+/*.reservation-table-value-booked:focus .reservation-info-div {*/
+/*    display: block;*/
+/*    background-color: yellow;*/
+/*}*/
 
 th {
     word-wrap: break-word;

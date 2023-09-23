@@ -9,6 +9,11 @@
     <title>Title</title>
     <link rel="stylesheet"
           href="{% static 'stylesheets/restaurant_portal/show_reservations/show_reservations_desktop.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 <div class="reservation-header-div">
@@ -23,25 +28,54 @@
     <hr>
     <form action="./make_reservation_in_portal" method="post">
         {% csrf_token %}
-        <span class="add-reservation-text">{% trans "no_persons" %}: </span><input type="number" class="inputField" id="number_of_persons" placeholder="{% trans "no_persons" %}"
-               name="number_of_persons" autocomplete="off" required><br>
-        <span class="add-reservation-text">{% trans "reservation_date" %}: </span><input type="date" class="inputField" id="reservation_date" placeholder="{% trans "reservation_date" %}"
-               name="reservation_date" autocomplete="off" required><br>
-        <span class="add-reservation-text">{% trans "reservation_time" %}: </span><input type="time" class="inputField" id="reservation_time" placeholder="{% trans "reservation_time" %}"
-               name="reservation_time" autocomplete="off" required><br>
-        <span class="add-reservation-text">{% trans "customer_name" %}: </span><input type="text" class="inputField" id="customer_name" placeholder="{% trans "customer_name" %}"
-               name="customer_name" autocomplete="off" required><br>
-        <span class="add-reservation-text">{% trans "table_nr" %}: </span><input type="text" class="inputField" id="table_nr" placeholder="{% trans "table_nr" %}"
-               name="table_nr" autocomplete="off" required><br>
-        <span class="add-reservation-text">{% trans "customer_email" %}: </span><input type="email" class="inputField" id="customer_email" placeholder="{% trans "customer_email" %}"
-               name="customer_email" autocomplete="off"><br>
-        <span class="add-reservation-text">{% trans "customer_telephone_nr" %}: </span><input type="text" class="inputField" id="customer_telephone_nr" placeholder="{% trans "customer_telephone_nr" %}"
-               name="customer_telephone_nr" autocomplete="off"><br>
+        <span class="add-reservation-text">{% trans "no_persons" %}: </span><input type="number" class="inputField"
+                                                                                   id="number_of_persons"
+                                                                                   placeholder="{% trans "no_persons" %}"
+                                                                                   name="number_of_persons"
+                                                                                   autocomplete="off" required><br>
+        <span class="add-reservation-text">{% trans "reservation_date" %}: </span><input type="date" class="inputField"
+                                                                                         id="reservation_date"
+                                                                                         placeholder="{% trans "reservation_date" %}"
+                                                                                         name="reservation_date"
+                                                                                         autocomplete="off"
+                                                                                         required><br>
+        <span class="add-reservation-text">{% trans "reservation_time" %}: </span><input type="time" class="inputField"
+                                                                                         id="reservation_time"
+                                                                                         placeholder="{% trans "reservation_time" %}"
+                                                                                         name="reservation_time"
+                                                                                         autocomplete="off"
+                                                                                         required><br>
+        <span class="add-reservation-text">{% trans "customer_name" %}: </span><input type="text" class="inputField"
+                                                                                      id="customer_name"
+                                                                                      placeholder="{% trans "customer_name" %}"
+                                                                                      name="customer_name"
+                                                                                      autocomplete="off" required><br>
+        <span class="add-reservation-text">{% trans "table_nr" %}: </span><input type="text" class="inputField"
+                                                                                 id="table_nr"
+                                                                                 placeholder="{% trans "table_nr" %}"
+                                                                                 name="table_nr" autocomplete="off"
+                                                                                 required><br>
+        <span class="add-reservation-text">{% trans "customer_email" %}: </span><input type="email" class="inputField"
+                                                                                       id="customer_email"
+                                                                                       placeholder="{% trans "customer_email" %}"
+                                                                                       name="customer_email"
+                                                                                       autocomplete="off"><br>
+        <span class="add-reservation-text">{% trans "customer_telephone_nr" %}: </span><input type="text"
+                                                                                              class="inputField"
+                                                                                              id="customer_telephone_nr"
+                                                                                              placeholder="{% trans "customer_telephone_nr" %}"
+                                                                                              name="customer_telephone_nr"
+                                                                                              autocomplete="off"><br>
         <button class="add-reservation-button" id="button">Submit</button>
     </form>
 </div>
 
-<div class="reservation-container">
+<div class="reservation-container" hx-get="/calculate_reservation_table" hx-trigger="load"
+     hx-target="#reservation-content">
+    <div class="loader-div" id="loader-div"><span class="waiting-text">{% trans 'please_wait' %} </span><br>
+        <div class="loader" id="loader"></div>
+    </div>
+
     <div class="reservation-list">
         {% if deleted_reservation %}
             <div class="deleted-reservation-div">
@@ -58,64 +92,222 @@
                 <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
             </div>
         {% endif %}
-        {% for date in dates %}
-            <hr>
-            <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">
-                <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}
-                    <button onclick="toggleDate('{{ date|date:"d" }}{{ date|date:"m" }}')"
-                            id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"
-                            class="toggle-date-button">{% trans 'hide_date' %}</button>
-                </div>
-                <hr>
-                <table class="reservations-table">
-                    <thead class="reservation-table-thead">
-                    <tr class="reservation-table-header-row">
-                        {% for table in tables %}
-                            <th class="table-nr">{{ table }}</th>
-                        {% endfor %}
-                    </tr>
-                    </thead>
-                    <tbody class="reservation-table-body">
-                    {% for key, values in all_reservations_dict.items %}
-                        {% if key == date|date:"Y-m-d" %}
-                            {% for dict in values %}
-                                <tr class="reservation-table-body-row">
-                                    {% for key, value in dict.items %}
-                                        <td class="reservation-table-value-{{ value.0 }}" tabindex="1">
-                                            {{ value }}
-                                            <div class="reservation-info-div">
-                                                <p class="customer-info">
-                                                    {% trans 'customer_name' %}: <span>{{ value.1 }}</span><br>
-                                                    {% trans 'email' %}: <span>{{ value.2 }}</span><br>
-                                                    {% trans 'telephone' %}: <span>{{ value.3 }}</span><br>
-                                                <hr>
-                                                </p>
-                                                <p class="reservation-info">
-                                                    {% trans 'reservation_date' %}: <span>{{ value.5 }}</span><br>
-                                                    {% trans 'arrival_time' %}: <span>{{ value.4 }}</span><br>
-                                                    {% trans 'number_of_persons' %}: <span>{{ value.6 }}</span><br>
-                                                    {% trans 'table_nr' %}: <span>{{ value.7 }}</span>
-                                                </p>
-                                                <a class="cancel-booking-button"
-                                                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ value.8 }}&path=show_reservations">{% trans 'cancel_booking' %}</a>
-                                            </div>
-                                        </td>
+        <div id="reservation-content">
 
-                                    {% endfor %}
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endfor %}
+        </div>
+        {#        {% for date in dates %}#}
+        {#        <hr>#}
+        {#        <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">#}
+        {#            <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}#}
+        {#                <button onclick="toggleDate('{{ date|date:"d" }}{{ date|date:"m" }}')"#}
+        {#                        id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"#}
+        {#                        class="toggle-date-button">{% trans 'hide_date' %}</button>#}
+        {#            </div>#}
+        {#            <hr>#}
+        {#                <table class="reservations-table">#}
+        {#                    <thead class="reservation-table-thead">#}
+        {#                    <tr class="reservation-table-header-row">#}
+        {#                        {% for table in tables %}#}
+        {#                            <th class="table-nr">{{ table }}</th>#}
+        {#                        {% endfor %}#}
+        {#                    </tr>#}
+        {#                    </thead>#}
+        {#                    <tbody class="reservation-table-body">#}
+        {#                    {% for key, values in all_reservations_dict.items %}#}
+        {#                        {% if key == date|date:"Y-m-d" %}#}
+        {#                            {% for dict in values %}#}
+        {#                                <tr class="reservation-table-body-row">#}
+        {#                                    {% for key, value in dict.items %}#}
+        {#                                        <td class="reservation-table-value-{{ value.0 }}" tabindex="1">#}
+        {#                                            {{ value }}#}
+        {#                                            <div class="reservation-info-div">#}
+        {#                                                <p class="customer-info">#}
+        {#                                                    {% trans 'customer_name' %}: <span>{{ value.1 }}</span><br>#}
+        {#                                                    {% trans 'email' %}: <span>{{ value.2 }}</span><br>#}
+        {#                                                    {% trans 'telephone' %}: <span>{{ value.3 }}</span><br>#}
+        {#                                                <hr>#}
+        {#                                                </p>#}
+        {#                                                <p class="reservation-info">#}
+        {#                                                    {% trans 'reservation_date' %}: <span>{{ value.5 }}</span><br>#}
+        {#                                                    {% trans 'arrival_time' %}: <span>{{ value.4 }}</span><br>#}
+        {#                                                    {% trans 'number_of_persons' %}: <span>{{ value.6 }}</span><br>#}
+        {#                                                    {% trans 'table_nr' %}: <span>{{ value.7 }}</span>#}
+        {#                                                </p>#}
+        {#                                                <a class="cancel-booking-button"#}
+        {#                                                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ value.8 }}&path=show_reservations">{% trans 'cancel_booking' %}</a>#}
+        {#                                            </div>#}
+        {#                                        </td>#}
+        {##}
+        {#                                    {% endfor %}#}
+        {#                                </tr>#}
+        {#                            {% endfor %}#}
+        {#                        {% endif %}#}
+        {#                    {% endfor %}#}
+        {#                    </tbody>#}
+        {#                </table>#}
+        {#            </div>#}
+        {#        {% endfor %}#}
 
 
     </div>
 </div>
 
+<script>
+    function formatDateText(dateString) {
+        const options = {year: 'numeric', month: 'long', day: 'numeric'};
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
 
+
+    document.addEventListener('htmx:afterRequest', function (evt) {
+        const responseData = evt.detail.xhr.response;
+        const parsedData = JSON.parse(responseData);
+        const target = document.getElementById('reservation-content');
+        target.innerHTML = '';
+
+        parsedData.dates.forEach(function (date) {
+            const dateDiv = document.createElement('div');
+            dateDiv.id = 'day-div-' + date;
+
+            const dateHeading = document.createElement('div');
+            const hr1 = document.createElement('hr');
+            dateDiv.appendChild(hr1);
+
+            dateHeading.id = 'reservation-date-' + date;
+            dateHeading.textContent = formatDateText(date); // Replace 'formattedDate' with the actual property in your JSON
+
+
+            const button = document.createElement('button');
+            button.onclick = function () {
+                toggleDate(date); // Replace with your logic
+            };
+            button.id = 'toggle-date-button-' + date;
+            button.className = 'toggle-date-button';
+            button.innerHTML = '{% trans "hide_date" %}'; // Replace with your translation logic
+            dateHeading.appendChild(button);
+
+            const hr2 = document.createElement('hr');
+            dateHeading.appendChild(hr2);
+
+            const table = document.createElement('table');
+            table.className = 'reservations-table';
+
+            const thead = document.createElement('thead');
+            thead.className = 'reservation-table-thead';
+
+            const headerRow = document.createElement('tr');
+            headerRow.className = 'reservation-table-header-row';
+
+            // Create table headers for tables
+            parsedData.tables.forEach(function (table) {
+                const th = document.createElement('th');
+                th.className = 'table-nr';
+                th.textContent = table; // Replace 'table' with the actual property in your JSON
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            tbody.className = 'reservation-table-body';
+
+            parsedData.all_reservations_dict[date].forEach(function (dict) {
+                const row = document.createElement('tr');
+                row.className = 'reservation-table-body-row';
+
+                for (const key in dict) {
+                    if (dict.hasOwnProperty(key)) {
+                        {#console.log('dict', dict)#}
+                        {#console.log('key', key)#}
+                        {#console.log('dictkey', dict[key])#}
+                        const td = document.createElement('td');
+                        td.className = 'reservation-table-value-' + dict[key][0]; // Replace with the actual property in your JSON
+                        td.textContent = dict[key]; // Replace with the actual property in your JSON
+
+                        const infoDiv = document.createElement('div');
+                        infoDiv.className = 'reservation-info-div';
+
+                        const customerInfo = document.createElement('p');
+                        customerInfo.className = 'customer-info';
+                        customerInfo.innerHTML = `
+                            {% trans 'customer_name' %}: ${dict[key][1]}<br>
+                            {% trans 'customer_email' %}: ${dict[key][2]}<br>
+                            {% trans 'customer_telephone_nr' %}: ${dict[key][3]}<br>
+                            <hr>
+                        `;
+                        const reservationInfo = document.createElement('p');
+                        const date = formatDateText(dict[key][5])
+                        reservationInfo.className = 'reservation-info';
+                        reservationInfo.innerHTML = `
+                            {% trans 'reservation_date' %}: ${date}<br>
+                            {% trans 'arrival_time' %}: ${dict[key][4]}<br>
+                            {% trans 'number_of_persons' %}: ${dict[key][6]}<br>
+                            {% trans 'table_nr' %}: ${dict[key][7]}<br>
+                        `;
+
+                        const cancelBookingButton = document.createElement('a');
+                        cancelBookingButton.className = 'cancel-booking-button';
+                        const reservationID = dict[key][8];
+                        cancelBookingButton.href = `{% url 'bookingsystem:delete_reservation' %}?reservationID=${reservationID}&path=show_reservations`
+                        cancelBookingButton.textContent = '{% trans 'cancel_booking' %}';
+
+                        infoDiv.appendChild(customerInfo);
+                        infoDiv.appendChild(reservationInfo);
+                        infoDiv.appendChild(cancelBookingButton);
+
+                        td.appendChild(infoDiv);
+                        row.appendChild(td);
+                    }
+                }
+
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+
+            dateDiv.appendChild(dateHeading);
+            dateDiv.appendChild(table);
+            target.appendChild(dateDiv);
+            const loader = document.getElementById('loader-div');
+            loader.style.display = 'none'
+        });
+
+        document.addEventListener('click', function (event) {
+            const reservationValue = event.target.closest('.reservation-table-value-booked');
+
+            if (reservationValue) {
+                const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
+                const reservationValueRect = reservationValue.getBoundingClientRect();
+                const horizontaloffset = -80;
+                const leftPosition = reservationValueRect.left - horizontaloffset;
+
+                // User clicked on a reservation-table-value-booked element
+                console.log('clickedin', reservationInfoDiv)
+                reservationInfoDiv.style.display = reservationInfoDiv.style.display === 'block' ? 'none' : 'block';
+                reservationInfoDiv.style.left = leftPosition + 'px';
+
+            } else {
+                // User clicked outside of the reservation-table-value-booked elements
+                const allReservationValues = document.querySelectorAll('.reservation-table-value-booked');
+                allReservationValues.forEach(function (td) {
+                    const reservationInfoDiv = td.querySelector('.reservation-info-div');
+                    reservationInfoDiv.style.display = 'none';
+                });
+            }
+        });
+
+// Prevent clicks within the reservation-info-div from closing it
+        document.querySelectorAll('.reservation-info-div').forEach(function (div) {
+            div.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+
+    });
+
+
+</script>
 <script>
     function hideMessage() {
         const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
@@ -134,13 +326,12 @@
     function toggleDate(date) {
         const dayDiv = document.getElementById('day-div-' + date);
         const toggleDateButton = document.getElementById('toggle-date-button-' + date);
-        console.log(dayDiv)
 
-        if (dayDiv.style.height === '38px') {
+        if (dayDiv.style.height === '60px') {
             dayDiv.style.height = '100%';
             toggleDateButton.innerHTML = "{% trans 'hide_date' %}";
         } else {
-            dayDiv.style.height = '38px';
+            dayDiv.style.height = '60px';
             dayDiv.style.overflow = 'hidden';
             toggleDateButton.innerHTML = "{% trans 'show_date' %}";
         }
@@ -152,16 +343,15 @@
         const addReservationButton = document.getElementById('add-reservation-button');
 
         if (addReservationDiv.style.display === 'none' || addReservationDiv.style.display === '') {
-            console.log('show')
             addReservationDiv.style.display = 'block';
             addReservationButton.innerHTML = "{% trans 'cancel_adding_reservation' %}";
         } else {
-            console.log('hide')
             addReservationDiv.style.display = 'none'
             addReservationButton.innerHTML = "{% trans 'add_reservations' %}";
         }
 
     }
 </script>
+
 </body>
 </html>

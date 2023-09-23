@@ -22,6 +22,11 @@ class Subscriptions(models.Model):
     name = models.CharField(max_length=250, default='', blank=True)
     price = models.DecimalField(default=0, max_digits=6, decimal_places=2)
 
+class Errors(models.Model):
+    message = models.CharField(max_length=1250, default='', blank=True)
+    user_id = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 ################################################Restaurants#############################################################
 
