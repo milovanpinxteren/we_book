@@ -10,6 +10,7 @@ from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
 from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMaker
 from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
+from bookingsystem.Classes.PortalClasses.restaurant_info_updater import RestaurantInfoUpdater
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
@@ -253,3 +254,25 @@ def add_course(request):
         except Exception as e:
             print('could not add course', e)
         return redirect('bookingsystem:view_menu')
+
+
+def view_restaurant_settings(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    restaurant_info = Restaurants.objects.get(pk=restaurant_id)
+    context = {'action': './restaurant_settings/restaurant_settings.html', 'restaurant_info': restaurant_info}
+    return render(request, 'restaurant_portal.html', context)
+
+def update_restaurant_info(request):
+    RestaurantInfoUpdater().update_restaurant_info(request)
+    return redirect('bookingsystem:view_restaurant_settings')
+
+def view_restaurant_tables(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    context = {'action': './restaurant_tables/restaurant_tables.html'}
+    return render(request, 'restaurant_portal.html', context)
+
+
