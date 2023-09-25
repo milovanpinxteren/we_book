@@ -75,14 +75,14 @@
             <label for="restaurant-meal-duration"
                    class="restaurant-meal-duration-label">{% trans 'restaurant_meal_duration' %}: </label>
             <input type="number" id="restaurant-meal-duration" value="{{ restaurant_info.meal_duration }}"
-                   name="meal-duration"> {% trans 'hours' %}
+                   name="meal_duration"> {% trans 'hours' %}
         </div>
         <div class="restaurant-opening-times">
 
             <div class="day-div">
                 <label for="restaurant-open-monday"
                        class="restaurant-open-monday-label">{% trans 'restaurant_open_monday' %}: </label>
-                <input type="checkbox" id="restaurant-open-monday" value="{{ restaurant_info.open_monday }}"
+                <input type="checkbox" id="restaurant-open-monday" value="True"
                        name="open_monday"
                        onchange="toggleDivVisibility('restaurant-open-monday', 'restaurant-opening-hours-div-monday')"
                         {% if restaurant_info.open_monday %} checked="checked" {% endif %}>
@@ -105,7 +105,7 @@
             <div class="day-div">
                 <label for="restaurant-open-tuesday"
                        class="restaurant-open-tuesday-label">{% trans 'restaurant_open_tuesday' %}: </label>
-                <input type="checkbox" id="restaurant-open-tuesday" value="{{ restaurant_info.open_tuesday }}"
+                <input type="checkbox" id="restaurant-open-tuesday"  value="True"
                        name="open_tuesday"
                        onchange="toggleDivVisibility('restaurant-open-tuesday', 'restaurant-opening-hours-div-tuesday')"
                         {% if restaurant_info.open_tuesday %} checked="checked" {% endif %}>
@@ -128,7 +128,7 @@
             <div class="day-div">
                 <label for="restaurant-open-wednesday"
                        class="restaurant-open-wednesday-label">{% trans 'restaurant_open_wednesday' %}: </label>
-                <input type="checkbox" id="restaurant-open-wednesday" value="{{ restaurant_info.open_wednesday }}"
+                <input type="checkbox" id="restaurant-open-wednesday"  value="True"
                        name="open_wednesday"
                        onchange="toggleDivVisibility('restaurant-open-wednesday', 'restaurant-opening-hours-div-wednesday')"
                         {% if restaurant_info.open_wednesday %} checked="checked" {% endif %}>
@@ -151,7 +151,7 @@
             <div class="day-div">
                 <label for="restaurant-open-thursday"
                        class="restaurant-open-thursday-label">{% trans 'restaurant_open_thursday' %}: </label>
-                <input type="checkbox" id="restaurant-open-thursday" value="{{ restaurant_info.open_thursday }}"
+                <input type="checkbox" id="restaurant-open-thursday"  value="True"
                        name="open_thursday"
                        onchange="toggleDivVisibility('restaurant-open-thursday', 'restaurant-opening-hours-div-thursday')"
                         {% if restaurant_info.open_thursday %} checked="checked" {% endif %}>
@@ -174,7 +174,7 @@
             <div class="day-div">
                 <label for="restaurant-open-friday"
                        class="restaurant-open-friday-label">{% trans 'restaurant_open_friday' %}: </label>
-                <input type="checkbox" id="restaurant-open-friday" value="{{ restaurant_info.open_friday }}"
+                <input type="checkbox" id="restaurant-open-friday"  value="True"
                        name="open_friday"
                        onchange="toggleDivVisibility('restaurant-open-friday', 'restaurant-opening-hours-div-friday')"
                         {% if restaurant_info.open_friday %} checked="checked" {% endif %}>
@@ -197,7 +197,7 @@
             <div class="day-div">
                 <label for="restaurant-open-saturday"
                        class="restaurant-open-saturday-label">{% trans 'restaurant_open_saturday' %}: </label>
-                <input type="checkbox" id="restaurant-open-saturday" value="{{ restaurant_info.open_saturday }}"
+                <input type="checkbox" id="restaurant-open-saturday"  value="True"
                        name="open_saturday"
                        onchange="toggleDivVisibility('restaurant-open-saturday', 'restaurant-opening-hours-div-saturday')"
                         {% if restaurant_info.open_saturday %} checked="checked" {% endif %}>
@@ -220,8 +220,8 @@
             <div class="day-div">
                 <label for="restaurant-open-sunday"
                        class="restaurant-open-sunday-label">{% trans 'restaurant_open_sunday' %}: </label>
-                <input type="checkbox" id="restaurant-open-sunday" value="{{ restaurant_info.open_sunday }}"
-                       name=open_sunday"
+                <input type="checkbox" id="restaurant-open-sunday"  value="True"
+                       name="open_sunday"
                        onchange="toggleDivVisibility('restaurant-open-sunday', 'restaurant-opening-hours-div-sunday')"
                         {% if restaurant_info.open_sunday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-sunday" class="restaurant-opening-hours-div">
