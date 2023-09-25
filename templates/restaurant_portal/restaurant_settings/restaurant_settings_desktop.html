@@ -38,12 +38,19 @@
 <div class="restaurant-info-form">
     <form action="./update_restaurant_info" method="post">
         {% csrf_token %}
-        <div class=restaurant-contact-info">
-            <button class="update-restaurant-info-button" id="button">{% trans 'update_information' %}</button>
 
+        <button class="update-restaurant-info-button" id="button">{% trans 'update_information' %}</button>
+        {#        <br><br><br>#}
+        <div class="restaurant-contact-info">
+            <h3>{% trans 'contact_info' %}</h3>
+            <hr>
             <label for="restaurant-name" class="restaurant-name-label">{% trans 'restaurant_name' %}: </label>
             <input type="text" id="restaurant-name" value="{{ restaurant_info.name }}"
                    name="name">
+
+            <label for="restaurant-website" class="restaurant-website-label">{% trans 'restaurant_website' %}: </label>
+            <input type="text" id="restaurant-website" value="{{ restaurant_info.website }}"
+                   name="website">
 
             <label for="restaurant-email" class="restaurant-email-label">{% trans 'restaurant_email' %}: </label>
             <input type="text" id="restaurant-email" value="{{ restaurant_info.email }}"
@@ -71,13 +78,16 @@
             <input type="text" id="restaurant-country" value="{{ restaurant_info.country }}"
                    name="country">
         </div>
-        <div class="restaurant-meal-duration">
-            <label for="restaurant-meal-duration"
-                   class="restaurant-meal-duration-label">{% trans 'restaurant_meal_duration' %}: </label>
-            <input type="number" id="restaurant-meal-duration" value="{{ restaurant_info.meal_duration }}"
-                   name="meal_duration"> {% trans 'hours' %}
-        </div>
+
         <div class="restaurant-opening-times">
+            <h3>{% trans 'opening_hours' %}</h3>
+            <hr>
+            <div class="restaurant-meal-duration">
+                <label for="restaurant-meal-duration"
+                       class="restaurant-meal-duration-label">{% trans 'restaurant_meal_duration' %}: </label>
+                <input type="number" id="restaurant-meal-duration" value="{{ restaurant_info.meal_duration }}"
+                       name="meal_duration"> {% trans 'hours' %}
+            </div>
 
             <div class="day-div">
                 <label for="restaurant-open-monday"
@@ -92,20 +102,18 @@
                     <input type="time" id="restaurant-open-monday-opening-time"
                            value="{{ restaurant_info.opening_time_monday }}"
                            name="opening_time_monday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-monday-closing-time"
                            class="restaurant-open-monday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-monday-closing-time"
                            value="{{ restaurant_info.closing_time_monday }}"
                            name="closing_time_monday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-tuesday"
                        class="restaurant-open-tuesday-label">{% trans 'restaurant_open_tuesday' %}: </label>
-                <input type="checkbox" id="restaurant-open-tuesday"  value="True"
+                <input type="checkbox" id="restaurant-open-tuesday" value="True"
                        name="open_tuesday"
                        onchange="toggleDivVisibility('restaurant-open-tuesday', 'restaurant-opening-hours-div-tuesday')"
                         {% if restaurant_info.open_tuesday %} checked="checked" {% endif %}>
@@ -115,20 +123,18 @@
                     <input type="time" id="restaurant-open-tuesday-opening-time"
                            value="{{ restaurant_info.opening_time_tuesday }}"
                            name="opening_time_tuesday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-tuesday-closing-time"
                            class="restaurant-open-tuesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-tuesday-closing-time"
                            value="{{ restaurant_info.closing_time_tuesday }}"
                            name="closing_time_tuesday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-wednesday"
                        class="restaurant-open-wednesday-label">{% trans 'restaurant_open_wednesday' %}: </label>
-                <input type="checkbox" id="restaurant-open-wednesday"  value="True"
+                <input type="checkbox" id="restaurant-open-wednesday" value="True"
                        name="open_wednesday"
                        onchange="toggleDivVisibility('restaurant-open-wednesday', 'restaurant-opening-hours-div-wednesday')"
                         {% if restaurant_info.open_wednesday %} checked="checked" {% endif %}>
@@ -138,20 +144,18 @@
                     <input type="time" id="restaurant-open-wednesday-opening-time"
                            value="{{ restaurant_info.opening_time_wednesday }}"
                            name="opening_time_wednesday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-wednesday-closing-time"
                            class="restaurant-open-wednesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-wednesday-closing-time"
                            value="{{ restaurant_info.closing_time_wednesday }}"
                            name="closing_time_wednesday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-thursday"
                        class="restaurant-open-thursday-label">{% trans 'restaurant_open_thursday' %}: </label>
-                <input type="checkbox" id="restaurant-open-thursday"  value="True"
+                <input type="checkbox" id="restaurant-open-thursday" value="True"
                        name="open_thursday"
                        onchange="toggleDivVisibility('restaurant-open-thursday', 'restaurant-opening-hours-div-thursday')"
                         {% if restaurant_info.open_thursday %} checked="checked" {% endif %}>
@@ -161,20 +165,18 @@
                     <input type="time" id="restaurant-open-thursday-opening-time"
                            value="{{ restaurant_info.opening_time_thursday }}"
                            name="opening_time_thursday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-thursday-closing-time"
                            class="restaurant-open-thursday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-thursday-closing-time"
                            value="{{ restaurant_info.closing_time_thursday }}"
                            name="closing_time_thursday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-friday"
                        class="restaurant-open-friday-label">{% trans 'restaurant_open_friday' %}: </label>
-                <input type="checkbox" id="restaurant-open-friday"  value="True"
+                <input type="checkbox" id="restaurant-open-friday" value="True"
                        name="open_friday"
                        onchange="toggleDivVisibility('restaurant-open-friday', 'restaurant-opening-hours-div-friday')"
                         {% if restaurant_info.open_friday %} checked="checked" {% endif %}>
@@ -184,20 +186,18 @@
                     <input type="time" id="restaurant-open-friday-opening-time"
                            value="{{ restaurant_info.opening_time_friday }}"
                            name="opening_time_friday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-friday-closing-time"
                            class="restaurant-open-friday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-friday-closing-time"
                            value="{{ restaurant_info.closing_time_friday }}"
                            name="closing_time_friday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-saturday"
                        class="restaurant-open-saturday-label">{% trans 'restaurant_open_saturday' %}: </label>
-                <input type="checkbox" id="restaurant-open-saturday"  value="True"
+                <input type="checkbox" id="restaurant-open-saturday" value="True"
                        name="open_saturday"
                        onchange="toggleDivVisibility('restaurant-open-saturday', 'restaurant-opening-hours-div-saturday')"
                         {% if restaurant_info.open_saturday %} checked="checked" {% endif %}>
@@ -207,20 +207,18 @@
                     <input type="time" id="restaurant-open-saturday-opening-time"
                            value="{{ restaurant_info.opening_time_saturday }}"
                            name="opening_time_saturday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-saturday-closing-time"
                            class="restaurant-open-saturday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-saturday-closing-time"
                            value="{{ restaurant_info.closing_time_saturday }}"
                            name="closing_time_saturday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 
             <div class="day-div">
                 <label for="restaurant-open-sunday"
                        class="restaurant-open-sunday-label">{% trans 'restaurant_open_sunday' %}: </label>
-                <input type="checkbox" id="restaurant-open-sunday"  value="True"
+                <input type="checkbox" id="restaurant-open-sunday" value="True"
                        name="open_sunday"
                        onchange="toggleDivVisibility('restaurant-open-sunday', 'restaurant-opening-hours-div-sunday')"
                         {% if restaurant_info.open_sunday %} checked="checked" {% endif %}>
@@ -230,13 +228,11 @@
                     <input type="time" id="restaurant-open-sunday-opening-time"
                            value="{{ restaurant_info.opening_time_sunday }}"
                            name="opening_time_sunday">
-                    {% trans 'o_clock' %}
                     <label for="restaurant-open-sunday-closing-time"
                            class="restaurant-open-sunday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
                     <input type="time" id="restaurant-open-sunday-closing-time"
                            value="{{ restaurant_info.closing_time_sunday }}"
                            name="closing_time_sunday">
-                    {% trans 'o_clock' %}
                 </div>
             </div>
 

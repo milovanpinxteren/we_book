@@ -1,0 +1,106 @@
+
+.update-restaurant-info-button {
+    display: block;
+    /*float: left;*/
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 1%;
+}
+
+h3 {
+    margin: 1%;
+}
+
+.restaurant-contact-info {
+    border: 1px solid;
+    padding: 1%;
+    width: 60%;
+    margin: 1%;
+}
+
+.restaurant-contact-info label {
+    float: left;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.restaurant-contact-info input {
+    display: block; /* Make labels and inputs block-level elements */
+    margin-bottom: 10px; /* Add spacing between them */
+    /*font-weight: bold; !* Make the text bold like an h2 *!*/
+    font-size: 16px;
+    /*padding: 5px; !* Add padding for spacing *!*/
+    border: none; /* Remove the border */
+    background-color: transparent;
+    padding-top: 0;
+    width: 70%;
+}
+
+.restaurant-meal-duration {
+    margin: 1%;
+}
+
+.restaurant-meal-duration-label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.restaurant-meal-duration input {
+    box-shadow: inset #abacaf 0 0 0 2px;
+    border: 0;
+    background: white;
+    appearance: none;
+    margin-right: 10px;
+    position: relative;
+    border-radius: 3px;
+    font-size: 14px;
+    padding-left: 5px;
+    font-weight: 400;
+    min-height: 24px;
+    width: 40px;
+    transition: all .2s ease;
+}
+
+.restaurant-opening-times {
+    margin: 1%;
+    border: 1px solid;
+    padding: 1%;
+    width: 60%;
+}
+
+.day-div {
+    margin: 1%;
+    display: flex;
+}
+
+.day-div input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-left: 1%;
+}
+
+.day-div label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.restaurant-opening-hours-div label {
+    font-size: 14px;
+    font-weight: normal;
+}
