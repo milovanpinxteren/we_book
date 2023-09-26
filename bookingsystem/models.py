@@ -43,6 +43,7 @@ class Restaurants(models.Model):
     postal_code = models.CharField(max_length=25, default='')
     place = models.CharField(max_length=250, default='')
     country = models.CharField(max_length=250, default='')
+    front_page_text = models.CharField(max_length=2500, default='')
     meal_duration = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
     payment_per_booking = models.DecimalField(default=0.0, decimal_places=2, max_digits=5)

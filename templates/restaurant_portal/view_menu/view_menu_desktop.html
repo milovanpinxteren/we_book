@@ -27,7 +27,7 @@
             <input type="text" id="course-name" placeholder="{% trans 'course_name' %}" class=""
                    name="name">
             <label for="course-order">{% trans 'course_order' %}: </label>
-            <input type="number" id="course-order" placeholder="{% trans 'course_order' %}"
+            <input type="number" id="course-order" placeholder="1"
                    name="course_order" class="input-field">
             <button class="add-course-button" id="button">{% trans 'add-course' %}</button>
         </form>
@@ -40,10 +40,10 @@
             <input type="text" id="dish-name" placeholder="{% trans 'dish_name' %}" class=""
                    name="name">
             <label for="dish-price">{% trans 'dish_price' %}: </label>
-            <input type="text" id="dish-price" placeholder="{% trans 'dish_price' %}" class="input-field"
+            <input type="text" id="dish-price" placeholder="9.50" class="input-field"
                    name="price">
             <label for="dish-order">{% trans 'dish_order' %}: </label>
-            <input type="text" id="dish-order" placeholder="{% trans 'dish_order' %}" class="input-field"
+            <input type="text" id="dish-order" placeholder="1" class="input-field"
                    name="dish_order">
             <select id="dish-course" name="course_id">
                 {% for course in course_dishes.keys %}

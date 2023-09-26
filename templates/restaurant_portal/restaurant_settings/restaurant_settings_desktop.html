@@ -1,11 +1,13 @@
 {% load static %}
 {% load i18n %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"
           href="{% static 'stylesheets/restaurant_portal/restaurant_settings/restaurant_settings_desktop.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function toggleDivVisibility(checkboxId, divId) {
             var checkbox = document.getElementById(checkboxId);
@@ -77,6 +79,18 @@
             <label for="restaurant-country" class="restaurant-country-label">{% trans 'restaurant_country' %}: </label>
             <input type="text" id="restaurant-country" value="{{ restaurant_info.country }}"
                    name="country">
+        </div>
+        <div class="front-page-text-div">
+            <h3>{% trans 'front_page_text' %}</h3>
+            <hr>
+            {#        <input type="text" id="restaurant-front-page-text" value="{{ restaurant_info.front_page_text }}"#}
+            {#                       name="front_page_text">#}
+            <textarea name="front_page_text" id="restaurant-front-page-text" cols="30"
+                      rows="10">{{ restaurant_info.front_page_text }}</textarea>
+            {% with text_length=restaurant_info.front_page_text|length %}
+                <p id="character-count">{% trans 'characters_remaining' %}: {{ 2500|sub:text_length }}</p>
+            {% endwith %}
+
         </div>
 
         <div class="restaurant-opening-times">
@@ -239,6 +253,16 @@
 
         </div>
     </form>
+    <script>
+        const textarea = document.getElementById('restaurant-front-page-text');
+        const characterCount = document.getElementById('character-count');
+        const maxLength = 2500
+        textarea.addEventListener('input', function () {
+            const currentLength = textarea.value.length;
+            const remaining = maxLength - currentLength;
+            characterCount.textContent = `Characters remaining: ${remaining}`;
+        });
+    </script>
 </div>
 </body>
 </html>

@@ -26,6 +26,10 @@ urlpatterns = [
 
     path("view_restaurant_settings", views.view_restaurant_settings, name="view_restaurant_settings"),
     path("update_restaurant_info", views.update_restaurant_info, name="update_restaurant_info"),
+
     path("view_restaurant_tables", views.view_restaurant_tables, name="view_restaurant_tables"),
+    path("add_table", views.add_table, name="add_table"),
+    path("update_tables", views.update_tables, name="update_tables"),
+    path("delete_table/<int:table_id>/", views.delete_table, name="delete_table"),
 
 ]

@@ -11,11 +11,12 @@ from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
 from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMaker
 from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
 from bookingsystem.Classes.PortalClasses.restaurant_info_updater import RestaurantInfoUpdater
+from bookingsystem.Classes.PortalClasses.restaurant_tables_updater import RestaurantTablesUpdater
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
-from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors
+from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables
 
 
 def index(request):
@@ -272,7 +273,36 @@ def view_restaurant_tables(request):
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
                                                                                         flat=True).first()
-    context = {'action': './restaurant_tables/restaurant_tables.html'}
+    tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
+    context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
     return render(request, 'restaurant_portal.html', context)
+
+def update_tables(request):
+    RestaurantTablesUpdater().update_tables(request)
+    return redirect('bookingsystem:view_restaurant_tables')
+
+def delete_table(request, table_id):
+    try:
+        record = Tables.objects.get(pk=table_id)
+        record.delete()
+        response_data = {'message': 'Record deleted successfully'}
+        return JsonResponse(response_data)
+    except Tables.DoesNotExist:
+        print('table does not exist')
+
+def add_table(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    if request.method == 'POST':
+        try:
+            table_nr = request.POST['table_nr']
+            min_pers = request.POST['min_pers']
+            max_pers = request.POST['max_pers']
+            Tables.objects.create(table_nr=table_nr, min_pers=min_pers, max_pers=max_pers, restaurant_id=restaurant_id,
+                                  created_at=datetime.now(), updated_at=datetime.now())
+        except Exception as e:
+            print('could not add table', e)
+    return redirect('bookingsystem:view_restaurant_tables')
 
 
