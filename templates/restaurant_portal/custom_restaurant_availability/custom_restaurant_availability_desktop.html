@@ -44,7 +44,7 @@
 <div class="all-availability-div">
     <form action="./update_custom_availability" method="post">
         {% csrf_token %}
-        <button class="update-availability-button" id="button">{% trans 'update_tables' %}</button>
+        <button class="update-availability-button" id="button">{% trans 'update_availability' %}</button>
         {% for availability in custom_restaurant_availability %}
             <div class="table-div">
                 <label for="date">{% trans 'date' %}: </label>
@@ -53,7 +53,7 @@
 
                 <label for="open">{% trans 'open' %}: </label>
                 <input type="hidden" name="open-availabilityID={{ availability.id }}" value="False">
-                <input type="checkbox" id="open" placeholder="{% trans 'open' %}" class="input-field"
+                <input type="checkbox" id="open" placeholder="{% trans 'open' %}"
                        name="open-availabilityID={{ availability.id }}" value="{{ availability.open }}"
                         {% if availability.open %} checked="checked" {% endif %}>
 
