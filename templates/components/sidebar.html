@@ -34,15 +34,15 @@
             </a>
 
         </li>
-{#        <li class="has-subnav">#}
-{#            <a href="#">#}
-{#                <i class="fa fa-money fa-2x"></i>#}
-{#                <span class="nav-text">#}
-{#                            {% trans 'go_to_finance' %}#}
-{#                        </span>#}
-{#            </a>#}
-{##}
-{#        </li>#}
+        {#        <li class="has-subnav">#}
+        {#            <a href="#">#}
+        {#                <i class="fa fa-money fa-2x"></i>#}
+        {#                <span class="nav-text">#}
+        {#                            {% trans 'go_to_finance' %}#}
+        {#                        </span>#}
+        {#            </a>#}
+        {##}
+        {#        </li>#}
         {#        <li class="has-subnav">#}
         {#            <a href="#">#}
         {#                <i class="fa fa-comments fa-2x"></i>#}
@@ -51,16 +51,16 @@
         {#                        </span>#}
         {#            </a>#}
         {##}
-{#                </li>#}
-{#                        <li class="has-subnav">#}
-{#                            <a href="#">#}
-{#                               <i class="fa fa-bar-chart" aria-hidden="true"></i>#}
-{#                                <span class="nav-text">#}
-{#                                    {% trans 'show_dashboard' %}#}
-{#                                </span>#}
-{#                            </a>#}
-{##}
-{#                        </li>#}
+        {#                </li>#}
+        {#                        <li class="has-subnav">#}
+        {#                            <a href="#">#}
+        {#                               <i class="fa fa-bar-chart" aria-hidden="true"></i>#}
+        {#                                <span class="nav-text">#}
+        {#                                    {% trans 'show_dashboard' %}#}
+        {#                                </span>#}
+        {#                            </a>#}
+        {##}
+        {#                        </li>#}
         {#                <li>#}
         {#                    <a href="#">#}
         {#                        <i class="fa fa-film fa-2x"></i>#}
@@ -78,10 +78,20 @@
                         </span>
             </a>
         </li>
+
+        <li>
+            <a href="{% url 'bookingsystem:custom_restaurant_availability' %}">
+                <i class="fa fa-calendar fa-2x"></i>
+                <span class="nav-text">
+                                    {% trans 'custom_opening_hours' %}
+                                </span>
+            </a>
+        </li>
+
         <li>
             <a href="{% url 'bookingsystem:view_restaurant_tables' %}">
                 <i class="fa fa-list-alt fa-2x"></i> <!-- Restaurant or tables icon -->
-{#                <i class="fa fa-sync-alt fa-2x"></i> <!-- Update or refresh icon -->#}
+                {#                <i class="fa fa-sync-alt fa-2x"></i> <!-- Update or refresh icon -->#}
 
                 <span class="nav-text">
                             {% trans 'view_tables' %}

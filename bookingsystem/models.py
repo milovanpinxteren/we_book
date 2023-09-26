@@ -77,7 +77,7 @@ class CustomRestaurantAvailability(models.Model): #overrides regular availabilit
     restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
     date = models.DateField()
     start_time = models.TimeField(default='10:00', null=True)
-    end_time = models.TimeField(default='23:59', null=True)
+    end_time = models.TimeField(default='23:00', null=True)
     open = models.BooleanField(default=True)
 
 

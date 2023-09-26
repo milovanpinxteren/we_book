@@ -27,6 +27,13 @@ urlpatterns = [
     path("view_restaurant_settings", views.view_restaurant_settings, name="view_restaurant_settings"),
     path("update_restaurant_info", views.update_restaurant_info, name="update_restaurant_info"),
 
+    path("custom_restaurant_availability", views.custom_restaurant_availability, name="custom_restaurant_availability"),
+    path("add_custom_restaurant_availability", views.add_custom_restaurant_availability, name="add_custom_restaurant_availability"),
+    path("delete_availability/<int:availability_id>/", views.delete_availability, name="delete_availability"),
+    path("update_custom_availability", views.update_custom_availability, name="update_custom_availability"),
+
+
+
     path("view_restaurant_tables", views.view_restaurant_tables, name="view_restaurant_tables"),
     path("add_table", views.add_table, name="add_table"),
     path("update_tables", views.update_tables, name="update_tables"),

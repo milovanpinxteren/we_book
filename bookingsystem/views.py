@@ -4,8 +4,10 @@ from datetime import date, datetime
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext as _
 
+from bookingsystem.Classes.PortalClasses.custom_availability_updater import CustomAvailabilityUpdater
 from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
 from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMaker
@@ -16,7 +18,8 @@ from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
-from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables
+from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
+    CustomRestaurantAvailability
 
 
 def index(request):
@@ -268,6 +271,35 @@ def view_restaurant_settings(request):
 def update_restaurant_info(request):
     RestaurantInfoUpdater().update_restaurant_info(request)
     return redirect('bookingsystem:view_restaurant_settings')
+
+
+def custom_restaurant_availability(request):
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
+    context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
+               'custom_restaurant_availability': custom_restaurant_availability}
+    return render(request, 'restaurant_portal.html', context)
+
+
+def add_custom_restaurant_availability(request):
+    CustomAvailabilityUpdater().add_availability(request)
+    return redirect('bookingsystem:custom_restaurant_availability')
+
+def update_custom_availability(request):
+    CustomAvailabilityUpdater().update_availability(request)
+    return redirect('bookingsystem:custom_restaurant_availability')
+
+def delete_availability(request, availability_id):
+    try:
+        record = CustomRestaurantAvailability.objects.get(pk=availability_id)
+        record.delete()
+        response_data = {'message': 'Record deleted successfully'}
+        return JsonResponse(response_data)
+    except CustomRestaurantAvailability.DoesNotExist:
+        print('table does not exist')
+    return redirect('bookingsystem:custom_restaurant_availability')
 
 def view_restaurant_tables(request):
     current_user = request.user.id
