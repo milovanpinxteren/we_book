@@ -29,17 +29,18 @@ def index(request):
 
     restaurant = Restaurants.objects.get(id=restaurantID)
     #TODO: find closed dates and pass to front-end
-
-    disabled_dates = AvailabilityChecker.get_disabled_dates_dict(request, restaurant)
+    current_date = date.today()
+    current_month = current_date.month
+    current_year = current_date.year
+    disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, current_month, current_year)
 
     context = {'restaurant': restaurant, 'disabled_dates': disabled_dates}
     return render(request, 'index.html', context)
 
 def check_availability(request):
-    print(request)
-    #TODO query based on request data and pass to front-end
-    disabled_dates = ['2023-10-05', '2023-10-15', '2023-10-17']
-    # Create a JSON response with the disabled_dates list
+    restaurant_id = int(request.POST['restaurantID'])
+    restaurant = Restaurants.objects.get(pk=restaurant_id)
+    disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, int(request.POST['month']), int(request.POST['year']))
     response_data = {'disabled_dates': disabled_dates}
     return JsonResponse(response_data)
 
@@ -123,7 +124,6 @@ def drop_reservation(request):
         if Reservations.objects.filter(id=reservation_id_1).values_list('confirmed', flat=True)[0] == False:
             Reservations.objects.filter(id=reservation_id_1).update(cancelled=True, confirmed=False)
             print('deleted reservation')
-    # return index(request)
     return HttpResponse("Session expired")
 
 

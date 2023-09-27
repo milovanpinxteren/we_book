@@ -111,6 +111,7 @@
                     var postData = {
                         year: year,
                         month: month,
+                        restaurantID: {{ restaurant.id }}
                     };
                     $.ajax({
                         url: "{% url 'bookingsystem:check_availability' %}",

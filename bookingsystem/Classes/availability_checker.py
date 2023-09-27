@@ -1,72 +1,46 @@
 import calendar
 import datetime
+from datetime import date, timedelta
 
 from bookingsystem.models import Restaurants, CustomRestaurantAvailability
 
 
 class AvailabilityChecker():
-    def get_disabled_dates_dict(self, restaurant):
-        print(restaurant)
-        disabled_dates_array = ['2023-09-05',
-                                '2023-09-15',
-                                '2023-09-02',
-                                '2023-09-25', ]
-        return disabled_dates_array
+    def get_disabled_dates(self, restaurant, current_month, current_year):
+        first_day = date(current_year, current_month, 1)
+        if current_month == 12:
+            next_month = 1
+            next_year = current_year + 1
+        else:
+            next_month = current_month + 1
+            next_year = current_year
+        last_day = date(next_year, next_month, 1) - timedelta(days=1)
+        closed_dates = []
 
-    def get_availability(self, restaurant_id):
-        availability_dict = {}
-        availability_list, closed_list = self.get_availability_of_day(restaurant_id)
-        opening_time = Restaurants.objects.filter(id=restaurant_id).values_list("opening_time", flat=True)[0]
-        closing_time = Restaurants.objects.filter(id=restaurant_id).values_list("closing_time", flat=True)[0]
-        for day in availability_list:
-            day_dict = self.get_available_timeslots(restaurant_id, day, opening_time, closing_time)
-            availability_dict[str(day)] = day_dict
-        return availability_dict, closed_list
+        current_date = first_day
+        while current_date <= last_day:
+            field_name = f'open_{current_date.strftime("%A").lower()}'
+            if getattr(restaurant, field_name) is False:
+                closed_dates.append(str(current_date))
+            current_date += timedelta(days=1)
 
-    def get_availability_of_day(self, restaurant_id):  # get available days for the next year
-        # For normal restaurant availability
-        restaurant = Restaurants.objects.filter(id=restaurant_id)
-        today = datetime.date.today()
-        availability_list = []
-        closed_list = []
-        for _ in range(366):  # Include today, so range goes from 0 to 365
-            today += datetime.timedelta(days=1)
-            day_name = calendar.day_name[today.weekday()].lower()
-            column_name = 'open_' + day_name
-            restaurant_open = restaurant.values_list(column_name, flat=True)[0]
-            if restaurant_open:
-                availability_list.append(today)
-            else:
-                closed_list.append(str(today))
+        custom_closed_dates_query = CustomRestaurantAvailability.objects.filter(
+            restaurant=restaurant,
+            date__range=(first_day, last_day),
+            open=False)
+        custom_open_dates_query = CustomRestaurantAvailability.objects.filter(
+            restaurant=restaurant,
+            date__range=(first_day, last_day),
+            open=True)
 
-        # For custom availability
-        custom_availabilities = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
-        for custom_availability in custom_availabilities:
-            try:
-                if custom_availability.open:
-                    availability_list.append(custom_availability.date)
-                    closed_list.remove(str(custom_availability.date))
-                elif not custom_availability.open:
-                    availability_list.remove(custom_availability.date)
-                    closed_list.append(str(custom_availability.date))
-            except Exception as e:
-                continue
+        for custom_closed_date in custom_closed_dates_query:
+            if str(custom_closed_date.date) not in closed_dates:
+                closed_dates.append(str(custom_closed_date.date))
 
-        availability_list = sorted(availability_list)
-        return availability_list, closed_list
+        for custom_open_date in custom_open_dates_query:
+            if str(custom_open_date.date) in closed_dates:
+                closed_dates.remove(str(custom_open_date.date))
 
-    def get_available_timeslots(self, restaurant_id, day, opening_time, closing_time):
-        day_dict = {}
-        times_dict = {}
-        timestamps = []
-        start_time = datetime.datetime.strptime("00:00", "%H:%M")
-        for i in range(96):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
-            timestamps.append(start_time.strftime("%H:%M"))
-            start_time += datetime.timedelta(minutes=15)
-            if opening_time <= start_time.time() <= closing_time:
-                times_dict[str(start_time.time())[:5]] = 'enabled'
-            else:
-                times_dict[str(start_time.time())[:5]] = 'disabled'
+        return closed_dates
 
-        # day_dict[day] = times_dict
-        return times_dict
+
