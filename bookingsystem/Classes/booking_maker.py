@@ -100,7 +100,7 @@ class BookingMaker():
         return valid_reservation
 
     def format_reservation_date_time(self, reservation_date, reservation_time):
-        reservation_date = datetime.strptime(reservation_date, '%d/%m/%Y')
+        reservation_date = datetime.strptime(reservation_date, '%m/%d/%Y')
         reservation_time = datetime.strptime(reservation_time, "%H:%M")
         return reservation_date, reservation_time
 

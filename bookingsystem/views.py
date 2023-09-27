@@ -2,6 +2,8 @@ from datetime import date, datetime
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
+from django.views.decorators.http import require_http_methods
+
 from bookingsystem.Classes.PortalClasses.custom_availability_updater import CustomAvailabilityUpdater
 from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
@@ -33,16 +35,27 @@ def index(request):
     current_month = current_date.month
     current_year = current_date.year
     disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, current_month, current_year)
-
+    timestamps = AvailabilityChecker.make_timestamps(request)
+    request.session['timestamps'] = timestamps
     context = {'restaurant': restaurant, 'disabled_dates': disabled_dates}
     return render(request, 'index.html', context)
 
-def check_availability(request):
+def check_available_dates(request):
     restaurant_id = int(request.POST['restaurantID'])
     restaurant = Restaurants.objects.get(pk=restaurant_id)
     disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, int(request.POST['month']), int(request.POST['year']))
     response_data = {'disabled_dates': disabled_dates}
     return JsonResponse(response_data)
+
+def check_availability(request):
+    restaurant_id = int(request.POST['restaurantID'])
+    timestamps = request.session['timestamps']
+    restaurant = Restaurants.objects.get(pk=restaurant_id)
+    if request.POST['number_of_persons'] != '':
+        availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'], request.POST['number_of_persons'], request.POST['reservation_time'], timestamps)
+    else:
+        print('number of persons not filled in')
+    return JsonResponse(availability)
 
 def make_reservation(request):
     if request.method == 'POST':

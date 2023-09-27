@@ -6,7 +6,9 @@ app_name = 'bookingsystem'
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("check_available_dates", views.check_available_dates, name="check_available_dates"),
     path("check_availability", views.check_availability, name="check_availability"),
+
     path("make_reservation", views.make_reservation, name="make_reservation"),
     path("confirm_booking", views.confirm_booking, name="confirm_booking"),
 

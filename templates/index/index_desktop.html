@@ -27,13 +27,15 @@
 <body>
 
 <div class="page-container">
+    <div class="textDiv" id="textDiv" style="display: none">
+    </div>
     <div class="form-div">
 
         <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main"
-              hx-post="{% url 'bookingsystem:check_availability' %}" hx-trigger="change">
+              hx-post="{% url 'bookingsystem:check_availability' %}" hx-trigger="input delay:1s" hx-target=".textDiv">
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
-
+            <input type="hidden" value="{{ restaurant.id }}" name="restaurantID">
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
                     <!-- Calendar Outline -->
@@ -83,7 +85,7 @@
 
                 {#                <input type="time" class="inputField" id="reservation_time" name="reservation_time"#}
                 {#                       placeholder="{% trans "reservation_time" %}">#}
-                <select class="inputField" name="reservation_time" id="timeSlotSelect">
+                <select class="inputField test" name="reservation_time" id="timeSlotSelect">
 
                 </select>
             </div>
@@ -101,7 +103,22 @@
     </div>
     {% include 'components/footer.html' %}
 </div>
+<script>
+    // Function to be triggered when text changes
+    function textChangeCallback(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                updateTimeSlotAvailability(mutation.target.textContent)
+            }
+        }
+    }
 
+    const textDiv = document.getElementById('textDiv');
+    const observer = new MutationObserver(textChangeCallback);
+    const config = {childList: true};
+    observer.observe(textDiv, config);
+
+</script>
 <script>
     var disableddates = {{ disabled_dates|safe }}
         $(document).ready(function () {
@@ -114,7 +131,7 @@
                         restaurantID: {{ restaurant.id }}
                     };
                     $.ajax({
-                        url: "{% url 'bookingsystem:check_availability' %}",
+                        url: "{% url 'bookingsystem:check_available_dates' %}",
                         method: "POST",
                         data: postData,
                         dateType: "json",
@@ -125,6 +142,7 @@
                             // Update the disableddates array based on the response
                             disableddates = data.disabled_dates
                             $("#datepicker").datepicker("refresh");
+
                         },
                     });
                 }
@@ -136,7 +154,44 @@
         return [disableddates.indexOf(string) === -1];
     }
 
-</script>
 
+    function updateTimeSlotAvailability(timeSlotAvailability) {
+        const selectElement = document.getElementById('timeSlotSelect');
+        const parsedtimeSlotAvailability = JSON.parse(timeSlotAvailability)
+        for (const timeSlot in parsedtimeSlotAvailability) {
+            const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`);
+
+            if (optionElement) {
+                if (parsedtimeSlotAvailability[timeSlot] === 'disabled') {
+                    optionElement.disabled = true;
+                } else {
+                    optionElement.disabled = false;
+                }
+            }
+        }
+    }
+
+</script>
+<script>
+    function populateTimeSlots() {
+        const selectElement = document.getElementById('timeSlotSelect');
+        for (let hour = 0; hour <= 23; hour++) {
+            for (let minute = 0; minute < 60; minute += 15) {
+                const hourFormatted = String(hour).padStart(2, '0');
+                const minuteFormatted = String(minute).padStart(2, '0');
+                const timeSlot = `${hourFormatted}:${minuteFormatted}`;
+
+                const optionElement = document.createElement('option');
+                optionElement.value = timeSlot;
+                optionElement.textContent = `${hourFormatted}:${minuteFormatted}`;
+
+                selectElement.appendChild(optionElement);
+            }
+        }
+    }
+
+    // Call the function to populate the time slots
+    populateTimeSlots();
+</script>
 </body>
 </html>
