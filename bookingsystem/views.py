@@ -1,12 +1,7 @@
-# import datetime
-
 from datetime import date, datetime
-
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext as _
-
 from bookingsystem.Classes.PortalClasses.custom_availability_updater import CustomAvailabilityUpdater
 from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
@@ -33,19 +28,20 @@ def index(request):
             restaurantID = 1
 
     restaurant = Restaurants.objects.get(id=restaurantID)
-    # TODO: only select timeslots based on availability
-    availability_checker = AvailabilityChecker()
-    availability, closed_list = availability_checker.get_availability(restaurantID)
-    reservationform = ReservationForm(initial={'restaurant': restaurant, 'number_of_persons': 2,
-                                               'reservation_date': date.today(),
-                                               'reservation_time': datetime.now().strftime("%H:%M:%S")})
+    #TODO: find closed dates and pass to front-end
 
-    json_availabilitydata = str(availability).replace("'", '"')
-    json_disable_datesdata = str(closed_list).replace("'", '"')
-    context = {'restaurant': restaurant, 'reservationform': reservationform, 'availability': json_availabilitydata,
-               'json_disable_datesdata': json_disable_datesdata}
+    disabled_dates = AvailabilityChecker.get_disabled_dates_dict(request, restaurant)
+
+    context = {'restaurant': restaurant, 'disabled_dates': disabled_dates}
     return render(request, 'index.html', context)
 
+def check_availability(request):
+    print(request)
+    #TODO query based on request data and pass to front-end
+    disabled_dates = ['2023-10-05', '2023-10-15', '2023-10-17']
+    # Create a JSON response with the disabled_dates list
+    response_data = {'disabled_dates': disabled_dates}
+    return JsonResponse(response_data)
 
 def make_reservation(request):
     if request.method == 'POST':

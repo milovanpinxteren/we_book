@@ -1,12 +1,18 @@
-import datetime
 import calendar
+import datetime
 
-from django.db.models import Q
-
-from bookingsystem.models import Restaurants, CustomRestaurantAvailability, Tables, Reservations
+from bookingsystem.models import Restaurants, CustomRestaurantAvailability
 
 
 class AvailabilityChecker():
+    def get_disabled_dates_dict(self, restaurant):
+        print(restaurant)
+        disabled_dates_array = ['2023-09-05',
+                                '2023-09-15',
+                                '2023-09-02',
+                                '2023-09-25', ]
+        return disabled_dates_array
+
     def get_availability(self, restaurant_id):
         availability_dict = {}
         availability_list, closed_list = self.get_availability_of_day(restaurant_id)
@@ -17,8 +23,8 @@ class AvailabilityChecker():
             availability_dict[str(day)] = day_dict
         return availability_dict, closed_list
 
-    def get_availability_of_day(self, restaurant_id): # get available days for the next year
-    #For normal restaurant availability
+    def get_availability_of_day(self, restaurant_id):  # get available days for the next year
+        # For normal restaurant availability
         restaurant = Restaurants.objects.filter(id=restaurant_id)
         today = datetime.date.today()
         availability_list = []
@@ -33,7 +39,7 @@ class AvailabilityChecker():
             else:
                 closed_list.append(str(today))
 
-    #For custom availability
+        # For custom availability
         custom_availabilities = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
         for custom_availability in custom_availabilities:
             try:
