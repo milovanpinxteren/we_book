@@ -51,7 +51,7 @@
                 </svg>
                 <input class="inputField" type="text" id="datepicker" placeholder="Select a date"
                        name="reservation_date"
-                       autocomplete="off">
+                       autocomplete="off" onchange="enableTimeSlotSelect()">
             </div>
 
             <div class="inputContainer">
@@ -62,8 +62,9 @@
                 </svg>
 
 
-                <input type="number" class="inputField" id="number_of_persons" placeholder="{% trans "no_persons" %}"
-                       name="number_of_persons" autocomplete="off">
+                <input type="number" class="inputField" id="number_of_persons"
+                       placeholder="{% trans "fill_in_date_first" %}"
+                       name="number_of_persons" autocomplete="off" oninput="enableTimeSlotSelect()" disabled>
             </div>
 
 
@@ -82,10 +83,8 @@
                     <text x="12" y="28" font-size="6" fill="#000" text-anchor="middle">9</text>
                 </svg>
 
-
-                {#                <input type="time" class="inputField" id="reservation_time" name="reservation_time"#}
-                {#                       placeholder="{% trans "reservation_time" %}">#}
-                <select class="inputField test" name="reservation_time" id="timeSlotSelect">
+                <select class="inputField" name="reservation_time" id="timeSlotSelect" disabled>
+                    <option value="" disabled selected>{% trans 'fill_in_date_and_persons_first' %}</option>
 
                 </select>
             </div>
@@ -102,7 +101,32 @@
 
     </div>
     {% include 'components/footer.html' %}
+
 </div>
+<script>
+    function enableTimeSlotSelect() {
+        var numberOfPersons = document.getElementById("number_of_persons");
+        var datepickerInput = document.getElementById("datepicker");
+        var timeSlotSelect = document.getElementById("timeSlotSelect");
+        var placeholderOption = timeSlotSelect.querySelector('option[value=""]');
+
+        // Enable the time slot select if the datepicker has a value, otherwise disable it
+        if (datepickerInput.value && numberOfPersons.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = '{% trans 'number_of_persons' %}';
+            placeholderOption.textContent = '{% trans 'select_timeslot' %}';
+            timeSlotSelect.disabled = false;
+        } else if (datepickerInput.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = '{% trans 'number_of_persons' %}';
+            placeholderOption.textContent = '{% trans 'fill_in_number_of_persons' %}';
+        } else {
+            numberOfPersons.disabled = true;
+            timeSlotSelect.disabled = true;
+        }
+    }
+</script>
+
 <script>
     // Function to be triggered when text changes
     function textChangeCallback(mutationsList, observer) {
