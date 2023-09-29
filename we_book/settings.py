@@ -152,7 +152,7 @@ LANGUAGES = (
 )
 
 # LOGIN_REDIRECT_URL = "bookingsystem:restaurant_portal"
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "login"
 #
 # AUTHENTICATION_BACKENDS = [
 #     'django.contrib.auth.backends.ModelBackend',

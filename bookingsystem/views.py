@@ -22,10 +22,9 @@ from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, 
 
 
 class LogoutView():
-    def logout(self):
-        print('logout')
-        #TODO clear session data and redirect to login page
-        return
+    def logout(self, request):
+        request.session.flush()
+        return render(request, 'login.html')
 
 
 class CustomLoginView(DefaultLoginView):
