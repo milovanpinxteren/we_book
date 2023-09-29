@@ -17,7 +17,22 @@ from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
     CustomRestaurantAvailability
+from django.contrib.auth.views import LoginView as DefaultLoginView
+from django.utils.translation import activate
+from django.urls import reverse
 
+class CustomLoginView(DefaultLoginView):
+    def form_valid(self, form):
+        # Get the user's selected language from the session
+        user_language = self.request.LANGUAGE_CODE  # Use the name of the language selector field in your form
+        redirect_url = reverse('bookingsystem:restaurant_portal')
+
+
+        # Append the language code as a prefix to the URL path
+        if user_language:
+            redirect_url = f'/{user_language}{redirect_url}'
+
+        return redirect(redirect_url)
 
 def index(request):
     try:
@@ -216,16 +231,20 @@ def update_menu(request):
     if request.method == 'POST':
         menu_updater = MenuUpdater()
         menu_updater.update_menu(request)
-    return redirect('bookingsystem:view_menu')
+    context = MenuShower().prepare_menu(request)
+    return render(request, 'restaurant_portal.html', context)
+    # return redirect('bookingsystem:/view_menu')
 
 
 def delete_course(request, course_id):
     try:
         record = Courses.objects.get(pk=course_id)
         record.delete()
-        return redirect('bookingsystem:view_menu')
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
     except Courses.DoesNotExist:
-        return redirect('bookingsystem:view_menu')
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
 
 
 def delete_dish(request, dish_id):
@@ -252,7 +271,8 @@ def add_dish(request):
                                   restaurant_id=restaurant_id)
         except Exception as e:
             print('could not add course', e)
-        return redirect('bookingsystem:view_menu')
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
 
 
 def add_course(request):
@@ -266,7 +286,8 @@ def add_course(request):
             Courses.objects.create(name=name, course_order=course_order, restaurant_id=restaurant_id)
         except Exception as e:
             print('could not add course', e)
-        return redirect('bookingsystem:view_menu')
+        context = MenuShower().prepare_menu(request)
+        return render(request, 'restaurant_portal.html', context)
 
 
 def view_restaurant_settings(request):
@@ -279,14 +300,19 @@ def view_restaurant_settings(request):
 
 def update_restaurant_info(request):
     RestaurantInfoUpdater().update_restaurant_info(request)
-    return redirect('bookingsystem:view_restaurant_settings')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    restaurant_info = Restaurants.objects.get(pk=restaurant_id)
+    context = {'action': './restaurant_settings/restaurant_settings.html', 'restaurant_info': restaurant_info}
+    return render(request, 'restaurant_portal.html', context)
 
 
 def custom_restaurant_availability(request):
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
                                                                                         flat=True).first()
-    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
     context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
                'custom_restaurant_availability': custom_restaurant_availability}
     return render(request, 'restaurant_portal.html', context)
@@ -294,11 +320,23 @@ def custom_restaurant_availability(request):
 
 def add_custom_restaurant_availability(request):
     CustomAvailabilityUpdater().add_availability(request)
-    return redirect('bookingsystem:custom_restaurant_availability')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
+    context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
+               'custom_restaurant_availability': custom_restaurant_availability}
+    return render(request, 'restaurant_portal.html', context)
 
 def update_custom_availability(request):
     CustomAvailabilityUpdater().update_availability(request)
-    return redirect('bookingsystem:custom_restaurant_availability')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
+    context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
+               'custom_restaurant_availability': custom_restaurant_availability}
+    return render(request, 'restaurant_portal.html', context)
 
 def delete_availability(request, availability_id):
     try:
@@ -308,7 +346,13 @@ def delete_availability(request, availability_id):
         return JsonResponse(response_data)
     except CustomRestaurantAvailability.DoesNotExist:
         print('table does not exist')
-    return redirect('bookingsystem:custom_restaurant_availability')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
+    context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
+               'custom_restaurant_availability': custom_restaurant_availability}
+    return render(request, 'restaurant_portal.html', context)
 
 def view_restaurant_tables(request):
     current_user = request.user.id
@@ -320,7 +364,12 @@ def view_restaurant_tables(request):
 
 def update_tables(request):
     RestaurantTablesUpdater().update_tables(request)
-    return redirect('bookingsystem:view_restaurant_tables')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
+    context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
+    return render(request, 'restaurant_portal.html', context)
 
 def delete_table(request, table_id):
     try:
@@ -344,6 +393,8 @@ def add_table(request):
                                   created_at=datetime.now(), updated_at=datetime.now())
         except Exception as e:
             print('could not add table', e)
-    return redirect('bookingsystem:view_restaurant_tables')
+    tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
+    context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
+    return render(request, 'restaurant_portal.html', context)
 
 

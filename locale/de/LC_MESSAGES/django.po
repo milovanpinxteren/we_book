@@ -132,7 +132,7 @@ msgstr ""
 
 #: .\templates\components\sidebar.html:32
 msgid "go_to_own_website"
-msgstr ""
+msgstr "Gehen Sie zur eigenen Website"
 
 #: .\templates\components\sidebar.html:41
 msgid "get_support"

@@ -151,4 +151,4 @@ LANGUAGES = (
     ('nl', _('Nederlands'))
 )
 
-LOGIN_REDIRECT_URL = "bookingsystem:restaurant_portal"
+# LOGIN_REDIRECT_URL = "bookingsystem:restaurant_portal"
