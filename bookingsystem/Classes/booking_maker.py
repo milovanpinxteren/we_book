@@ -67,9 +67,10 @@ class BookingMaker():
             column_name = 'open_' + day_name
             restaurant_open = restaurant.values_list(column_name, flat=True)[0]
             if restaurant_open: #check if reservation date is within opening hours
-
-                restaurant_opening_time = restaurant.values_list('opening_time', flat=True)[0]
-                restaurant_closing_time = restaurant.values_list('closing_time', flat=True)[0]
+                opening_time_name = 'opening_time_' + day_name
+                closing_time_name = 'closing_time_' + day_name
+                restaurant_opening_time = restaurant.values_list(opening_time_name, flat=True)[0]
+                restaurant_closing_time = restaurant.values_list(closing_time_name, flat=True)[0]
                 meal_duration = restaurant.values_list('meal_duration', flat=True)[0]
 
                 fixed_date = datetime(1900, 1, 1)
@@ -87,8 +88,8 @@ class BookingMaker():
         elif changed_availability:
             restaurant_open = changed_availability.values_list('open', flat=True)[0]
             if restaurant_open:  # check if reservation date is within opening hours
-                restaurant_opening_time = restaurant.values_list('opening_time', flat=True)[0]
-                restaurant_closing_time = restaurant.values_list('closing_time', flat=True)[0]
+                restaurant_opening_time = changed_availability.values_list('start_time', flat=True)[0]
+                restaurant_closing_time = changed_availability.values_list('end_time', flat=True)[0]
                 meal_duration = restaurant.values_list('meal_duration', flat=True)[0]
                 last_reservation_time = restaurant_closing_time - timedelta(hours=meal_duration)
                 valid_reservation = restaurant_opening_time <= reservation_time <= last_reservation_time

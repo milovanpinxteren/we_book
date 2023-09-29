@@ -60,19 +60,38 @@ class reservationShower:
                        'all_reservations_dict': all_reservations_dict,
                        'tables': table_nrs}
         except Exception as e:  # No restaurant found for current user
+            print(e)
             context = {'status': 'no_restaurant_known_for_user'}
         return context
 
     def get_timeslots(self, current_restaurant_id):
-        restaurant_opening_time = \
-            Restaurants.objects.filter(id=current_restaurant_id).values_list('opening_time', flat=True)[0]
-        restaurant_closing_time = \
-            Restaurants.objects.filter(id=current_restaurant_id).values_list('closing_time', flat=True)[0]
+        days_of_week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        earliest_opening_time = ''
+        lastest_closing_time = ''
+        restaurant = Restaurants.objects.get(id=current_restaurant_id)
+        for day in days_of_week:
+            # Construct the field names for opening and closing times for the current day
+            opening_time_field = f'opening_time_{day}'
+            closing_time_field = f'closing_time_{day}'
+            opening_time = getattr(restaurant, opening_time_field)
+            closing_time = getattr(restaurant, closing_time_field)
+            if earliest_opening_time != '':
+                if opening_time < earliest_opening_time:
+                    earliest_opening_time = opening_time
+            elif earliest_opening_time == '':
+                earliest_opening_time = opening_time
 
-        # Generate time slots based on restaurant opening hours (the y-axis of reservation table)
+            if lastest_closing_time != '':
+                if closing_time > lastest_closing_time:
+                    lastest_closing_time = closing_time
+            elif lastest_closing_time == '':
+                lastest_closing_time = closing_time
+
+
+
+        start_time = datetime.datetime.strptime(str(earliest_opening_time), "%H:%M:%S")
+        end_time = datetime.datetime.strptime(str(lastest_closing_time), "%H:%M:%S")
         timeslots = []
-        start_time = datetime.datetime.strptime(str(restaurant_opening_time), "%H:%M:%S")
-        end_time = datetime.datetime.strptime(str(restaurant_closing_time), "%H:%M:%S")
         for i in range(
                 96):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
             while start_time <= end_time:

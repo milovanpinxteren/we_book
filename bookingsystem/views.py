@@ -1,8 +1,10 @@
 from datetime import date, datetime
+
+from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_http_methods
 
 from bookingsystem.Classes.PortalClasses.custom_availability_updater import CustomAvailabilityUpdater
 from bookingsystem.Classes.PortalClasses.menu_shower import MenuShower
@@ -17,22 +19,38 @@ from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
     CustomRestaurantAvailability
-from django.contrib.auth.views import LoginView as DefaultLoginView
-from django.utils.translation import activate
-from django.urls import reverse
+
+
+class LogoutView():
+    def logout(self):
+        print('logout')
+        #TODO clear session data and redirect to login page
+        return
+
 
 class CustomLoginView(DefaultLoginView):
     def form_valid(self, form):
-        # Get the user's selected language from the session
+
+        if form.is_valid():
+            print('valid')
+            response = super().form_valid(form)
+            current_user = form.get_user().id
+            restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                                flat=True).first()
+            self.request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
+            self.request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
+
+        # Authenticate the user using the form's cleaned data
+        # user = authenticate(request=self.request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+        # print(user)
+
         user_language = self.request.LANGUAGE_CODE  # Use the name of the language selector field in your form
         redirect_url = reverse('bookingsystem:restaurant_portal')
-
-
         # Append the language code as a prefix to the URL path
         if user_language:
             redirect_url = f'/{user_language}{redirect_url}'
-
         return redirect(redirect_url)
+
 
 def index(request):
     try:
@@ -45,7 +63,6 @@ def index(request):
             restaurantID = 1
 
     restaurant = Restaurants.objects.get(id=restaurantID)
-    #TODO: find closed dates and pass to front-end
     current_date = date.today()
     current_month = current_date.month
     current_year = current_date.year
@@ -55,22 +72,28 @@ def index(request):
     context = {'restaurant': restaurant, 'disabled_dates': disabled_dates}
     return render(request, 'index.html', context)
 
+
 def check_available_dates(request):
     restaurant_id = int(request.POST['restaurantID'])
     restaurant = Restaurants.objects.get(pk=restaurant_id)
-    disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, int(request.POST['month']), int(request.POST['year']))
+    disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, int(request.POST['month']),
+                                                            int(request.POST['year']))
     response_data = {'disabled_dates': disabled_dates}
     return JsonResponse(response_data)
+
 
 def check_availability(request):
     restaurant_id = int(request.POST['restaurantID'])
     timestamps = request.session['timestamps']
     restaurant = Restaurants.objects.get(pk=restaurant_id)
     if request.POST['number_of_persons'] != '':
-        availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'], request.POST['number_of_persons'], request.POST['reservation_time'], timestamps)
+        availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'],
+                                                              request.POST['number_of_persons'],
+                                                              request.POST['reservation_time'], timestamps)
     else:
         print('number of persons not filled in')
     return JsonResponse(availability)
+
 
 def make_reservation(request):
     if request.method == 'POST':
@@ -179,11 +202,11 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
-    current_user = request.user.id
-    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
-                                                                                        flat=True).first()
-    request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
-    request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
+    # current_user = request.user.id
+    # restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+    #                                                                                     flat=True).first()
+    # request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
+    # request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
     return render(request, 'restaurant_portal.html')
 
 
@@ -214,7 +237,8 @@ def make_reservation_in_portal(request):
         if request.method == 'POST':
             reservation_maker = ReservationMaker()
             reservation_maker.make_reservation(request)
-            return redirect('bookingsystem:show_reservations')
+            context = {'action': './show_reservations/show_reservations.html'}
+            return render(request, 'restaurant_portal.html', context)
     except Exception as e:
         error_message = _("could_not_make_booking_check_table_nr_date_and_time")
         Errors.objects.create(message=error_message, user_id=request.user.id, created_at=datetime.now())
@@ -298,6 +322,7 @@ def view_restaurant_settings(request):
     context = {'action': './restaurant_settings/restaurant_settings.html', 'restaurant_info': restaurant_info}
     return render(request, 'restaurant_portal.html', context)
 
+
 def update_restaurant_info(request):
     RestaurantInfoUpdater().update_restaurant_info(request)
     current_user = request.user.id
@@ -312,7 +337,8 @@ def custom_restaurant_availability(request):
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
                                                                                         flat=True).first()
-    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by(
+        'date')
     context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
                'custom_restaurant_availability': custom_restaurant_availability}
     return render(request, 'restaurant_portal.html', context)
@@ -323,20 +349,24 @@ def add_custom_restaurant_availability(request):
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
                                                                                         flat=True).first()
-    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by(
+        'date')
     context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
                'custom_restaurant_availability': custom_restaurant_availability}
     return render(request, 'restaurant_portal.html', context)
+
 
 def update_custom_availability(request):
     CustomAvailabilityUpdater().update_availability(request)
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
                                                                                         flat=True).first()
-    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by('date')
+    custom_restaurant_availability = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id).order_by(
+        'date')
     context = {'action': './custom_restaurant_availability/custom_restaurant_availability.html',
                'custom_restaurant_availability': custom_restaurant_availability}
     return render(request, 'restaurant_portal.html', context)
+
 
 def delete_availability(request, availability_id):
     try:
@@ -354,6 +384,7 @@ def delete_availability(request, availability_id):
                'custom_restaurant_availability': custom_restaurant_availability}
     return render(request, 'restaurant_portal.html', context)
 
+
 def view_restaurant_tables(request):
     current_user = request.user.id
     restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
@@ -361,6 +392,7 @@ def view_restaurant_tables(request):
     tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
     context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
     return render(request, 'restaurant_portal.html', context)
+
 
 def update_tables(request):
     RestaurantTablesUpdater().update_tables(request)
@@ -371,6 +403,7 @@ def update_tables(request):
     context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
     return render(request, 'restaurant_portal.html', context)
 
+
 def delete_table(request, table_id):
     try:
         record = Tables.objects.get(pk=table_id)
@@ -379,6 +412,7 @@ def delete_table(request, table_id):
         return JsonResponse(response_data)
     except Tables.DoesNotExist:
         print('table does not exist')
+
 
 def add_table(request):
     current_user = request.user.id
@@ -396,5 +430,3 @@ def add_table(request):
     tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
     context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
     return render(request, 'restaurant_portal.html', context)
-
-
