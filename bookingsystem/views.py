@@ -176,8 +176,8 @@ def confirm_booking(request):
                    'number_of_persons': request.session['number_of_persons'],
                    'held_reservation_id': request.session['held_reservation_id'],
                    'confirmation_form': confirmation_form, 'restaurant_name': request.session['restaurant_name']
-                , 'restaurant_email': request.session['restaurant_email'],
-                       'restaurant_website': request.session['restaurant_website']}
+            , 'restaurant_email': request.session['restaurant_email'],
+                   'restaurant_website': request.session['restaurant_website']}
         render(request, 'booking_confirmation.html', context)
     return render(request, 'booking_confirmed.html', context)
 
@@ -189,14 +189,28 @@ def drop_reservation(request):
         if Reservations.objects.filter(id=reservation_id_1).values_list('confirmed', flat=True)[0] == False:
             Reservations.objects.filter(id=reservation_id_1).update(cancelled=True, confirmed=False)
             print('deleted reservation')
-    return HttpResponse("Session expired")
+    return HttpResponse("Session expired, no reservation made")
 
 
 def delete_reservation(request):
+    email_sender = EmailSender()
     reservation_id = request.GET['reservationID']
     path = request.GET['path']
     Reservations.objects.filter(id=reservation_id).update(cancelled=True, confirmed=False)
     # TODO: send email
+    reservation = Reservations.objects.get(id=reservation_id)
+    restaurant_name = reservation.restaurant.name
+
+    booker_subject = 'Cancellazione Prenotazione al ' + restaurant_name
+    booker_message_text = 'Gentile Cliente,\n\n La tua prenotazione presso ' + restaurant_name + ' per ' + str(reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[:5] + " viene cancellato. \n\n Puoi effettuare un'altra prenotazione sul sito web " + reservation.restaurant.website + " oppure contatta il ristorante tramite " + reservation.restaurant.telephone_nr + "\n\nCordiali saluti,\n" + restaurant_name
+    english_translation = 'Dear Customer,\n\nYour reservation at ' + restaurant_name + ' for ' + str(reservation.reservation_date) + ' at ' + str(reservation.arrival_time)[:5] + " has been canceled. \n\nYou can make another reservation on the website " + reservation.restaurant.website + " or contact the restaurant at " + reservation.restaurant.telephone_nr + "\n\nBest regards,\n" + restaurant_name + '\n\n'
+
+    restaurant_subject = 'Cancellazione Prenotazione'
+    restaurant_message_text = 'Gentile Cliente,\n\n Una prenotazione presso per ' + str(reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[:5] + ' viene cancellato. \n\n Nome di cliente: ' + reservation.customer.full_name + '\n Email: ' + reservation.customer.email + '\n numerò di telephono: ' + str(reservation.customer.telephone_nr) + '\n numerò di tavolo: ' + str(reservation.table.table_nr) + '\n\n'
+
+    email_sender.send_booker_email(reservation.customer.email, booker_subject, booker_message_text, english_translation)
+    email_sender.send_restaurant_email(reservation.restaurant.email, restaurant_subject, restaurant_message_text)
+    email_sender.send_restaurant_email('info@ristaiuto.it', restaurant_subject, restaurant_message_text) #for checking
     request.session['status'] = 'reservation_cancelled'
     if path == 'confirmed_booking':
         context = {'status': request.session['status'],
