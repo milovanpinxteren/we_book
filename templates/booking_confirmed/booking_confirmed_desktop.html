@@ -9,7 +9,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmed/booking_confirmed_desktop.css' %}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'stylesheets/booking_confirmed/booking_confirmed_desktop.css' %}"/>
 
     <title>Booking confirmed</title>
 </head>
@@ -18,7 +19,7 @@
     <div class="form-div">
         <div class="form_main">
             {% if status == 'reservation_cancelled' %}
-                <p class="heading" id="heading">{% trans "booking_cancelled" %}</p> <br>
+                <p class="heading" id="heading">{% trans 'booking_cancelled' %}</p> <br>
                 <a class="goHomeLink"
                    href="{% url 'bookingsystem:index' %}">{% trans 'go_to_home' %}</a>
             {% elif status == 'booking_confirmed' %}
@@ -33,13 +34,32 @@
                     {% trans "telephone_number" %}: {{ telephone_number }} <br>
                     {% trans "reservation_number" %}: {{ reservationID }}
                 </p>
-                <a class="cancelLink"
-                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>
+                <div class="linksdiv">
+                    <a class="gotoWebsiteLink" href="{{ restaurant_website }}"
+                       target="_blank">{% trans 'go_to_website' %}</a>
+{#                    <a class="cancelLink"#}
+{#                       href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>#}
+ <a class="cancelLink" href="#" onclick="confirmCancellation('{{ reservationID }}')">{% trans 'cancel_reservation' %}</a>
+
+                </div>
             {% endif %}
 
 
         </div>
     </div>
 </div>
+
+<script>
+    function confirmCancellation(reservationID) {
+        if (confirm("{% trans 'are_you_sure_you_want_to_delete_your_reservation' %}")) {
+            // If the user confirms, navigate to the cancellation page.
+            window.location.href = "{% url 'bookingsystem:delete_reservation' %}?reservationID=" + reservationID + "&path=confirmed_booking";
+        } else {
+            // If the user cancels, do nothing or provide feedback.
+            {#alert('Cancellation canceled');#}
+        }
+    }
+</script>
+
 </body>
 </html>

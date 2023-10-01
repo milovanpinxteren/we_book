@@ -81,7 +81,18 @@ body {
     border-radius: 20px;
     text-align: right;
     margin-top: 2%;
-    width: 100%;
+    /*width: 100%;*/
+}
+
+.gotoWebsiteLink {
+    font-size: .8em;
+    font-weight: 500;
+    color: rgba(46, 46, 46, 0.63);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-align: right;
+    margin-top: 2%;
 }
 
 .goHomeLink {

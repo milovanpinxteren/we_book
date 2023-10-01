@@ -93,6 +93,19 @@ body {
 
 }
 
+.timeslotselect {
+    /*background-color: red;*/
+    background: none transparent;
+}
+
+.timeslotselect * {
+    background-color: #f2f2f2;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+
+
 #button {
     z-index: 2;
     position: relative;

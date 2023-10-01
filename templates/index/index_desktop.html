@@ -49,7 +49,7 @@
                     <circle cx="24" cy="13" r="2" fill="#000"></circle>
                     <circle cx="37" cy="13" r="2" fill="#000"></circle>
                 </svg>
-                <input class="inputField" type="text" id="datepicker" placeholder="Select a date"
+                <input class="inputField" type="text" id="datepicker" placeholder="{% trans 'reservation_date' %}"
                        name="reservation_date"
                        autocomplete="off" onchange="enableTimeSlotSelect()">
             </div>
@@ -83,13 +83,13 @@
                     <text x="12" y="28" font-size="6" fill="#000" text-anchor="middle">9</text>
                 </svg>
 
-                <select class="inputField" name="reservation_time" id="timeSlotSelect" disabled>
+                <select class="timeslotselect inputField" name="reservation_time" id="timeSlotSelect" disabled>
                     <option value="" disabled selected>{% trans 'fill_in_date_and_persons_first' %}</option>
 
                 </select>
             </div>
 
-            <button class="submit-button" id="button">Submit</button>
+            <button class="submit-button" id="button">{% trans 'submit' %}</button>
 
 
             <div class="language-picker-div">
@@ -113,13 +113,13 @@
         // Enable the time slot select if the datepicker has a value, otherwise disable it
         if (datepickerInput.value && numberOfPersons.value) {
             numberOfPersons.disabled = false;
-            numberOfPersons.placeholder = '{% trans 'number_of_persons' %}';
-            placeholderOption.textContent = '{% trans 'select_timeslot' %}';
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'select_timeslot' %}";
             timeSlotSelect.disabled = false;
         } else if (datepickerInput.value) {
             numberOfPersons.disabled = false;
-            numberOfPersons.placeholder = '{% trans 'number_of_persons' %}';
-            placeholderOption.textContent = '{% trans 'fill_in_number_of_persons' %}';
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'fill_in_number_of_persons' %}";
         } else {
             numberOfPersons.disabled = true;
             timeSlotSelect.disabled = true;
@@ -183,7 +183,7 @@
         const selectElement = document.getElementById('timeSlotSelect');
         const parsedtimeSlotAvailability = JSON.parse(timeSlotAvailability)
         for (const timeSlot in parsedtimeSlotAvailability) {
-            const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`);
+            const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`)
 
             if (optionElement) {
                 if (parsedtimeSlotAvailability[timeSlot] === 'disabled') {

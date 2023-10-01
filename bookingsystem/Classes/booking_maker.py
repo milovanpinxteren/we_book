@@ -90,6 +90,9 @@ class BookingMaker():
             if restaurant_open:  # check if reservation date is within opening hours
                 restaurant_opening_time = changed_availability.values_list('start_time', flat=True)[0]
                 restaurant_closing_time = changed_availability.values_list('end_time', flat=True)[0]
+                fixed_date = datetime(1900, 1, 1)
+                restaurant_opening_time = fixed_date.replace(hour=restaurant_opening_time.hour, minute=restaurant_opening_time.minute)
+                restaurant_closing_time = fixed_date.replace(hour=restaurant_closing_time.hour, minute=restaurant_closing_time.minute)
                 meal_duration = restaurant.values_list('meal_duration', flat=True)[0]
                 last_reservation_time = restaurant_closing_time - timedelta(hours=meal_duration)
                 valid_reservation = restaurant_opening_time <= reservation_time <= last_reservation_time

@@ -142,19 +142,19 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 LANGUAGES = (
     ('en', _('English')),
     ('fr', _('Français')),
     ('it', _('Italiano')),
     ('de', _('Deutsch')),
-    ('nl', _('Nederlands'))
+    # ('nl', _('Nederlands')),
+    ('es', _('Español'))
 )
 
 # LOGIN_REDIRECT_URL = "bookingsystem:restaurant_portal"
 LOGOUT_REDIRECT_URL = "login"
-#
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
-# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+import environ
+env = environ.Env()
+environ.Env.read_env()
+EMAIL_PASSWORD = env('EMAIL_PASSWORD')

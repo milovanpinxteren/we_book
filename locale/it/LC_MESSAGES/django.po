@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 15:45+0200\n"
+"POT-Creation-Date: 2023-09-30 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,256 +18,749 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:56
+#: .\bookingsystem\views.py:120
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:83
 msgid "booking_failed"
-msgstr ""
+msgstr "Prenotazione non riuscita"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:26
-msgid "possible_reservation_found"
+#: .\bookingsystem\views.py:242
+msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr ""
+"Impossibile effettuare la prenotazione. Controllare il numero del tavolo, la "
+"data e l'ora."
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:27
-msgid "fill_in_contact_info"
-msgstr ""
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:26
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:26
+msgid "possible_reservation_found"
+msgstr "Prenotazione possibile trovata"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:29
-#: .\templates\booking_confirmed\booking_confirmed_desktop.html:28
-#: .\templates\index\index_desktop.html:52
-msgid "reservation_date"
-msgstr ""
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:28
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:27
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:27
+msgid "fill_in_contact_info"
+msgstr "Compila le informazioni di contatto"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:30
-#: .\templates\booking_confirmed\booking_confirmed_desktop.html:29
-msgid "start_time"
-msgstr ""
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:88
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:29
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:29
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:28
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:28
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:28
+#: .\templates\index\index_desktop.html:52
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:36
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:38
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:243
+msgid "reservation_date"
+msgstr "Data della prenotazione"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:31
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:89
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:30
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:30
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:29
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:29
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:29
+msgid "start_time"
+msgstr "Orario di inizio"
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:32
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:90
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:31
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:31
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:30
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:30
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:30
+#: .\templates\index\index_desktop.html:116
+#: .\templates\index\index_desktop.html:121
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:245
 msgid "number_of_persons"
-msgstr ""
+msgstr "Numero di persone"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:41
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:42
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:41
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:41
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:31
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:31
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:31
 msgid "name"
-msgstr ""
+msgstr "Nome"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:53
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:54
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:53
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:53
 msgid "email"
-msgstr ""
+msgstr "Email"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:64
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:65
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:64
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:64
 msgid "telephone_nr"
-msgstr ""
+msgstr "Numero di telefono"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:72
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:73
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:72
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:72
 msgid "booking_held_for"
-msgstr ""
+msgstr "Prenotazione mantenuta per"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:74
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:75
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:74
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:74
 msgid "minutes"
-msgstr ""
+msgstr "minuti"
 
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:112
-#: .\templates\booking_confirmation\booking_confirmation_desktop.html:113
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:84
+msgid "no_table_found_for"
+msgstr "Nessun tavolo trovato per"
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:91
+msgid "try_again_on_other_date_or_less_people"
+msgstr "Riprova in un'altra data o con meno persone"
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:92
+msgid "or_call_restaurant"
+msgstr "O chiamare il ristorante"
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:94
+#: .\templates\booking_confirmed\booking_confirmed_desktop.html:23
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:23
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:23
+msgid "go_to_home"
+msgstr "Torna alla pagina iniziale"
+
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:129
+#: .\templates\booking_confirmation\booking_confirmation_desktop.html:130
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:112
+#: .\templates\booking_confirmation\booking_confirmation_mobile.html:113
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:112
+#: .\templates\booking_confirmation\booking_confirmation_tablet.html:113
 msgid "booking_no_longer_held"
-msgstr ""
+msgstr "Prenotazione non più mantenuta"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:21
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:21
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:21
 msgid "booking_cancelled"
-msgstr ""
-
-#: .\templates\booking_confirmed\booking_confirmed_desktop.html:23
-msgid "go_to_home"
-msgstr ""
+msgstr "Prenotazione annullata"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:25
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:25
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:25
 msgid "booking_confirmed"
-msgstr ""
+msgstr "Prenotazione confermata"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:32
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:32
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:32
 msgid "email_adress"
-msgstr ""
+msgstr "Indirizzo email"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:33
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:33
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:33
 msgid "telephone_number"
-msgstr ""
+msgstr "Numero di telefono"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:34
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:34
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:34
 msgid "reservation_number"
-msgstr ""
+msgstr "Numero di prenotazione"
 
+msgid "go_to_website"
+msgstr "Vai al sito web"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:37
+#: .\templates\booking_confirmed\booking_confirmed_mobile.html:37
+#: .\templates\booking_confirmed\booking_confirmed_tablet.html:37
 msgid "cancel_reservation"
-msgstr ""
+msgstr "Annulla prenotazione"
+
+msgid "are_you_sure_you_want_to_delete_your_reservation"
+msgstr "sei sicuro di voler cancellare la tua prenotazione?"
 
 #: .\templates\components\footer.html:5 .\templates\login\login_desktop.html:20
 msgid "partner_login"
-msgstr ""
+msgstr "Accesso partner"
 
 #: .\templates\components\footer.html:6
 msgid "cookie_policy"
-msgstr ""
+msgstr "Informativa sui cookie"
 
 #: .\templates\components\footer.html:7
 msgid "terms_conditions"
-msgstr ""
+msgstr "Termini e condizioni"
 
 #: .\templates\components\footer.html:8
 msgid "become_partner"
-msgstr ""
+msgstr "Diventa partner"
 
-#: .\templates\components\sidebar.html:8
+#: .\templates\components\sidebar.html:11
 msgid "home"
-msgstr ""
+msgstr "Home"
 
-#: .\templates\components\sidebar.html:16
+#: .\templates\components\sidebar.html:19
 msgid "show_reservations"
-msgstr ""
+msgstr "Visualizza prenotazioni"
 
-#: .\templates\components\sidebar.html:24
-msgid "show_dashboard"
-msgstr ""
+#: .\templates\components\sidebar.html:29
+msgid "view_menu"
+msgstr "Visualizza menu"
 
-#: .\templates\components\sidebar.html:32
+#: .\templates\components\sidebar.html:37
 msgid "go_to_own_website"
-msgstr ""
+msgstr "Vai al sito web proprio"
 
-#: .\templates\components\sidebar.html:41
-msgid "get_support"
-msgstr ""
-
-#: .\templates\components\sidebar.html:68
+#: .\templates\components\sidebar.html:82
 msgid "settings"
-msgstr ""
+msgstr "Impostazioni"
 
-#: .\templates\components\sidebar.html:84
-msgid "documentation"
-msgstr ""
+#: .\templates\components\sidebar.html:91
+msgid "custom_opening_hours"
+msgstr "Orari di apertura personalizzati"
 
-#: .\templates\index\index_desktop.html:23
+#: .\templates\components\sidebar.html:102
+msgid "view_tables"
+msgstr "Visualizza tavoli"
+
+#: .\templates\error_page.html:13
+msgid "go_back"
+msgstr "Torna indietro"
+
+#: .\templates\index\index_desktop.html:37
+#: .\templates\index\index_mobile.html:35
+#: .\templates\index\index_tablet.html:35
 msgid "reserve_table"
-msgstr ""
+msgstr "Prenota un tavolo al"
 
-#: .\templates\index\index_desktop.html:32
+#: .\templates\index\index_desktop.html:66
+msgid "fill_in_date_first"
+msgstr "Inserisci prima la data"
+
+#: .\templates\index\index_desktop.html:87
+msgid "fill_in_date_and_persons_first"
+msgstr "Inserisci prima la data e il numero di persone"
+
+#: .\templates\index\index_desktop.html:92
+msgid "submit"
+msgstr "Invia"
+
+#: .\templates\index\index_desktop.html:117
+msgid "select_timeslot"
+msgstr "Seleziona l'orario"
+
+#: .\templates\index\index_desktop.html:122
+msgid "fill_in_number_of_persons"
+msgstr "Inserisci il numero di persone"
+
+#: .\templates\index\index_mobile.html:44
+#: .\templates\index\index_tablet.html:44
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:31
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:33
 msgid "no_persons"
-msgstr ""
-
-#: .\templates\index\index_desktop.html:72
-msgid "reservation_time"
-msgstr ""
+msgstr "Numero di persone"
 
 #: .\templates\login\login_desktop.html:25
 msgid "login"
-msgstr ""
+msgstr "Accedi"
 
 #: .\templates\restaurant_portal.html:15
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability.html:15
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings.html:15
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables.html:15
 #: .\templates\restaurant_portal\show_dashboard\show_dashboard.html:15
 #: .\templates\restaurant_portal\show_reservations\show_reservations.html:15
+#: .\templates\restaurant_portal\view_menu\view_menu.html:15
 msgid "restaurant_not_confirmed_yet"
+msgstr "Ristorante non ancora confermato"
+
+#: .\templates\restaurant_portal.html:18
+msgid "go_to_login_page"
+msgstr "Vai alla pagina di accesso"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:17
+msgid "see_and_change_your_availability"
+msgstr "Visualizza e modifica la tua disponibilità"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:19
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:39
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:94
+msgid "add_availability"
+msgstr "Aggiungi disponibilità"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:24
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:25
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:50
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:51
+msgid "date"
+msgstr "Data"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:28
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:29
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:54
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:56
+msgid "open"
+msgstr "Apertura"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:32
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:33
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:60
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:61
+msgid "opening_time"
+msgstr "Orario di apertura"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:36
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:37
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:64
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:65
+msgid "closing_time"
+msgstr "Orario di chiusura"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:47
+msgid "update_availability"
+msgstr "Aggiorna disponibilità"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:69
+msgid "are_you_sure_you_want_to_delete_this_availability"
+msgstr "Sei sicuro di voler eliminare questa disponibilità"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:69
+msgid "delete_availability"
+msgstr "Elimina disponibilità"
+
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:90
+msgid "cancel_adding_availability"
+msgstr "Annulla l'aggiunta di disponibilità"
+
+#: .\templates\restaurant_portal\restaurant_portal_desktop.html:16
+msgid "welcome"
+msgstr "Benvenuto"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:39
+msgid "see_and_update_restaurant_info"
+msgstr "Visualizza e aggiorna le informazioni del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:44
+msgid "update_information"
+msgstr "Aggiorna informazioni"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:47
+msgid "contact_info"
+msgstr "Informazioni di contatto"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:49
+msgid "restaurant_name"
+msgstr "Nome del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:53
+msgid "restaurant_website"
+msgstr "Sito web del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:57
+msgid "restaurant_email"
+msgstr "Email del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:62
+msgid "restaurant_telephone_nr"
+msgstr "Numero di telefono del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:66
+msgid "restaurant_address"
+msgstr "Indirizzo del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:70
+msgid "restaurant_place"
+msgstr "Località del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:75
+msgid "restaurant_postal_code"
+msgstr "Codice postale del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:79
+msgid "restaurant_country"
+msgstr "Paese del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:84
+msgid "front_page_text"
+msgstr "Testo della pagina principale"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:91
+msgid "characters_remaining"
+msgstr "Caratteri rimanenti"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:97
+msgid "opening_hours"
+msgstr "Orari di apertura"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:101
+msgid "restaurant_meal_duration"
+msgstr "Durata del pasto del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:103
+msgid "hours"
+msgstr "ore"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:108
+msgid "restaurant_open_monday"
+msgstr "Ristorante aperto il lunedì"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:115
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:136
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:157
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:178
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:199
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:220
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:241
+msgid "restaurant_opening_time"
+msgstr "Orario di apertura del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:120
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:141
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:162
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:183
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:204
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:225
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:246
+msgid "restaurant_closing_time"
+msgstr "Orario di chiusura del ristorante"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:129
+msgid "restaurant_open_tuesday"
+msgstr "Ristorante aperto il martedì"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:150
+msgid "restaurant_open_wednesday"
+msgstr "Ristorante aperto il mercoledì"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:171
+msgid "restaurant_open_thursday"
+msgstr "Ristorante aperto il giovedì"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:192
+msgid "restaurant_open_friday"
+msgstr "Ristorante aperto il venerdì"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:213
+msgid "restaurant_open_saturday"
+msgstr "Ristorante aperto il sabato"
+
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:234
+msgid "restaurant_open_sunday"
+msgstr "Ristorante aperto la domenica"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:18
+msgid "see_and_change_your_tables"
+msgstr "Visualizza e modifica i tuoi tavoli"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:20
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:83
+msgid "add_tables"
+msgstr "Aggiungi tavoli"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:25
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:26
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:46
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:47
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:53
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:55
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:246
+msgid "table_nr"
+msgstr "Numero del tavolo"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:29
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:30
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:50
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:51
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:55
+msgid "min_amount_of_persons"
+msgstr "Numero minimo di persone"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:33
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:34
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:54
+msgid "max_amount_of_persons"
+msgstr "Numero massimo di persone"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:36
+msgid "add_table"
+msgstr "Aggiungi tavolo"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:43
+msgid "update_tables"
+msgstr "Aggiorna tavoli"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:59
+msgid "are_you_sure_you_want_to_delete_this_table"
+msgstr "Sei sicuro di voler eliminare questo tavolo"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:59
+msgid "delete_table"
+msgstr "Elimina tavolo"
+
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:79
+msgid "cancel_adding_tables"
+msgstr "Annulla l'aggiunta di tavoli"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:20
+msgid "current_reservations"
+msgstr "Prenotazioni attuali"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:22
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:349
+msgid "add_reservations"
+msgstr "Aggiungi prenotazioni"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:27
+msgid "add_reservation"
+msgstr "Aggiungi prenotazione"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:42
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:44
+msgid "reservation_time"
+msgstr "Orario di prenotazione"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:48
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:50
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:234
+msgid "customer_name"
+msgstr "Nome del cliente"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:58
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:60
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:235
+msgid "customer_email"
+msgstr "Email del cliente"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:63
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:66
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:236
+msgid "customer_telephone_nr"
+msgstr "Numero di telefono del cliente"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:75
+msgid "please_wait"
+msgstr "Attendere per favore"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:82
+msgid "deleted_reservation"
+msgstr "Prenotazione eliminata"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:83
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:92
+msgid "hide_message"
+msgstr "Nascondi messaggio"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:86
+msgid "rollback_deletion"
+msgstr "Ripristina eliminazione"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:91
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:321
+msgid "rolled_back_deletion"
+msgstr "Eliminazione annullata"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:186
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:331
+msgid "hide_date"
+msgstr "Nascondi data"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:244
+msgid "arrival_time"
+msgstr "Orario di arrivo"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:253
+msgid "cancel_booking"
+msgstr "Annulla prenotazione"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:335
+msgid "show_date"
+msgstr "Mostra data"
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:346
+msgid "cancel_adding_reservation"
+msgstr "Annulla l'aggiunta di una prenotazione"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:17
+msgid "see_and_change_your_menu"
+msgstr "Visualizza e modifica il tuo menu"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:19
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:123
+msgid "add_courses_or_dishes"
+msgstr "Aggiungi corsi o piatti"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:26
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:27
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:66
+msgid "course_name"
+msgstr "Nome del corso"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:29
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:69
+msgid "course_order"
+msgstr "Ordine del corso"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:32
+msgid "add-course"
+msgstr "Aggiungi corso"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:39
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:40
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:79
+msgid "dish_name"
+msgstr "Nome del piatto"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:42
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:82
+msgid "dish_price"
+msgstr "Prezzo del piatto"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:45
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:85
+msgid "dish_order"
+msgstr "Ordine del piatto"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:54
+msgid "add_dish"
+msgstr "Aggiungi piatto"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:62
+msgid "update_menu"
+msgstr "Aggiorna menu"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:73
+msgid "are_you_sure_you_want_to_delete_the_course_this_also_deletes_all_dishes_in_the_course"
 msgstr ""
+"Sei sicuro di voler eliminare il corso? Questo eliminerà anche tutti i "
+"piatti del corso."
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:73
+msgid "delete_course"
+msgstr "Elimina corso"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:89
+msgid "select_course"
+msgstr "Seleziona corso"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:98
+msgid "are_you_sure_you_want_to_delete_the_dish"
+msgstr "Sei sicuro di voler eliminare il piatto?"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:98
+msgid "delete_dish"
+msgstr "Elimina piatto"
+
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:119
+msgid "cancel_adding_courses_or_dishes"
+msgstr "Annulla l'aggiunta di corsi o piatti"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
 msgid "Messages"
-msgstr ""
+msgstr "Messaggi"
 
 #: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
 msgid "Site Maps"
-msgstr ""
+msgstr "Mappe del sito"
 
 #: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
 msgid "Static Files"
-msgstr ""
+msgstr "File statici"
 
 #: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
 msgid "Syndication"
-msgstr ""
+msgstr "Sindacazione"
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
 #: .\venv\Lib\site-packages\django\core\paginator.py:30
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:50
 msgid "That page number is not an integer"
-msgstr ""
+msgstr "Questo numero di pagina non è un intero"
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:52
 msgid "That page number is less than 1"
-msgstr ""
+msgstr "Il numero di pagina è inferiore a 1"
 
 #: .\venv\Lib\site-packages\django\core\paginator.py:54
 msgid "That page contains no results"
-msgstr ""
+msgstr "Questa pagina non contiene risultati"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:22
 msgid "Enter a valid value."
-msgstr ""
+msgstr "Inserisci un valore valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:104
 #: .\venv\Lib\site-packages\django\forms\fields.py:752
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "Inserisci un URL valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:165
 msgid "Enter a valid integer."
-msgstr ""
+msgstr "Inserisci un numero intero valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:176
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "Inserisci un indirizzo email valido."
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: .\venv\Lib\site-packages\django\core\validators.py:259
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
+"Inserisci un “slug” valido composto da lettere, numeri, underscore o "
+"trattini."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:267
 msgid ""
 "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
 "hyphens."
 msgstr ""
+"Inserisci un “slug” valido composto da lettere Unicode, numeri, underscore o "
+"trattini."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:279
 #: .\venv\Lib\site-packages\django\core\validators.py:287
 #: .\venv\Lib\site-packages\django\core\validators.py:316
 msgid "Enter a valid IPv4 address."
-msgstr ""
+msgstr "Inserisci un indirizzo IPv4 valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:296
 #: .\venv\Lib\site-packages\django\core\validators.py:317
 msgid "Enter a valid IPv6 address."
-msgstr ""
+msgstr "Inserisci un indirizzo IPv6 valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:308
 #: .\venv\Lib\site-packages\django\core\validators.py:315
 msgid "Enter a valid IPv4 or IPv6 address."
-msgstr ""
+msgstr "Inserisci un indirizzo IPv4 o IPv6 valido."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:351
 msgid "Enter only digits separated by commas."
-msgstr ""
+msgstr "Inserisci solo cifre separate da virgole."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:357
 #, python-format
 msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
+msgstr "Assicurati che il valore sia %(limit_value)s (è %(show_value)s)."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:392
 #, python-format
 msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Assicurati che il valore sia minore o uguale a %(limit_value)s."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:401
 #, python-format
 msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Assicurati che il valore sia maggiore o uguale a %(limit_value)s."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:410
 #, python-format
 msgid "Ensure this value is a multiple of step size %(limit_value)s."
-msgstr ""
+msgstr "Assicurati che il valore sia un multiplo del passo %(limit_value)s."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:420
 #, python-format
@@ -295,7 +788,7 @@ msgstr[1] ""
 #: .\venv\Lib\site-packages\django\forms\fields.py:347
 #: .\venv\Lib\site-packages\django\forms\fields.py:386
 msgid "Enter a number."
-msgstr ""
+msgstr "Inserisci un numero."
 
 #: .\venv\Lib\site-packages\django\core\validators.py:463
 #, python-format
@@ -337,9 +830,10 @@ msgid "and"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1425
-#, python-format
+#, fuzzy, python-format
+#| msgid "%(model_name)s with this %(field_label)s already exists."
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s con questo %(field_label)s esiste già."
 
 #: .\venv\Lib\site-packages\django\db\models\constraints.py:17
 #, python-format
@@ -349,20 +843,20 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:128
 #, python-format
 msgid "Value %(value)r is not a valid choice."
-msgstr ""
+msgstr "Il valore %(value)r non è una scelta valida."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:129
 msgid "This field cannot be null."
-msgstr ""
+msgstr "Questo campo non può essere nullo."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:130
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "Questo campo non può essere vuoto."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:131
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "%(model_name)s con questo %(field_label)s esiste già."
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or
 #. 'month'. Eg: "Title must be unique for pub_date year"
@@ -371,38 +865,39 @@ msgstr ""
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 msgstr ""
+"%(field_label)s deve essere unico per %(date_field_label)s %(lookup_type)s."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:173
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr ""
+msgstr "Campo di tipo: %(field_type)s"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1094
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere True o False."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1095
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere True, False o None."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1097
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "Booleano (sia True che False)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1147
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr ""
+msgstr "Stringa (fino a %(max_length)s caratteri)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1149
 msgid "String (unlimited)"
-msgstr ""
+msgstr "Stringa (illimitata)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1253
 msgid "Comma-separated integers"
-msgstr ""
+msgstr "Numeri separati da virgole"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1354
 #, python-format
@@ -410,6 +905,8 @@ msgid ""
 "“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
 "format."
 msgstr ""
+"Il valore “%(value)s” ha un formato data non valido. Deve essere nel formato "
+"YYYY-MM-DD."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1358
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1493
@@ -418,10 +915,12 @@ msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
 "date."
 msgstr ""
+"Il valore “%(value)s” ha il formato corretto (YYYY-MM-DD) ma è una data non "
+"valida."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1362
 msgid "Date (without time)"
-msgstr ""
+msgstr "Data (senza ora)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1489
 #, python-format
@@ -429,6 +928,8 @@ msgid ""
 "“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
 "uuuuuu]][TZ] format."
 msgstr ""
+"Il valore “%(value)s” ha un formato non valido. Deve essere nel formato YYYY-"
+"MM-DD HH:MM[:ss[.uuuuuu]][TZ]."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1497
 #, python-format
@@ -436,19 +937,21 @@ msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
 "[TZ]) but it is an invalid date/time."
 msgstr ""
+"Il valore “%(value)s” ha il formato corretto (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) ma è una data/ora non valida."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1502
 msgid "Date (with time)"
-msgstr ""
+msgstr "Data (con ora)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1626
 #, python-format
 msgid "“%(value)s” value must be a decimal number."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere un numero decimale."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1628
 msgid "Decimal number"
-msgstr ""
+msgstr "Numero decimale"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1789
 #, python-format
@@ -456,83 +959,85 @@ msgid ""
 "“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
 "uuuuuu] format."
 msgstr ""
+"Il valore “%(value)s” ha un formato non valido. Deve essere nel formato [DD] "
+"[[HH:]MM:]ss[.uuuuuu]."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1793
 msgid "Duration"
-msgstr ""
+msgstr "Durata"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
 msgid "Email address"
-msgstr ""
+msgstr "Indirizzo email"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1870
 msgid "File path"
-msgstr ""
+msgstr "Percorso del file"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1948
 #, python-format
 msgid "“%(value)s” value must be a float."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere un numero decimale."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1950
 msgid "Floating point number"
-msgstr ""
+msgstr "Numero a virgola mobile"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1990
 #, python-format
 msgid "“%(value)s” value must be an integer."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere un numero intero."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1992
 msgid "Integer"
-msgstr ""
+msgstr "Numero intero"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2088
 msgid "Big (8 byte) integer"
-msgstr ""
+msgstr "Grande (8 byte) numero intero"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2105
 msgid "Small integer"
-msgstr ""
+msgstr "Piccolo numero intero"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2113
 msgid "IPv4 address"
-msgstr ""
+msgstr "Indirizzo IPv4"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2144
 msgid "IP address"
-msgstr ""
+msgstr "Indirizzo IP"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2237
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2238
 #, python-format
 msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
+msgstr "Il valore “%(value)s” deve essere None, True o False."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2240
 msgid "Boolean (Either True, False or None)"
-msgstr ""
+msgstr "Booleano (True, False o None)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2291
 msgid "Positive big integer"
-msgstr ""
+msgstr "Numero intero positivo grande"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
 msgid "Positive integer"
-msgstr ""
+msgstr "Numero intero positivo"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2321
 msgid "Positive small integer"
-msgstr ""
+msgstr "Numero intero positivo piccolo"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2337
 #, python-format
 msgid "Slug (up to %(max_length)s)"
-msgstr ""
+msgstr "Slug (fino a %(max_length)s caratteri)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
 msgid "Text"
-msgstr ""
+msgstr "Testo"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2448
 #, python-format
@@ -540,6 +1045,8 @@ msgid ""
 "“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
 msgstr ""
+"Il valore “%(value)s” ha un formato non valido. Deve essere nel formato HH:"
+"MM[:ss[.uuuuuu]]."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2452
 #, python-format
@@ -547,56 +1054,58 @@ msgid ""
 "“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
 "invalid time."
 msgstr ""
+"Il valore “%(value)s” ha il formato corretto (HH:MM[:ss[.uuuuuu]]) ma è "
+"un'ora non valida."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2456
 msgid "Time"
-msgstr ""
+msgstr "Ora"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2564
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2588
 msgid "Raw binary data"
-msgstr ""
+msgstr "Dati binari grezzi"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2653
 #, python-format
 msgid "“%(value)s” is not a valid UUID."
-msgstr ""
+msgstr "“%(value)s” non è un UUID valido."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2655
 msgid "Universally unique identifier"
-msgstr ""
+msgstr "Identificatore univoco universale"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
 msgid "A JSON object"
-msgstr ""
+msgstr "Un oggetto JSON"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\json.py:28
 msgid "Value must be valid JSON."
-msgstr ""
+msgstr "Il valore deve essere un JSON valido."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:919
 #, python-format
 msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr ""
+msgstr "L'istanza di %(model)s con %(field)s %(value)r non esiste."
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:921
 msgid "Foreign Key (type determined by related field)"
-msgstr ""
+msgstr "Chiave esterna (tipo determinato dal campo correlato)"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1212
 msgid "One-to-one relationship"
-msgstr ""
+msgstr "Relazione uno a uno"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\related.py:1269
 #, python-format
@@ -1373,24 +1882,28 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: .\we_book\settings.py:145
+#: .\we_book\settings.py:146
 msgid "English"
 msgstr ""
 
-#: .\we_book\settings.py:146
+#: .\we_book\settings.py:147
 msgid "Français"
 msgstr ""
 
-#: .\we_book\settings.py:147
+#: .\we_book\settings.py:148
 msgid "Italiano"
 msgstr ""
 
-#: .\we_book\settings.py:148
+#: .\we_book\settings.py:149
 msgid "Deutsch"
 msgstr ""
 
-#: .\we_book\settings.py:149
+#: .\we_book\settings.py:150
 msgid "Nederlands"
+msgstr ""
+
+#: .\we_book\settings.py:151
+msgid "Español"
 msgstr ""
 
 #~ msgid "hello"

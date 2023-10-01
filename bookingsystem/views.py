@@ -16,6 +16,7 @@ from bookingsystem.Classes.PortalClasses.restaurant_tables_updater import Restau
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
+from bookingsystem.Classes.email_sender import EmailSender
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
     CustomRestaurantAvailability
@@ -100,6 +101,7 @@ def make_reservation(request):
         if reservation_form.is_valid():
             # Form is valid, check if you can find a possible table
             restaurant_id = request.GET['restaurantID']
+            restaurant = Restaurants.objects.get(pk=restaurant_id)
             number_of_persons = reservation_form['number_of_persons'].value()
             reservation_date = reservation_form['reservation_date'].value()
             reservation_time = reservation_form['reservation_time'].value()
@@ -114,8 +116,14 @@ def make_reservation(request):
                 request.session['number_of_persons'] = context['number_of_persons']
                 request.session['held_reservation_id'] = context['held_reservation_id']
                 request.session['held_reservation_id'] = context['held_reservation_id']
+                request.session['restaurant_name'] = restaurant.name
+                request.session['restaurant_email'] = restaurant.email
+                request.session['restaurant_website'] = restaurant.website
             confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
             context['confirmation_form'] = confirmation_form
+            context['restaurant_name'] = restaurant.name
+            context['restaurant_email'] = restaurant.email
+            context['restaurant_website'] = restaurant.website
         else:
             message = _("booking_failed")
             print(reservation_form.errors)
@@ -143,6 +151,9 @@ def confirm_booking(request):
             bookingconfirmer = BookingConfirmer()
             context = bookingconfirmer.confirm_booking(reservationID, name, email, telephone_nr)
             request.session['status'] = context['status']
+            context['restaurant_name'] = request.session['restaurant_name']
+            context['restaurant_email'] = request.session['restaurant_email']
+            context['restaurant_website'] = request.session['restaurant_website']
         else:
             print(confirmation_form.errors)
             request.session['status'] = 'booking_failed'
@@ -151,7 +162,9 @@ def confirm_booking(request):
                        'start_time': request.session['start_time'],
                        'number_of_persons': request.session['number_of_persons'],
                        'held_reservation_id': False,
-                       'confirmation_form': confirmation_form}
+                       'confirmation_form': confirmation_form, 'restaurant_name': request.session['restaurant_name']
+                , 'restaurant_email': request.session['restaurant_email'],
+                       'restaurant_website': request.session['restaurant_website']}
             render(request, 'booking_confirmation.html', context)
 
     else:
@@ -162,7 +175,9 @@ def confirm_booking(request):
                    'start_time': request.session['start_time'],
                    'number_of_persons': request.session['number_of_persons'],
                    'held_reservation_id': request.session['held_reservation_id'],
-                   'confirmation_form': confirmation_form}
+                   'confirmation_form': confirmation_form, 'restaurant_name': request.session['restaurant_name']
+                , 'restaurant_email': request.session['restaurant_email'],
+                       'restaurant_website': request.session['restaurant_website']}
         render(request, 'booking_confirmation.html', context)
     return render(request, 'booking_confirmed.html', context)
 
@@ -201,11 +216,6 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
-    # current_user = request.user.id
-    # restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
-    #                                                                                     flat=True).first()
-    # request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
-    # request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
     return render(request, 'restaurant_portal.html')
 
 
