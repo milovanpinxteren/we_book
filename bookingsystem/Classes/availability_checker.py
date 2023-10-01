@@ -1,5 +1,5 @@
-import datetime
-import calendar
+
+from datetime import date, timedelta, datetime
 
 from django.db.models import Q
 
@@ -7,60 +7,92 @@ from bookingsystem.models import Restaurants, CustomRestaurantAvailability, Tabl
 
 
 class AvailabilityChecker():
-    def get_availability(self, restaurant_id):
-        availability_dict = {}
-        availability_list, closed_list = self.get_availability_of_day(restaurant_id)
-        opening_time = Restaurants.objects.filter(id=restaurant_id).values_list("opening_time", flat=True)[0]
-        closing_time = Restaurants.objects.filter(id=restaurant_id).values_list("closing_time", flat=True)[0]
-        for day in availability_list:
-            day_dict = self.get_available_timeslots(restaurant_id, day, opening_time, closing_time)
-            availability_dict[str(day)] = day_dict
-        return availability_dict, closed_list
-
-    def get_availability_of_day(self, restaurant_id): # get available days for the next year
-    #For normal restaurant availability
-        restaurant = Restaurants.objects.filter(id=restaurant_id)
-        today = datetime.date.today()
-        availability_list = []
-        closed_list = []
-        for _ in range(366):  # Include today, so range goes from 0 to 365
-            today += datetime.timedelta(days=1)
-            day_name = calendar.day_name[today.weekday()].lower()
-            column_name = 'open_' + day_name
-            restaurant_open = restaurant.values_list(column_name, flat=True)[0]
-            if restaurant_open:
-                availability_list.append(today)
-            else:
-                closed_list.append(str(today))
-
-    #For custom availability
-        custom_availabilities = CustomRestaurantAvailability.objects.filter(restaurant_id=restaurant_id)
-        for custom_availability in custom_availabilities:
-            try:
-                if custom_availability.open:
-                    availability_list.append(custom_availability.date)
-                    closed_list.remove(str(custom_availability.date))
-                elif not custom_availability.open:
-                    availability_list.remove(custom_availability.date)
-                    closed_list.append(str(custom_availability.date))
-            except Exception as e:
-                continue
-
-        availability_list = sorted(availability_list)
-        return availability_list, closed_list
-
-    def get_available_timeslots(self, restaurant_id, day, opening_time, closing_time):
-        day_dict = {}
-        times_dict = {}
+    def make_timestamps(self):
         timestamps = []
-        start_time = datetime.datetime.strptime("00:00", "%H:%M")
-        for i in range(96):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
+        start_time = datetime.strptime("00:00", "%H:%M")
+        for i in range(
+                96):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
             timestamps.append(start_time.strftime("%H:%M"))
-            start_time += datetime.timedelta(minutes=15)
-            if opening_time <= start_time.time() <= closing_time:
-                times_dict[str(start_time.time())[:5]] = 'enabled'
-            else:
-                times_dict[str(start_time.time())[:5]] = 'disabled'
+            start_time += timedelta(minutes=15)
+        return timestamps
 
-        # day_dict[day] = times_dict
-        return times_dict
+    def get_disabled_dates(self, restaurant, current_month, current_year):
+        first_day = date(current_year, current_month, 1)
+        if current_month == 12:
+            next_month = 1
+            next_year = current_year + 1
+        else:
+            next_month = current_month + 1
+            next_year = current_year
+        last_day = date(next_year, next_month, 1) - timedelta(days=1)
+        closed_dates = []
+
+        current_date = first_day
+        while current_date <= last_day:
+            field_name = f'open_{current_date.strftime("%A").lower()}'
+            if getattr(restaurant, field_name) is False:
+                closed_dates.append(str(current_date))
+            current_date += timedelta(days=1)
+
+        custom_closed_dates_query = CustomRestaurantAvailability.objects.filter(
+            restaurant=restaurant,
+            date__range=(first_day, last_day),
+            open=False)
+        custom_open_dates_query = CustomRestaurantAvailability.objects.filter(
+            restaurant=restaurant,
+            date__range=(first_day, last_day),
+            open=True)
+
+        for custom_closed_date in custom_closed_dates_query:
+            if str(custom_closed_date.date) not in closed_dates:
+                closed_dates.append(str(custom_closed_date.date))
+
+        for custom_open_date in custom_open_dates_query:
+            if str(custom_open_date.date) in closed_dates:
+                closed_dates.remove(str(custom_open_date.date))
+
+
+
+        return closed_dates
+
+
+    def query_availability(self, restaurant, reservation_date, number_of_persons, reservation_time, timestamps):
+        date = datetime.strptime(reservation_date, '%m/%d/%Y')
+        query_date = date.strftime('%Y-%m-%d')
+        day = date.strftime('%A').lower()
+        custom_availability = CustomRestaurantAvailability.objects.filter(restaurant=restaurant, date=date)
+        if custom_availability:
+            opening_time = custom_availability.values_list('start_time', flat=True)[0]
+            closing_time = custom_availability.values_list('end_time', flat=True)[0]
+        else:
+            opening_time_field_name = f'opening_time_{day}'
+            opening_time = getattr(restaurant, opening_time_field_name)
+            closing_time_field_name = f'closing_time_{day}'
+            closing_time = getattr(restaurant, closing_time_field_name)
+
+        opening_time = datetime.strptime(str(opening_time), "%H:%M:%S")
+        closing_time = datetime.strptime(str(closing_time), "%H:%M:%S")
+        table_query = Q(restaurant_id=restaurant.id) & Q(min_pers__lte=number_of_persons) & Q(max_pers__gte=number_of_persons)
+        possible_tables = Tables.objects.filter(table_query)
+        time_availability_dict = {}
+        for timestamp in timestamps:
+            time_availability_dict[timestamp] = 'disabled'
+            timestamp_datetime = datetime.strptime(timestamp, "%H:%M")
+            if opening_time <= timestamp_datetime <= closing_time:
+                reservation_end_time = timestamp_datetime + timedelta(hours=restaurant.meal_duration)
+                for possible_table in possible_tables:
+                    reservations = Reservations.objects.filter(
+                        Q(restaurant_id=restaurant.id) & Q(table_id=possible_table.id) & Q(reservation_date=query_date) & Q(confirmed=True))
+
+                    before_timeslot_query = Q(arrival_time__lt=reservation_end_time) | Q(end_time__gt=timestamp)
+                    after_timeslot_query = Q(arrival_time__gt=reservation_end_time)
+                    within_reserved_timeslot = reservations.filter(before_timeslot_query)
+                    below_lower_bound = reservations.filter(after_timeslot_query)
+                    if within_reserved_timeslot and not below_lower_bound:
+                        print('table reserved, check new table')
+                    else:
+                        time_availability_dict[timestamp] = 'enabled'
+        return time_availability_dict
+
+
+

@@ -13,15 +13,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>
     <link rel="shortcut icon" type="image/png" href="{% static 'images/we-book-icon.ico' %}">
 
-    <!-- Include jQuery -->
-    {#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
-    {##}
-    {#    <!-- Include jQuery UI CSS and JavaScript -->#}
-    {#    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">#}
-    {#    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>#}
-    <link href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <title>Title</title>
@@ -29,22 +27,15 @@
 <body>
 
 <div class="page-container">
+    <div class="textDiv" id="textDiv" style="display: none">
+    </div>
     <div class="form-div">
-        <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main">
+
+        <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main"
+              hx-post="{% url 'bookingsystem:check_availability' %}" hx-trigger="input delay:1s" hx-target=".textDiv">
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
-            <div class="inputContainer">
-                <svg class="inputIcon bi bi-person" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                     fill="currentColor"
-                     viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                </svg>
-
-
-                <input type="number" class="inputField" id="number_of_persons" placeholder="{% trans "no_persons" %}"
-                       name="number_of_persons" autocomplete="off">
-            </div>
-
+            <input type="hidden" value="{{ restaurant.id }}" name="restaurantID">
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
                     <!-- Calendar Outline -->
@@ -58,14 +49,24 @@
                     <circle cx="24" cy="13" r="2" fill="#000"></circle>
                     <circle cx="37" cy="13" r="2" fill="#000"></circle>
                 </svg>
-
-
-                {#                <input type="date" class="inputField" id="reservation_date" name="reservation_date"#}
-                {#                       placeholder="{% trans "reservation_date" %}">#}
-                <input class="inputField" type="text" id="datepicker" placeholder="Select a date" name="reservation_date"
-                autocomplete="off">
-
+                <input class="inputField" type="text" id="datepicker" placeholder="{% trans 'reservation_date' %}"
+                       name="reservation_date"
+                       autocomplete="off" onchange="enableTimeSlotSelect()">
             </div>
+
+            <div class="inputContainer">
+                <svg class="inputIcon bi bi-person" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                     fill="currentColor"
+                     viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                </svg>
+
+
+                <input type="number" class="inputField" id="number_of_persons"
+                       placeholder="{% trans "fill_in_date_first" %}"
+                       name="number_of_persons" autocomplete="off" oninput="enableTimeSlotSelect()" disabled>
+            </div>
+
 
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
@@ -82,15 +83,13 @@
                     <text x="12" y="28" font-size="6" fill="#000" text-anchor="middle">9</text>
                 </svg>
 
-
-                {#                <input type="time" class="inputField" id="reservation_time" name="reservation_time"#}
-                {#                       placeholder="{% trans "reservation_time" %}">#}
-                <select class="inputField" name="reservation_time" id="timeSlotSelect">
+                <select class="timeslotselect inputField" name="reservation_time" id="timeSlotSelect" disabled>
+                    <option value="" disabled selected>{% trans 'fill_in_date_and_persons_first' %}</option>
 
                 </select>
             </div>
 
-            <button class="submit-button" id="button">Submit</button>
+            <button class="submit-button" id="button">{% trans 'submit' %}</button>
 
 
             <div class="language-picker-div">
@@ -102,49 +101,92 @@
 
     </div>
     {% include 'components/footer.html' %}
+
 </div>
+<script>
+    function enableTimeSlotSelect() {
+        var numberOfPersons = document.getElementById("number_of_persons");
+        var datepickerInput = document.getElementById("datepicker");
+        var timeSlotSelect = document.getElementById("timeSlotSelect");
+        var placeholderOption = timeSlotSelect.querySelector('option[value=""]');
+
+        // Enable the time slot select if the datepicker has a value, otherwise disable it
+        if (datepickerInput.value && numberOfPersons.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'select_timeslot' %}";
+            timeSlotSelect.disabled = false;
+        } else if (datepickerInput.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'fill_in_number_of_persons' %}";
+        } else {
+            numberOfPersons.disabled = true;
+            timeSlotSelect.disabled = true;
+        }
+    }
+</script>
 
 <script>
-    //JSON INPUTS
-    //Dates to be disabled (format: ["23-09-2023", "24-09-2023", "26-09-2023", "27-09-2023"])
-    const disable_datesdata = new DOMParser().parseFromString("{{ json_disable_datesdata }}", "text/html");
-    const disable_datesdata_to_parse = disable_datesdata.documentElement.textContent
-    const parsed_disable_datesdata = JSON.parse(disable_datesdata_to_parse)
-    var disableddates = parsed_disable_datesdata
-    //Timeslot availability per date (dict)
-    const availability = new DOMParser().parseFromString("{{ availability }}", "text/html");
-    const availability_data_to_parse = availability.documentElement.textContent
-    const parsed_availability_data = JSON.parse(availability_data_to_parse)
-    console.log(parsed_availability_data)
-
-    //FUNCTIONS
-    function toggleTimeslots(selectedDate) {
-        console.log("Selected date: " + selectedDate);
-        const dateObject = new Date(selectedDate);
-        const year = dateObject.getFullYear().toString();
-        const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-        const day = dateObject.getDate().toString().padStart(2, '0');
-        const formattedDate = year + "-" + month + "-" + day;
-        console.log(formattedDate)
-        timeSlotAvailability = parsed_availability_data[formattedDate];
-        console.log(timeSlotAvailability)
-        updateTimeSlotAvailability(timeSlotAvailability)
+    // Function to be triggered when text changes
+    function textChangeCallback(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                updateTimeSlotAvailability(mutation.target.textContent)
+            }
+        }
     }
+
+    const textDiv = document.getElementById('textDiv');
+    const observer = new MutationObserver(textChangeCallback);
+    const config = {childList: true};
+    observer.observe(textDiv, config);
+
+</script>
+<script>
+    var disableddates = {{ disabled_dates|safe }}
+        $(document).ready(function () {
+            $("#datepicker").datepicker({
+                beforeShowDay: DisableSpecificDates,
+                onChangeMonthYear: function (year, month, inst) {
+                    var postData = {
+                        year: year,
+                        month: month,
+                        restaurantID: {{ restaurant.id }}
+                    };
+                    $.ajax({
+                        url: "{% url 'bookingsystem:check_available_dates' %}",
+                        method: "POST",
+                        data: postData,
+                        dateType: "json",
+                        headers: {
+                            "X-CSRFToken": '{{ csrf_token }}'
+                        },
+                        success: function (data) {
+                            // Update the disableddates array based on the response
+                            disableddates = data.disabled_dates
+                            $("#datepicker").datepicker("refresh");
+
+                        },
+                    });
+                }
+            });
+        });
 
     function DisableSpecificDates(date) {
         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
         return [disableddates.indexOf(string) === -1];
     }
 
+
     function updateTimeSlotAvailability(timeSlotAvailability) {
         const selectElement = document.getElementById('timeSlotSelect');
-
-        for (const timeSlot in timeSlotAvailability) {
-            console.log(timeSlot)
-            const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`);
+        const parsedtimeSlotAvailability = JSON.parse(timeSlotAvailability)
+        for (const timeSlot in parsedtimeSlotAvailability) {
+            const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`)
 
             if (optionElement) {
-                if (timeSlotAvailability[timeSlot] === 'disabled') {
+                if (parsedtimeSlotAvailability[timeSlot] === 'disabled') {
                     optionElement.disabled = true;
                 } else {
                     optionElement.disabled = false;
@@ -153,23 +195,11 @@
         }
     }
 
-    //EVENT LISTENERS AND EMITTERS
-    $(function () {
-        $("#datepicker").datepicker({
-            beforeShowDay: DisableSpecificDates,
-            onSelect: function (selectedDate) {
-                toggleTimeslots(selectedDate)
-            },
-            dateFormat: "dd/mm/yy"
-        });
-    });
-
 </script>
-
 <script>
     function populateTimeSlots() {
         const selectElement = document.getElementById('timeSlotSelect');
-        for (let hour = 0; hour <= 24; hour++) {
+        for (let hour = 0; hour <= 23; hour++) {
             for (let minute = 0; minute < 60; minute += 15) {
                 const hourFormatted = String(hour).padStart(2, '0');
                 const minuteFormatted = String(minute).padStart(2, '0');
@@ -187,6 +217,5 @@
     // Call the function to populate the time slots
     populateTimeSlots();
 </script>
-
 </body>
 </html>

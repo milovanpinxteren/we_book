@@ -17,7 +17,7 @@
     <ul class="dropdown-ul">
         {% for lang in languages %}
             <li class="language">
-                {% if request.path|slice:"1:3" in 'nl, de, it, en, fr' %}
+                {% if request.path|slice:"1:3" in 'de, it, en, fr, es' %}
                     <a href="/{{ lang.code }}{{ request.path|slice:"3:" }}">{{ lang.name_local }}
                         <img src="{% static 'language_icons/' %}{{ lang.code }}.png"
                              alt="country-icon"
@@ -32,23 +32,6 @@
                              height="15px">
                     </a>
                 {% endif %}
-
-                {#                {% if request.path != "/" %}#}
-                {#                    <a href="/{{ lang.code }}{{ request.path }}">{{ lang.name_local }}#}
-                {#                        <img src="{% static 'language_icons/' %}{{ lang.code }}.png"#}
-                {#                             alt="country-icon"#}
-                {#                             width="15px"#}
-                {#                             height="15px">#}
-                {#                    </a>#}
-                {#                {% else %}#}
-                {##}
-                {#                    <a href="/{{ lang.code }}/">{{ lang.name_local }}#}
-                {#                        <img src="{% static 'language_icons/' %}{{ lang.code }}.png"#}
-                {#                             alt="country-icon"#}
-                {#                             width="15px"#}
-                {#                             height="15px">#}
-                {#                    </a>#}
-                {#                {% endif %}#}
             </li>
         {% endfor %}
     </ul>

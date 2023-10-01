@@ -1,4 +1,7 @@
 {% load i18n %}
+{% load static %}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>#}
+
 <nav class="main-menu">
     <ul>
         <li>
@@ -10,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'bookingsystem:show_reservations' %}">
+            <a href="./show_reservations">
                 <i class="fa fa-book fa-2x"></i>
                 <span class="nav-text">
                            {% trans 'show_reservations' %}
@@ -18,12 +21,14 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'bookingsystem:view_menu' %}">
-                <i class="fa fa-cutlery fa-2x"></i>
-                <span class="nav-text">
+            <a href="./view_menu">
+{#                <a href="{% url 'bookingsystem:view_menu' %}">#}
+
+                    <i class="fa fa-cutlery fa-2x"></i>
+                    <span class="nav-text">
                            {% trans 'view_menu' %}
                         </span>
-            </a>
+                </a>
         </li>
         <li class="has-subnav">
             <a href="{{ request.session.restaurant_url }}" target="_blank">
@@ -71,7 +76,7 @@
         {#                </li>#}
 
         <li>
-            <a href="{% url 'bookingsystem:view_restaurant_settings' %}">
+            <a href="./view_restaurant_settings">
                 <i class="fa fa-cogs fa-2x"></i>
                 <span class="nav-text">
                             {% trans 'settings' %}
@@ -80,7 +85,7 @@
         </li>
 
         <li>
-            <a href="{% url 'bookingsystem:custom_restaurant_availability' %}">
+            <a href="./custom_restaurant_availability">
                 <i class="fa fa-calendar fa-2x"></i>
                 <span class="nav-text">
                                     {% trans 'custom_opening_hours' %}
@@ -89,7 +94,7 @@
         </li>
 
         <li>
-            <a href="{% url 'bookingsystem:view_restaurant_tables' %}">
+            <a href="./view_restaurant_tables">
                 <i class="fa fa-list-alt fa-2x"></i> <!-- Restaurant or tables icon -->
                 {#                <i class="fa fa-sync-alt fa-2x"></i> <!-- Update or refresh icon -->#}
 
@@ -106,19 +111,24 @@
         {#                        </span>#}
         {#                    </a>#}
         {#                </li>#}
-        <li>
-            <a href="#">
-                <i class="fa fa-info fa-2x"></i>
-                <span class="nav-text">
-                            {% trans 'documentation' %}
-                        </span>
-            </a>
-        </li>
+{#        <li>#}
+{#            <a href="#">#}
+{#                <i class="fa fa-info fa-2x"></i>#}
+{#                <span class="nav-text">#}
+{#                            {% trans 'documentation' %}#}
+{#                        </span>#}
+{#            </a>#}
+{#        </li>#}
     </ul>
 
     <ul class="logout">
+                <li>
+                    <div class="language-picker-div">
+                        {% include 'components/language_picker.html' %}
+                    </div>
+                </li>
         <li>
-            <a href="#">
+            <a href="{% url 'logout' %}">
                 <i class="fa fa-sign-out fa-2x"></i>
                 <span class="nav-text">
                             Logout

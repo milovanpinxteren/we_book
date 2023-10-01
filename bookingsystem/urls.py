@@ -6,6 +6,9 @@ app_name = 'bookingsystem'
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("check_available_dates", views.check_available_dates, name="check_available_dates"),
+    path("check_availability", views.check_availability, name="check_availability"),
+
     path("make_reservation", views.make_reservation, name="make_reservation"),
     path("confirm_booking", views.confirm_booking, name="confirm_booking"),
 
@@ -28,11 +31,10 @@ urlpatterns = [
     path("update_restaurant_info", views.update_restaurant_info, name="update_restaurant_info"),
 
     path("custom_restaurant_availability", views.custom_restaurant_availability, name="custom_restaurant_availability"),
-    path("add_custom_restaurant_availability", views.add_custom_restaurant_availability, name="add_custom_restaurant_availability"),
+    path("add_custom_restaurant_availability", views.add_custom_restaurant_availability,
+         name="add_custom_restaurant_availability"),
     path("delete_availability/<int:availability_id>/", views.delete_availability, name="delete_availability"),
     path("update_custom_availability", views.update_custom_availability, name="update_custom_availability"),
-
-
 
     path("view_restaurant_tables", views.view_restaurant_tables, name="view_restaurant_tables"),
     path("add_table", views.add_table, name="add_table"),

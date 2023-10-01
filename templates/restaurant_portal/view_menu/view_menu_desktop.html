@@ -60,7 +60,6 @@
 <form action="./update_menu" method="post">
     {% csrf_token %}
     <button class="update-menu-button" id="button">{% trans 'update_menu' %}</button>
-
     {% for course, dishes in course_dishes.items %}
         <hr class="between-courses-hr">
         <p class="course">
