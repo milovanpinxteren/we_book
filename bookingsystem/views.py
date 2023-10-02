@@ -230,7 +230,12 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
-    return render(request, 'restaurant_portal.html')
+    current_user = request.user.id
+    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
+                                                                                        flat=True).first()
+    restaurant_info = Restaurants.objects.get(pk=restaurant_id)
+    context = {'action': './restaurant_settings/restaurant_settings.html', 'restaurant_info': restaurant_info}
+    return render(request, 'restaurant_portal.html', context)
 
 
 def show_reservations(request):

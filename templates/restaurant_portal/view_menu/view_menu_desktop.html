@@ -13,11 +13,14 @@
     <title>Title</title>
 </head>
 <body>
+
 <div class="menu-header-div">
-<h1 class="menu-header">{% trans 'see_and_change_your_menu' %}</h1>
+<h1 class="menu-header">{% trans 'see_and_change_your_menu' %} <div class="information-icon-div"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+<div class="information-text">{% trans 'menu_page_info_text' %}</div></h1>
 <button id="add-instances-button" class="add-instances-button"
         onclick="ToggleaddInstancesDiv()">{% trans 'add_courses_or_dishes' %}</button>
 </div>
+
 <div id="add-instances-div">
     <!-----------------------------------------------Add courses or dishes ------------------------------------------------>
     <div class="add-course-form">

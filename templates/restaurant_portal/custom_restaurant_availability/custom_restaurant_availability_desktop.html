@@ -14,7 +14,8 @@
 </head>
 <body>
 <div class="availability-header-div">
-    <h1 class="availability-header">{% trans 'see_and_change_your_availability' %}</h1>
+    <h1 class="availability-header">{% trans 'see_and_change_your_availability' %}<div class="information-icon-div"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+<div class="information-text">{% trans 'custom_availability_page_info_text' %}</div></h1>
     <button id="add-availability-button" class="add-availability-button"
             onclick="ToggleaddAvailabilityDiv()">{% trans 'add_availability' %}</button>
 </div>

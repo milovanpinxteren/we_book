@@ -74,7 +74,30 @@
 .menu-header {
     margin-left: 2%;
     float: left;
-    width: 40%;
+    /*width: 40%;*/
+}
+
+.information-icon-div {
+    float: right;
+}
+
+.information-text {
+    display: none;
+    float: right;
+    top: 0;
+    right: 30%;
+    position: absolute;
+    background-color: #e8e8e8;
+    border: 1px solid #2e2e2e;
+    font-size: 15px;
+    width: 25%;
+    padding: 1%;
+    border-radius: 2%;
+    font-weight: 100;
+}
+
+.information-icon-div:hover + .information-text {
+    display: block;
 }
 
 .add-instances-button {
