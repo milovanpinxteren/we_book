@@ -2,18 +2,22 @@
 {#<h2>{{ request.user_agent }}</h2>#}
 {% if user.is_authenticated %}
     {% if status != 'no_restaurant_known_for_user' %}
-        {% if request.user_agent.is_pc %}
-            {% include 'restaurant_portal/show_reservations/show_reservations_desktop.html' %}
-        {% endif %}
-        {% if request.user_agent.is_mobile %}
-            {% include 'restaurant_portal/show_reservations/show_reservations_mobile.html' %}
-        {% endif %}
-        {% if request.user_agent.is_tablet %}
-            {% include 'restaurant_portal/show_reservations/show_reservations_tablet.html' %}
+        {% if user.groups.all.0.name != 'only_website' %}
+            {% if request.user_agent.is_pc %}
+                {% include 'restaurant_portal/show_reservations/show_reservations_desktop.html' %}
+            {% endif %}
+            {% if request.user_agent.is_mobile %}
+                {% include 'restaurant_portal/show_reservations/show_reservations_mobile.html' %}
+            {% endif %}
+            {% if request.user_agent.is_tablet %}
+                {% include 'restaurant_portal/show_reservations/show_reservations_tablet.html' %}
+            {% endif %}
+        {% else %}
+            {% include 'no_sufficient_rights_page.html' %}
         {% endif %}
     {% else %}
         <h1>{% trans 'restaurant_not_confirmed_yet' %}</h1>
     {% endif %}
 {% else %}
-    <a href="{% url 'login' %}">Go to login page</a>
+    {% include 'go_to_login_page.html' %}
 {% endif %}

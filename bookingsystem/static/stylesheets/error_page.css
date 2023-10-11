@@ -21,6 +21,18 @@ button {
     border-radius: 5px;
 }
 
+a {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #e65107;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
 button:hover {
     background-color: rgba(230, 81, 7, 0.8);
 

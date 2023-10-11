@@ -15,5 +15,5 @@
         <h1>{% trans 'restaurant_not_confirmed_yet' %}</h1>
     {% endif %}
 {% else %}
-    <a href="{% url 'login' %}">Go to login page</a>
+    {% include 'go_to_login_page.html' %}
 {% endif %}

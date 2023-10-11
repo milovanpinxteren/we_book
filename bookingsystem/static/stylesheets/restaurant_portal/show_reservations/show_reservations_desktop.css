@@ -281,21 +281,6 @@
     text-decoration: 3px underline;
 }
 
-/*.reservation-table-value-booked:hover .reservation-info-div {*/
-/*    display: block;*/
-/*    background-color: purple;*/
-/*}*/
-
-/*.reservation-table-value-booked:active .reservation-info-div {*/
-/*    display: block;*/
-/*    background-color: green;*/
-/*}*/
-
-
-/*.reservation-table-value-booked:focus .reservation-info-div {*/
-/*    display: block;*/
-/*    background-color: yellow;*/
-/*}*/
 
 th {
     word-wrap: break-word;
@@ -308,3 +293,8 @@ td {
     max-width: 20px;
 }
 
+.reservation-info-second-view {
+    border: 1px solid;
+    background-color: orange;
+    margin-bottom: 1%;
+}

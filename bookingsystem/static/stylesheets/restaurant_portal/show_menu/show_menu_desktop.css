@@ -1,7 +1,7 @@
 
 #add-instances-div {
     display: none;
-    width: 60%;
+    width: 70%;
     min-height: 100px;
     border: 1px solid grey;
     padding-left: 1%;
@@ -35,7 +35,7 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-right: 2%;
-    margin-top: 1%;
+    /*margin-top: 1%;*/
 }
 
 .add-course-button {

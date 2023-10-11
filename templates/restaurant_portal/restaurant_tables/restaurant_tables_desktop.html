@@ -24,15 +24,15 @@
         {% csrf_token %}
         <label for="table-nr">{% trans 'table_nr' %}: </label>
         <input type="number" id="table-nr" placeholder="{% trans 'table_nr' %}" class="input-field"
-               name="table_nr">
+               name="table_nr" required>
 
         <label for="min-pers">{% trans 'min_amount_of_persons' %}: </label>
         <input type="number" id="min-pers" placeholder="{% trans 'min_amount_of_persons' %}" class="input-field"
-               name="min_pers">
+               name="min_pers" required>
 
         <label for="max-pers">{% trans 'max_amount_of_persons' %}: </label>
         <input type="number" id="max-pers" placeholder="{% trans 'max_amount_of_persons' %}" class="input-field"
-               name="max_pers">
+               name="max_pers" required>
         <button class="add-table-button" id="button">{% trans 'add_table' %}</button>
     </form>
 </div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'stylesheets/error_page.css' %}">
+</head>
+<body>
+<div class="container">
+    <p>{% trans 'user_not_authenticated_go_to_login' %}</p>
+    <a href="{% url 'login' %}">{% trans 'login' %}</a>
+</div>
+</body>
+</html>

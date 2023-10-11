@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="reservation-header-div">
-    <h2 class="reservation-header">{% trans 'current_reservations' %}</h2>
+    <h1 class="reservation-header">{% trans 'current_reservations' %}</h1>
     <button id="add-reservation-button" class="add-reservation-button"
             onclick="ToggleaddReservationDiv()">{% trans 'add_reservations' %}</button>
 </div>
@@ -95,58 +95,6 @@
         <div id="reservation-content">
 
         </div>
-        {#        {% for date in dates %}#}
-        {#        <hr>#}
-        {#        <div id="day-div-{{ date|date:"d" }}{{ date|date:"m" }}">#}
-        {#            <div id="reservation-date-{{ date|date:"d" }}{{ date|date:"m" }}">{{ date|date:"j F Y" }}#}
-        {#                <button onclick="toggleDate('{{ date|date:"d" }}{{ date|date:"m" }}')"#}
-        {#                        id="toggle-date-button-{{ date|date:"d" }}{{ date|date:"m" }}"#}
-        {#                        class="toggle-date-button">{% trans 'hide_date' %}</button>#}
-        {#            </div>#}
-        {#            <hr>#}
-        {#                <table class="reservations-table">#}
-        {#                    <thead class="reservation-table-thead">#}
-        {#                    <tr class="reservation-table-header-row">#}
-        {#                        {% for table in tables %}#}
-        {#                            <th class="table-nr">{{ table }}</th>#}
-        {#                        {% endfor %}#}
-        {#                    </tr>#}
-        {#                    </thead>#}
-        {#                    <tbody class="reservation-table-body">#}
-        {#                    {% for key, values in all_reservations_dict.items %}#}
-        {#                        {% if key == date|date:"Y-m-d" %}#}
-        {#                            {% for dict in values %}#}
-        {#                                <tr class="reservation-table-body-row">#}
-        {#                                    {% for key, value in dict.items %}#}
-        {#                                        <td class="reservation-table-value-{{ value.0 }}" tabindex="1">#}
-        {#                                            {{ value }}#}
-        {#                                            <div class="reservation-info-div">#}
-        {#                                                <p class="customer-info">#}
-        {#                                                    {% trans 'customer_name' %}: <span>{{ value.1 }}</span><br>#}
-        {#                                                    {% trans 'email' %}: <span>{{ value.2 }}</span><br>#}
-        {#                                                    {% trans 'telephone' %}: <span>{{ value.3 }}</span><br>#}
-        {#                                                <hr>#}
-        {#                                                </p>#}
-        {#                                                <p class="reservation-info">#}
-        {#                                                    {% trans 'reservation_date' %}: <span>{{ value.5 }}</span><br>#}
-        {#                                                    {% trans 'arrival_time' %}: <span>{{ value.4 }}</span><br>#}
-        {#                                                    {% trans 'number_of_persons' %}: <span>{{ value.6 }}</span><br>#}
-        {#                                                    {% trans 'table_nr' %}: <span>{{ value.7 }}</span>#}
-        {#                                                </p>#}
-        {#                                                <a class="cancel-booking-button"#}
-        {#                                                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ value.8 }}&path=show_reservations">{% trans 'cancel_booking' %}</a>#}
-        {#                                            </div>#}
-        {#                                        </td>#}
-        {##}
-        {#                                    {% endfor %}#}
-        {#                                </tr>#}
-        {#                            {% endfor %}#}
-        {#                        {% endif %}#}
-        {#                    {% endfor %}#}
-        {#                    </tbody>#}
-        {#                </table>#}
-        {#            </div>#}
-        {#        {% endfor %}#}
 
 
     </div>
@@ -164,6 +112,16 @@
         const parsedData = JSON.parse(responseData);
         const target = document.getElementById('reservation-content');
         target.innerHTML = '';
+
+        const changeViewButton = document.createElement('button');
+        changeViewButton.onclick = function () {
+            changeReservationTable(parsedData); // Replace with your logic
+        };
+        changeViewButton.id = 'change-view-button-';
+        changeViewButton.className = 'change-view-button';
+        changeViewButton.innerHTML = '{% trans "change_view" %}';
+        const reservationHeaderDiv = document.querySelector('.reservation-header-div');
+        reservationHeaderDiv.appendChild(changeViewButton);
 
         parsedData.dates.forEach(function (date) {
             const dateDiv = document.createElement('div');
@@ -273,14 +231,26 @@
             loader.style.display = 'none'
         });
 
+
         document.addEventListener('click', function (event) {
             const reservationValue = event.target.closest('.reservation-table-value-booked');
 
             if (reservationValue) {
+                console.log(reservationValue)
                 const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
                 const reservationValueRect = reservationValue.getBoundingClientRect();
-                const horizontaloffset = -80;
-                const leftPosition = reservationValueRect.left - horizontaloffset;
+                const clickX = event.clientX;
+                const windowWidth = window.innerWidth;
+                let horizontalOffset;
+
+                // Check if the click is on the right side of the screen
+                if (clickX > windowWidth / 2) {
+                    horizontalOffset = 380; // If clicked on right side of screen
+                } else {
+                    horizontalOffset = -80; //If clicked on left side of screen
+                }
+
+                const leftPosition = reservationValueRect.left - horizontalOffset;
 
                 // User clicked on a reservation-table-value-booked element
                 reservationInfoDiv.style.display = reservationInfoDiv.style.display === 'block' ? 'none' : 'block';
@@ -308,6 +278,58 @@
 
 </script>
 <script>
+    function changeReservationTable(parsedData) {
+        const target = document.getElementById('reservation-content');
+        target.innerHTML = '';
+
+        parsedData.dates.forEach(function (date) {
+            console.log('date', date) //make div for date
+
+            const dateDiv = document.createElement('div');
+            dateDiv.id = 'day-div-' + date;
+
+            const dateHeading = document.createElement('div');
+            const hr1 = document.createElement('hr');
+            dateDiv.appendChild(hr1);
+
+            dateHeading.id = 'reservation-date-' + date;
+            dateHeading.textContent = formatDateText(date); // Replace 'formattedDate' with the actual property in your JSON
+
+
+            const button = document.createElement('button');
+            button.onclick = function () {
+                toggleDate(date); // Replace with your logic
+            };
+            button.id = 'toggle-date-button-' + date;
+            button.className = 'toggle-date-button';
+            button.innerHTML = '{% trans "hide_date" %}'; // Replace with your translation logic
+            dateHeading.appendChild(button);
+
+            const hr2 = document.createElement('hr');
+            dateHeading.appendChild(hr2);
+
+            dateDiv.appendChild(dateHeading);
+
+            parsedData.all_reservations_dict[date].forEach(function (dict) {
+                for (const key in dict) {
+                    if (dict.hasOwnProperty(key) && Array.isArray(dict[key])) {
+                        console.log('array', dict[key])
+                        const reservationDiv = document.createElement('div');
+                        reservationDiv.className = 'reservation-info-second-view'
+                        reservationDiv.textContent = ' {% trans "customer_name" %}: ' + dict[key][1] + ' {% trans "reservation_time" %}: ' + dict[key][4].slice(0, 5) + ' ' + dict[key][6]
+                        dateDiv.appendChild(reservationDiv)
+                    }
+
+
+                }
+            })
+
+            target.appendChild(dateDiv);
+
+        })
+    }
+
+
     function hideMessage() {
         const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
         deletedReservationDiv.forEach(content => {

@@ -28,7 +28,7 @@
     display: none;
     float: right;
     top: 0;
-    right: 30%;
+    right: 25%;
     position: absolute;
     background-color: #e8e8e8;
     border: 1px solid #2e2e2e;
@@ -69,6 +69,31 @@
 }
 
 .add-availability-button {
+    display: block;
+    float: right;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    /*padding: 10px 25px;*/
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 2%;
+}
+
+.add-custom-availability-button {
     display: block;
     float: right;
     background-color: #13aa52;

@@ -283,6 +283,7 @@ def update_menu(request):
     if request.method == 'POST':
         menu_updater = MenuUpdater()
         menu_updater.update_menu(request)
+        #TODO: generate html and send html to correct branch and remote and push (GitPython)
     context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
     # return redirect('bookingsystem:/view_menu')

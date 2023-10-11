@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'stylesheets/no_rights_page.css' %}">
+{#    <title>{{ error_message }}</title>#}
+</head>
+<body>
+<div class="container">
+    <p>{% trans 'no_sufficient_rights_for_this_page' %} <br> {% trans 'contact_support_if_this_is_incorrect' %}</p> <br>
+    <button class="go-back-button" onclick="window.history.back()">{% trans 'go_back' %}</button>
+
+</div>
+</body>
+</html>
