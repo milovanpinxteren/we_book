@@ -13,6 +13,12 @@ class reservationShower:
             dates = sorted(list(
                 Reservations.objects.filter(restaurant_id=current_restaurant_id, confirmed=True, cancelled=False).values_list(
                     "reservation_date", flat=True).distinct()))
+
+            today = datetime.date.today()
+
+            yesterday = today - datetime.timedelta(days=1)
+            dates = [date for date in dates if date > yesterday]
+
             timeslots = self.get_timeslots(current_restaurant_id)
 
             # Find table numbers of Restaurant (the x-axis of the reservation table)
