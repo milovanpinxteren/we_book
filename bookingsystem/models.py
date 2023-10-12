@@ -137,6 +137,14 @@ class Reservations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class Orders(models.Model):
+    restaurant = models.ForeignKey(Restaurants, on_delete=models.CASCADE)
+    table = models.ForeignKey(Tables, on_delete=models.CASCADE, default='', blank=True)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, default='', blank=True)
+    dish = models.ForeignKey(Dishes, on_delete=models.CASCADE, default='', blank=True)
+    quantity = models.IntegerField(default=1)
+    amount = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+
 
 ################################################Finance############################################################
 

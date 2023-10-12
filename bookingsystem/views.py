@@ -13,6 +13,7 @@ from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMak
 from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
 from bookingsystem.Classes.PortalClasses.restaurant_info_updater import RestaurantInfoUpdater
 from bookingsystem.Classes.PortalClasses.restaurant_tables_updater import RestaurantTablesUpdater
+from bookingsystem.Classes.PortalClasses.table_management_shower import TableManagementShower
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
@@ -230,13 +231,14 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
-    current_user = request.user.id
-    restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id',
-                                                                                        flat=True).first()
-    restaurant_info = Restaurants.objects.get(pk=restaurant_id)
-    context = {'action': './restaurant_settings/restaurant_settings.html', 'restaurant_info': restaurant_info}
+    table_management_shower = TableManagementShower()
+    context = table_management_shower.prepare_table_management(request)
     return render(request, 'restaurant_portal.html', context)
 
+def get_table_bill(request, table_id):
+    table_management_shower = TableManagementShower()
+    context = table_management_shower.get_table_bill(request, table_id)
+    return JsonResponse(context)
 
 def show_reservations(request):
     context = {'action': './show_reservations/show_reservations.html'}

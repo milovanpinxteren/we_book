@@ -1,0 +1,136 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="{% static 'stylesheets/restaurant_portal/table_management/table_management_desktop.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<div class="table-management-header-div">
+    <h1 class="table-management-header">{% trans 'table_management' %}</h1>
+</div>
+<div class="table-management-container">
+    <div class="tables-container">
+        {% for table in tables %}
+            <div class="table" data-table-id="{{ table.id }}"
+                 data-table-nr="{{ table.table_nr }}" hx-get="{% url 'bookingsystem:get_table_bill' table.id %}"
+                 hx-trigger="click" hx-target=".table-bill-div">{{ table.table_nr }}</div>
+        {% endfor %}
+    </div>
+    <div class="table-bill-div" id="table-bill-div">
+        {% trans 'select_table' %}
+    </div>
+    <div class="dishes-container">
+        <h4 class="table-nr" id="table-nr">{% trans 'table_nr' %}: </h4>
+        {% for course, dishes in course_dishes.items %}
+            <div class="course-div">
+                {{ course }}
+                {% for dish in dishes %}
+                    <div class="dish-div">
+                        {{ dish }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tables = document.querySelectorAll('.table');
+
+        tables.forEach(function (table) {
+            table.addEventListener('click', function () {
+                const tableNumber = table.getAttribute('data-table-nr');
+
+                // Send an AJAX request to retrieve dishes related to the selected table
+                const tableNumberElement = document.getElementById('table-nr');
+                tableNumberElement.textContent = `{% trans 'table_nr' %}: ${tableNumber}`;
+            });
+        });
+    });
+
+    document.addEventListener('htmx:afterRequest', function (evt) {
+        const responseData = evt.detail.xhr.response;
+        const parsedData = JSON.parse(responseData);
+        const target = document.getElementById('table-bill-div');
+        console.log(parsedData)
+        target.innerHTML = '';
+        const orderDiv = document.createElement('table');
+        orderDiv.className = 'order-table'
+        const thead = document.createElement('thead');
+
+        const headerRow = document.createElement('tr');
+        const dishNameHeader = document.createElement('th');
+        dishNameHeader.textContent = '{% trans 'dish_name' %}';
+        dishNameHeader.className = 'dish-name-header header'
+        const dishQuantityHeader = document.createElement('th');
+        dishQuantityHeader.textContent = '{% trans 'quantity' %}';
+        dishQuantityHeader.className = 'dish-quantity-header header'
+        const dishAmountHeader = document.createElement('th');
+        dishAmountHeader.textContent = '{% trans 'amount' %}';
+        dishAmountHeader.className = 'dish-amount-header header'
+
+// Append the headers to the header row
+        headerRow.appendChild(dishNameHeader);
+        headerRow.appendChild(dishQuantityHeader);
+        headerRow.appendChild(dishAmountHeader);
+
+// Append the header row to the table header
+        thead.appendChild(headerRow);
+        const tbody = document.createElement('tbody');
+
+        parsedData.orders.forEach(function (orderline) {
+            console.log(orderline)
+            const orderlineRow = document.createElement('tr');
+            orderlineRow.className = 'orderline-row'
+
+            const dishNameCell = document.createElement('td');
+            dishNameCell.className = 'dish-name';
+            dishNameCell.textContent = orderline.dish__name;
+            orderlineRow.appendChild(dishNameCell);
+
+            // Create and append dish quantity cell
+            const dishQuantityCell = document.createElement('td');
+            dishQuantityCell.className = 'dish-quantity';
+            dishQuantityCell.textContent = orderline.quantity;
+            orderlineRow.appendChild(dishQuantityCell);
+
+            // Create and append dish amount cell
+            const dishAmountCell = document.createElement('td');
+            dishAmountCell.className = 'dish-amount';
+            dishAmountCell.textContent = `€ ${orderline.amount}`;
+            orderlineRow.appendChild(dishAmountCell);
+
+            // Append the orderline row to the table body
+            tbody.appendChild(orderlineRow);
+        })
+        const tableTotal = document.createElement('tfoot')
+        tableTotal.className = 'table-total'
+        const tableTotalLabel = document.createElement('td')
+        tableTotalLabel.textContent = '{% trans 'total' %} '
+        const tableTotalQuantity = document.createElement('td')
+        tableTotalQuantity.textContent = ''
+        const tableTotalAmount = document.createElement('td')
+        tableTotalAmount.textContent = '€ ' + parsedData.total_amount
+        tableTotal.appendChild(tableTotalLabel)
+        tableTotal.appendChild(tableTotalQuantity)
+        tableTotal.appendChild(tableTotalAmount)
+
+        orderDiv.appendChild(thead);
+        orderDiv.appendChild(tbody);
+        orderDiv.appendChild(tableTotal)
+        target.appendChild(orderDiv)
+    })
+
+</script>
+</body>
+</html>
