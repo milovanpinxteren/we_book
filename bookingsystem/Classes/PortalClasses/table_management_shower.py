@@ -13,7 +13,18 @@ class TableManagementShower():
         course_dishes = {}
         for course in courses:
             ordered_dishes = course.dishes_set.order_by('dish_order')
-            course_dishes[course] = ordered_dishes
+            dishes = ordered_dishes.values_list('id', 'name', 'price', 'dish_order', 'course_id')
+            result_as_dict = [
+                {
+                    'id': item[0],
+                    'name': item[1],
+                    'price': float(item[2]),
+                    'dish_order': item[3],
+                    'course_id': item[4]
+                }
+                for item in dishes
+            ]
+            course_dishes[course] = result_as_dict
 
 
         context = {'action': './table_management.html', 'tables': tables, 'course_dishes': course_dishes}
@@ -28,9 +39,11 @@ class TableManagementShower():
             'dish__name',
             'quantity',
             'amount'
-        )
+        ).order_by('course__course_order', 'dish__dish_order')
         total_amount = orders.aggregate(total_amount=Sum('amount'))['total_amount']
 
         orders_list = list(orders)
         context = {'orders': orders_list, 'total_amount': total_amount}
         return context
+
+

@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -29,31 +30,85 @@
         {% trans 'select_table' %}
     </div>
     <div class="dishes-container">
-        <h4 class="table-nr" id="table-nr">{% trans 'table_nr' %}: </h4>
+        <h4 class="table-nr" id="table-nr" data-table-id="">{% trans 'table_nr' %}: </h4>
         {% for course, dishes in course_dishes.items %}
             <div class="course-div">
-                {{ course }}
-                {% for dish in dishes %}
-                    <div class="dish-div">
-                        {{ dish }}
-                    </div>
-                {% endfor %}
+                <button class="course-button" onclick="showDishes({{ dishes|safe }})">{{ course.name }}</button>
+                {{ dishes.name }}
             </div>
         {% endfor %}
+
+        <div class="selected-course-dishes" id="selected-course-dishes">
+            {% csrf_token %}
+            <!-- The content of selected table's dishes will be displayed here -->
+        </div>
     </div>
 </div>
 
 <script>
+    function showDishes(course_dishes) {
+        const target = document.getElementById('selected-course-dishes');
+        target.innerHTML = ''
+        const allDishesDiv = document.createElement('div');
+        allDishesDiv.className = 'all-dishes-div'
+        course_dishes.forEach(function (dish) {
+            const dishDiv = document.createElement('div');
+            dishDiv.className = 'dish-div'
+            const dishButton = document.createElement('button')
+            dishButton.innerHTML = `<div class="dish-name">${dish.name}</div>`
+            dishButton.className = 'dish-button'
+            dishButton.setAttribute('hx-headers', '{ "X-CSRFToken": "{{ csrf_token }}" }'); // Replace with the appropriate token source
+            // pass dish and table
+            dishButton.onclick = function () {
+                addDishToTable(dish);
+            };
+
+            {#dishButton.setAttribute('hx-post', '{% url "bookingsystem:add_dish_to_table" %}');#}
+            {#dishButton.setAttribute('hx-trigger', 'click');#}
+            {#dishButton.setAttribute('hx-ext', 'debug')#}
+            {#htmx.process(dishButton)#}
+
+
+            dishDiv.appendChild(dishButton)
+            allDishesDiv.appendChild(dishDiv)
+        })
+        target.appendChild(allDishesDiv)
+    }
+
+    function addDishToTable(dish) {
+        console.log('dish', dish)
+        const table_id = document.getElementById('table-nr').getAttribute('data-table-id').toString()
+        console.log(table_id)
+        const dish_id = dish.id.toString()
+        const url = `/add_dish_to_table/${dish_id}/${table_id}/`;
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            headers: {"X-CSRFToken": "{{ csrf_token }}"},
+            success: function (response) {
+                console.log('response', response)
+                const tableNrValue = response.table_nr;
+                const tableElement = document.querySelector(`[data-table-nr="${tableNrValue}"]`);
+                if (tableElement) {
+                    tableElement.click();
+                }
+            }
+        });
+    }
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const tables = document.querySelectorAll('.table');
 
         tables.forEach(function (table) {
             table.addEventListener('click', function () {
                 const tableNumber = table.getAttribute('data-table-nr');
-
-                // Send an AJAX request to retrieve dishes related to the selected table
+                const tableId = table.getAttribute('data-table-id')
                 const tableNumberElement = document.getElementById('table-nr');
                 tableNumberElement.textContent = `{% trans 'table_nr' %}: ${tableNumber}`;
+                tableNumberElement.setAttribute('data-table-id', tableId);
+
             });
         });
     });
@@ -89,7 +144,6 @@
         const tbody = document.createElement('tbody');
 
         parsedData.orders.forEach(function (orderline) {
-            console.log(orderline)
             const orderlineRow = document.createElement('tr');
             orderlineRow.className = 'orderline-row'
 
@@ -130,6 +184,7 @@
         orderDiv.appendChild(tableTotal)
         target.appendChild(orderDiv)
     })
+
 
 </script>
 </body>

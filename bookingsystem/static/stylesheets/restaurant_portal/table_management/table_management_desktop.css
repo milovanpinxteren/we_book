@@ -18,18 +18,23 @@
 
 .tables-container {
     width: 10%;
-    background-color: orange;
     float: left;
 }
 
 .table {
+    background-color: orange;
     border: 1px solid grey;
-    padding: 5%;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 8%;
+    padding-top: 8%;
+    margin-bottom: 1%;
 }
 
 .table-bill-div {
     float: left;
-    width: 29%;
+    width: 35%;
     min-height: 40%;
     background-color: lightgray;
     border: 1px solid #2e2e2e;
@@ -64,25 +69,42 @@
     height: 40px;
 }
 
-/*!* Style the cells in the body *!*/
-/*.order-table td {*/
-/*    vertical-align: top;*/
-/*}*/
+.course-div {
+    display: inline-block;
+    margin-left: 2px;
+    margin-bottom: 1%;
+    width: 23%;
+    min-height: 85px;
+}
 
-/*.dish-name {*/
-/*    display: inline-block;*/
-/*}*/
+.course-button {
+    width: 100%;
+    min-height: 85px;
+}
 
-/*.dish-quantity {*/
-/*    display: inline-block;*/
-/*}*/
-
-/*.dish-amount {*/
-/*    display: inline-block;*/
-/*}*/
 
 .dishes-container {
-    width: 60%;
-    background-color: red;
+    width: 54%;
+    background-color: rgba(232, 112, 26, 0.4);
     float: right;
+}
+
+.all-dishes-div {
+    background-color: rgba(232, 112, 26, 0.7);
+    padding-top: 1%;
+}
+
+.dish-div {
+    display: inline-block;
+    margin-left: 2px;
+    margin-bottom: 1%;
+    width: 23%;
+    min-height: 85px;
+    margin-top: 1%;
+    vertical-align: top;
+}
+
+.dish-button {
+    width: 100%;
+    min-height: 85px;
 }

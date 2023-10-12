@@ -42,5 +42,6 @@ urlpatterns = [
     path("delete_table/<int:table_id>/", views.delete_table, name="delete_table"),
 
     path("get_table_bill/<int:table_id>/", views.get_table_bill, name="get_table_bill"),
+    path("add_dish_to_table/<int:dish_id>/<int:table_id>/", views.add_dish_to_table, name="add_dish_to_table")
 
 ]

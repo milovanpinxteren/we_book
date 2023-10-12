@@ -13,6 +13,7 @@ from bookingsystem.Classes.PortalClasses.reservation_maker import ReservationMak
 from bookingsystem.Classes.PortalClasses.reservation_shower import reservationShower
 from bookingsystem.Classes.PortalClasses.restaurant_info_updater import RestaurantInfoUpdater
 from bookingsystem.Classes.PortalClasses.restaurant_tables_updater import RestaurantTablesUpdater
+from bookingsystem.Classes.PortalClasses.table_management_manager import TableManagementManager
 from bookingsystem.Classes.PortalClasses.table_management_shower import TableManagementShower
 from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
@@ -20,7 +21,7 @@ from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.Classes.email_sender import EmailSender
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
-    CustomRestaurantAvailability
+    CustomRestaurantAvailability, Orders
 
 
 class LogoutView():
@@ -239,6 +240,12 @@ def get_table_bill(request, table_id):
     table_management_shower = TableManagementShower()
     context = table_management_shower.get_table_bill(request, table_id)
     return JsonResponse(context)
+
+def add_dish_to_table(request, dish_id, table_id):
+    table_management_manager = TableManagementManager()
+    response = table_management_manager.add_dish(request, dish_id, table_id)
+    return JsonResponse(response)
+
 
 def show_reservations(request):
     context = {'action': './show_reservations/show_reservations.html'}
