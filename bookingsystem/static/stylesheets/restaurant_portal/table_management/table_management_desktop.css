@@ -22,7 +22,7 @@
 }
 
 .table {
-    background-color: orange;
+    background-color: rgba(232, 112, 26, 0.8);
     border: 1px solid grey;
     text-align: center;
     padding-left: 5%;
@@ -80,6 +80,7 @@
 .course-button {
     width: 100%;
     min-height: 85px;
+    font-weight: bolder;
 }
 
 
