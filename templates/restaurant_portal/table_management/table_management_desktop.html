@@ -23,7 +23,7 @@
         {% for table in tables %}
             <div class="table" data-table-id="{{ table.id }}"
                  data-table-nr="{{ table.table_nr }}" hx-get="{% url 'bookingsystem:get_table_bill' table.id %}"
-                 hx-trigger="click" hx-target=".table-bill-div">{{ table.table_nr }}</div>
+                 hx-trigger="click" hx-target=".table-bill-div" onclick="changeColor(this)">{{ table.table_nr }}</div>
         {% endfor %}
     </div>
     <div class="table-bill-div" id="table-bill-div">
@@ -46,6 +46,16 @@
 </div>
 
 <script>
+    function changeColor(element) {
+        const allDivs = document.querySelectorAll('.table');
+        allDivs.forEach((div) => {
+            div.classList.remove('selected');
+        });
+
+        // Add the 'selected' class to the clicked div
+        element.classList.add('selected');
+    }
+
     function showDishes(course_dishes) {
         const target = document.getElementById('selected-course-dishes');
         target.innerHTML = ''

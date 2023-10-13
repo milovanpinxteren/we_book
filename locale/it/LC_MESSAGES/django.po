@@ -32,10 +32,9 @@ msgstr ""
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:17
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:16
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:15
-#, fuzzy
-#| msgid "booking_confirmed"
+
 msgid "booking_confirmation"
-msgstr "Prenotazione confermata"
+msgstr "Prenotazione conferma"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:29
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:28
@@ -227,7 +226,7 @@ msgstr "Diventa partner"
 
 #: .\templates\components\sidebar.html:11
 msgid "home"
-msgstr "Home"
+msgstr "Gestione dei tavoli"
 
 #: .\templates\components\sidebar.html:19
 msgid "show_reservations"
@@ -255,7 +254,7 @@ msgstr "Visualizza tavoli"
 
 #: .\templates\components\sidebar.html:134
 msgid "logout"
-msgstr ""
+msgstr "Esci"
 
 #: .\templates\error_page.html:13 .\templates\no_sufficient_rights_page.html:13
 msgid "go_back"
@@ -274,10 +273,9 @@ msgstr "Accedi"
 #: .\templates\index\index_desktop.html:25
 #: .\templates\index\index_mobile.html:27
 #: .\templates\index\index_tablet.html:27
-#, fuzzy
-#| msgid "add_table"
+
 msgid "book_a_table"
-msgstr "Aggiungi tavolo"
+msgstr "Prenota un tavolo"
 
 #: .\templates\index\index_desktop.html:37
 #: .\templates\index\index_mobile.html:35
@@ -633,12 +631,10 @@ msgstr "Eliminazione annullata"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:122
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:307
 msgid "change_view"
-msgstr ""
+msgstr "Cambia vista"
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:128
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:313
-#, fuzzy
-#| msgid "possible_reservation_found"
 msgid "no_reservations_found"
 msgstr "Prenotazione possibile trovata"
 
@@ -669,13 +665,11 @@ msgstr "Annulla l'aggiunta di una prenotazione"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:19
 msgid "table_management"
-msgstr ""
+msgstr "Gestione dei tavoli"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:30
-#, fuzzy
-#| msgid "delete_table"
 msgid "select_table"
-msgstr "Elimina tavolo"
+msgstr "Seleziona il tavolo."
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:159
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:44
@@ -686,7 +680,7 @@ msgstr "Nome del piatto"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:162
 msgid "quantity"
-msgstr ""
+msgstr "Quantità"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:165
 msgid "amount"
@@ -694,13 +688,11 @@ msgstr ""
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:208
 msgid "total"
-msgstr ""
+msgstr "Subtotali"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:223
-#, fuzzy
-#| msgid "add_table"
 msgid "clear_table"
-msgstr "Aggiungi tavolo"
+msgstr "Cancella contenuti"
 
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:18
 msgid "see_and_change_your_menu"
