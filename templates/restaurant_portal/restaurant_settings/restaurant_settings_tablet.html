@@ -1,10 +1,268 @@
+{% load static %}
+{% load i18n %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="{% static 'stylesheets/restaurant_portal/restaurant_settings/restaurant_settings_tablet.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleDivVisibility(checkboxId, divId) {
+            var checkbox = document.getElementById(checkboxId);
+            var divToToggle = document.getElementById(divId);
+
+            // Check if the checkbox is checked
+            if (checkbox.checked) {
+                // If checked, display the div
+                divToToggle.style.display = "block";
+            } else {
+                // If unchecked, hide the div
+                divToToggle.style.display = "none";
+            }
+        }
+
+        window.onload = function () {
+            toggleDivVisibility('restaurant-open-monday', 'restaurant-opening-hours-div-monday');
+            toggleDivVisibility('restaurant-open-tuesday', 'restaurant-opening-hours-div-tuesday');
+            toggleDivVisibility('restaurant-open-wednesday', 'restaurant-opening-hours-div-wednesday');
+            toggleDivVisibility('restaurant-open-thursday', 'restaurant-opening-hours-div-thursday');
+            toggleDivVisibility('restaurant-open-friday', 'restaurant-opening-hours-div-friday');
+            toggleDivVisibility('restaurant-open-saturday', 'restaurant-opening-hours-div-saturday');
+            toggleDivVisibility('restaurant-open-sunday', 'restaurant-opening-hours-div-sunday');
+        };
+    </script>
     <title>Title</title>
 </head>
 <body>
+<h1>{% trans 'see_and_update_restaurant_info' %}</h1>
+<div class="restaurant-info-form">
+    <form action="./update_restaurant_info" method="post">
+        {% csrf_token %}
 
+        <button class="update-restaurant-info-button" id="button">{% trans 'update_information' %}</button>
+        {#        <br><br><br>#}
+        <div class="restaurant-contact-info">
+            <h3>{% trans 'contact_info' %}</h3>
+            <hr>
+            <label for="restaurant-name" class="restaurant-name-label">{% trans 'restaurant_name' %}: </label>
+            <input type="text" id="restaurant-name" value="{{ restaurant_info.name }}"
+                   name="name">
+
+            <label for="restaurant-website" class="restaurant-website-label">{% trans 'restaurant_website' %}: </label>
+            <input type="text" id="restaurant-website" value="{{ restaurant_info.website }}"
+                   name="website">
+
+            <label for="restaurant-email" class="restaurant-email-label">{% trans 'restaurant_email' %}: </label>
+            <input type="text" id="restaurant-email" value="{{ restaurant_info.email }}"
+                   name="email">
+
+            <label for="restaurant-telephone_nr"
+                   class="restaurant-telephone_nr-label">{% trans 'restaurant_telephone_nr' %}: </label>
+            <input type="text" id="restaurant-telephone_nr" value="{{ restaurant_info.telephone_nr }}"
+                   name="telephone_nr">
+
+            <label for="restaurant-address" class="restaurant-address-label">{% trans 'restaurant_address' %}: </label>
+            <input type="text" id="restaurant-address" value="{{ restaurant_info.address }}"
+                   name="address">
+
+            <label for="restaurant-place" class="restaurant-place-label">{% trans 'restaurant_place' %}: </label>
+            <input type="text" id="restaurant-place" value="{{ restaurant_info.place }}"
+                   name="place">
+
+            <label for="restaurant-postal_code"
+                   class="restaurant-postal_code-label">{% trans 'restaurant_postal_code' %}: </label>
+            <input type="text" id="restaurant-postal_code" value="{{ restaurant_info.postal_code }}"
+                   name="postal_code">
+
+            <label for="restaurant-country" class="restaurant-country-label">{% trans 'restaurant_country' %}: </label>
+            <input type="text" id="restaurant-country" value="{{ restaurant_info.country }}"
+                   name="country">
+        </div>
+        <div class="front-page-text-div">
+            <h3>{% trans 'front_page_text' %}</h3>
+            <hr>
+            {#        <input type="text" id="restaurant-front-page-text" value="{{ restaurant_info.front_page_text }}"#}
+            {#                       name="front_page_text">#}
+            <textarea name="front_page_text" id="restaurant-front-page-text" cols="30"
+                      rows="10">{{ restaurant_info.front_page_text }}</textarea>
+            {% with text_length=restaurant_info.front_page_text|length %}
+                <p id="character-count">{% trans 'characters_remaining' %}: {{ 2500|sub:text_length }}</p>
+            {% endwith %}
+
+        </div>
+
+        <div class="restaurant-opening-times">
+            <h3>{% trans 'opening_hours' %}</h3>
+            <hr>
+            <div class="restaurant-meal-duration">
+                <label for="restaurant-meal-duration"
+                       class="restaurant-meal-duration-label">{% trans 'restaurant_meal_duration' %}: </label>
+                <input type="number" id="restaurant-meal-duration" value="{{ restaurant_info.meal_duration }}"
+                       name="meal_duration"> {% trans 'hours' %}
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-monday"
+                       class="restaurant-open-monday-label">{% trans 'restaurant_open_monday' %}: </label>
+                <input type="checkbox" id="restaurant-open-monday" value="True"
+                       name="open_monday"
+                       onchange="toggleDivVisibility('restaurant-open-monday', 'restaurant-opening-hours-div-monday')"
+                        {% if restaurant_info.open_monday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-monday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-monday-opening-time"
+                           class="restaurant-open-monday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-monday-opening-time"
+                           value="{{ restaurant_info.opening_time_monday }}"
+                           name="opening_time_monday">
+                    <label for="restaurant-open-monday-closing-time"
+                           class="restaurant-open-monday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-monday-closing-time"
+                           value="{{ restaurant_info.closing_time_monday }}"
+                           name="closing_time_monday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-tuesday"
+                       class="restaurant-open-tuesday-label">{% trans 'restaurant_open_tuesday' %}: </label>
+                <input type="checkbox" id="restaurant-open-tuesday" value="True"
+                       name="open_tuesday"
+                       onchange="toggleDivVisibility('restaurant-open-tuesday', 'restaurant-opening-hours-div-tuesday')"
+                        {% if restaurant_info.open_tuesday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-tuesday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-tuesday-opening-time"
+                           class="restaurant-open-tuesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-tuesday-opening-time"
+                           value="{{ restaurant_info.opening_time_tuesday }}"
+                           name="opening_time_tuesday">
+                    <label for="restaurant-open-tuesday-closing-time"
+                           class="restaurant-open-tuesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-tuesday-closing-time"
+                           value="{{ restaurant_info.closing_time_tuesday }}"
+                           name="closing_time_tuesday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-wednesday"
+                       class="restaurant-open-wednesday-label">{% trans 'restaurant_open_wednesday' %}: </label>
+                <input type="checkbox" id="restaurant-open-wednesday" value="True"
+                       name="open_wednesday"
+                       onchange="toggleDivVisibility('restaurant-open-wednesday', 'restaurant-opening-hours-div-wednesday')"
+                        {% if restaurant_info.open_wednesday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-wednesday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-wednesday-opening-time"
+                           class="restaurant-open-wednesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-wednesday-opening-time"
+                           value="{{ restaurant_info.opening_time_wednesday }}"
+                           name="opening_time_wednesday">
+                    <label for="restaurant-open-wednesday-closing-time"
+                           class="restaurant-open-wednesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-wednesday-closing-time"
+                           value="{{ restaurant_info.closing_time_wednesday }}"
+                           name="closing_time_wednesday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-thursday"
+                       class="restaurant-open-thursday-label">{% trans 'restaurant_open_thursday' %}: </label>
+                <input type="checkbox" id="restaurant-open-thursday" value="True"
+                       name="open_thursday"
+                       onchange="toggleDivVisibility('restaurant-open-thursday', 'restaurant-opening-hours-div-thursday')"
+                        {% if restaurant_info.open_thursday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-thursday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-thursday-opening-time"
+                           class="restaurant-open-thursday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-thursday-opening-time"
+                           value="{{ restaurant_info.opening_time_thursday }}"
+                           name="opening_time_thursday">
+                    <label for="restaurant-open-thursday-closing-time"
+                           class="restaurant-open-thursday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-thursday-closing-time"
+                           value="{{ restaurant_info.closing_time_thursday }}"
+                           name="closing_time_thursday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-friday"
+                       class="restaurant-open-friday-label">{% trans 'restaurant_open_friday' %}: </label>
+                <input type="checkbox" id="restaurant-open-friday" value="True"
+                       name="open_friday"
+                       onchange="toggleDivVisibility('restaurant-open-friday', 'restaurant-opening-hours-div-friday')"
+                        {% if restaurant_info.open_friday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-friday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-friday-opening-time"
+                           class="restaurant-open-friday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-friday-opening-time"
+                           value="{{ restaurant_info.opening_time_friday }}"
+                           name="opening_time_friday">
+                    <label for="restaurant-open-friday-closing-time"
+                           class="restaurant-open-friday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-friday-closing-time"
+                           value="{{ restaurant_info.closing_time_friday }}"
+                           name="closing_time_friday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-saturday"
+                       class="restaurant-open-saturday-label">{% trans 'restaurant_open_saturday' %}: </label>
+                <input type="checkbox" id="restaurant-open-saturday" value="True"
+                       name="open_saturday"
+                       onchange="toggleDivVisibility('restaurant-open-saturday', 'restaurant-opening-hours-div-saturday')"
+                        {% if restaurant_info.open_saturday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-saturday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-saturday-opening-time"
+                           class="restaurant-open-saturday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-saturday-opening-time"
+                           value="{{ restaurant_info.opening_time_saturday }}"
+                           name="opening_time_saturday">
+                    <label for="restaurant-open-saturday-closing-time"
+                           class="restaurant-open-saturday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-saturday-closing-time"
+                           value="{{ restaurant_info.closing_time_saturday }}"
+                           name="closing_time_saturday">
+                </div>
+            </div>
+
+            <div class="day-div">
+                <label for="restaurant-open-sunday"
+                       class="restaurant-open-sunday-label">{% trans 'restaurant_open_sunday' %}: </label>
+                <input type="checkbox" id="restaurant-open-sunday" value="True"
+                       name="open_sunday"
+                       onchange="toggleDivVisibility('restaurant-open-sunday', 'restaurant-opening-hours-div-sunday')"
+                        {% if restaurant_info.open_sunday %} checked="checked" {% endif %}>
+                <div id="restaurant-opening-hours-div-sunday" class="restaurant-opening-hours-div">
+                    <label for="restaurant-open-sunday-opening-time"
+                           class="restaurant-open-sunday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                    <input type="time" id="restaurant-open-sunday-opening-time"
+                           value="{{ restaurant_info.opening_time_sunday }}"
+                           name="opening_time_sunday">
+                    <label for="restaurant-open-sunday-closing-time"
+                           class="restaurant-open-sunday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                    <input type="time" id="restaurant-open-sunday-closing-time"
+                           value="{{ restaurant_info.closing_time_sunday }}"
+                           name="closing_time_sunday">
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+    <script>
+        const textarea = document.getElementById('restaurant-front-page-text');
+        const characterCount = document.getElementById('character-count');
+        const maxLength = 2500
+        textarea.addEventListener('input', function () {
+            const currentLength = textarea.value.length;
+            const remaining = maxLength - currentLength;
+            characterCount.textContent = `Characters remaining: ${remaining}`;
+        });
+    </script>
+</div>
 </body>
 </html>

@@ -1,10 +1,89 @@
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="{% static 'stylesheets/restaurant_portal/restaurant_tables/restaurant_tables_mobile.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Title</title>
 </head>
 <body>
+<div class="table-header-div">
+    <h1 class="tables-header">{% trans 'see_and_change_your_tables' %}</h1>
+    <button id="add-tables-button" class="add-tables-button"
+            onclick="ToggleaddTablesDiv()">{% trans 'add_tables' %}</button>
+</div>
+<div class="add-table-form" id="add-table-div">
+    <form action="./add_table" method="post">
+        {% csrf_token %}
+        <label for="table-nr">{% trans 'table_nr' %}: </label>
+        <input type="number" id="table-nr" placeholder="{% trans 'table_nr' %}" class="input-field"
+               name="table_nr" required>
 
+        <label for="min-pers">{% trans 'min_amount_of_persons' %}: </label>
+        <input type="number" id="min-pers" placeholder="{% trans 'min_amount_of_persons' %}" class="input-field"
+               name="min_pers" required>
+
+        <label for="max-pers">{% trans 'max_amount_of_persons' %}: </label>
+        <input type="number" id="max-pers" placeholder="{% trans 'max_amount_of_persons' %}" class="input-field"
+               name="max_pers" required>
+        <button class="add-table-button" id="button">{% trans 'add_table' %}</button>
+    </form>
+</div>
+<hr style="border-top: 2px solid black">
+<div class="all-tables-div">
+    <form action="./update_tables" method="post">
+        {% csrf_token %}
+        <button class="update-tables-button" id="button">{% trans 'update_tables' %}</button>
+        {% for table in tables %}
+            <div class="table-div">
+                <label for="table-nr">{% trans 'table_nr' %}: </label>
+                <input type="number" id="table-nr" placeholder="{% trans 'table_nr' %}" class="input-field"
+                       name="table_nr-tableID={{ table.id }}" value="{{ table.table_nr }}">
+
+                <label for="min-pers">{% trans 'min_amount_of_persons' %}: </label>
+                <input type="number" id="min-pers" placeholder="{% trans 'min_amount_of_persons' %}" class="input-field"
+                       name="min_pers-tableID={{ table.id }}" value="{{ table.min_pers }}">
+
+                <label for="max-pers">{% trans 'max_amount_of_persons' %}: </label>
+                <input type="number" id="max-pers" placeholder="{% trans 'min_amount_of_persons' %}" class="input-field"
+                       name="max_pers-tableID={{ table.id }}" value="{{ table.max_pers }}">
+
+                <button class="delete-button" hx-post="{% url 'bookingsystem:delete_table' table.id %}"
+                        hx-confirm="{% trans 'are_you_sure_you_want_to_delete_this_table' %}">{% trans 'delete_table' %}</button>
+
+            </div>
+            <hr>
+        {% endfor %}
+    </form>
+</div>
+<script>
+    $(document).on("click", ".delete-button", function () {
+        location.reload();
+    });
+</script>
+<script>
+    function ToggleaddTablesDiv() {
+        const addTablesDiv = document.getElementById('add-table-div');
+        const addTablesButton = document.getElementById('add-tables-button');
+
+        if (addTablesDiv.style.display === 'none' || addTablesDiv.style.display === '') {
+            console.log('show')
+            addTablesDiv.style.display = 'block';
+            addTablesButton.innerHTML = "{% trans 'cancel_adding_tables' %}";
+        } else {
+            console.log('hide')
+            addTablesDiv.style.display = 'none'
+            addTablesButton.innerHTML = "{% trans 'add_tables' %}";
+        }
+
+    }
+</script>
 </body>
 </html>

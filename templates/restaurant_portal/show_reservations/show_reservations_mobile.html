@@ -1,0 +1,638 @@
+{% load custom_filters %}
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="{% static 'stylesheets/restaurant_portal/show_reservations/show_reservations_mobile.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+<div class="reservation-header-div">
+    <h1 class="reservation-header">{% trans 'current_reservations' %}</h1>
+    <button id="add-reservation-button" class="add-reservation-button"
+            onclick="ToggleaddReservationDiv()">{% trans 'add_reservations' %}</button>
+</div>
+
+
+<div class="add-reservation-div" id="add-reservation-div">
+    <h3 class="add-reservation-text">{% trans "add_reservation" %}</h3>
+    <hr>
+    <form action="./make_reservation_in_portal" method="post">
+        {% csrf_token %}
+        <span class="add-reservation-text">{% trans "no_persons" %}: </span><input type="number" class="inputField"
+                                                                                   id="number_of_persons"
+                                                                                   placeholder="{% trans "no_persons" %}"
+                                                                                   name="number_of_persons"
+                                                                                   autocomplete="off" required><br>
+        <span class="add-reservation-text">{% trans "reservation_date" %}: </span><input type="date" class="inputField"
+                                                                                         id="reservation_date"
+                                                                                         placeholder="{% trans "reservation_date" %}"
+                                                                                         name="reservation_date"
+                                                                                         autocomplete="off"
+                                                                                         required><br>
+        <span class="add-reservation-text">{% trans "reservation_time" %}: </span><input type="time" class="inputField"
+                                                                                         id="reservation_time"
+                                                                                         placeholder="{% trans "reservation_time" %}"
+                                                                                         name="reservation_time"
+                                                                                         autocomplete="off"
+                                                                                         required><br>
+        <span class="add-reservation-text">{% trans "customer_name" %}: </span><input type="text" class="inputField"
+                                                                                      id="customer_name"
+                                                                                      placeholder="{% trans "customer_name" %}"
+                                                                                      name="customer_name"
+                                                                                      autocomplete="off" required><br>
+        <span class="add-reservation-text">{% trans "table_nr" %}: </span><input type="text" class="inputField"
+                                                                                 id="table_nr"
+                                                                                 placeholder="{% trans "table_nr" %}"
+                                                                                 name="table_nr" autocomplete="off"
+                                                                                 required><br>
+        <span class="add-reservation-text">{% trans "customer_email" %}: </span><input type="email" class="inputField"
+                                                                                       id="customer_email"
+                                                                                       placeholder="{% trans "customer_email" %}"
+                                                                                       name="customer_email"
+                                                                                       autocomplete="off"><br>
+        <span class="add-reservation-text">{% trans "customer_telephone_nr" %}: </span><input type="text"
+                                                                                              class="inputField"
+                                                                                              id="customer_telephone_nr"
+                                                                                              placeholder="{% trans "customer_telephone_nr" %}"
+                                                                                              name="customer_telephone_nr"
+                                                                                              autocomplete="off"><br>
+        <button class="add-reservation-button" id="button">{% trans 'submit' %}</button>
+    </form>
+</div>
+
+<div class="reservation-container" hx-get="/calculate_reservation_table" hx-trigger="load"
+     hx-target="#reservation-content">
+    <div class="loader-div" id="loader-div"><span class="waiting-text">{% trans 'please_wait' %} </span><br>
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <div class="reservation-list">
+        {% if deleted_reservation %}
+            <div class="deleted-reservation-div">
+                <h3>{% trans 'deleted_reservation' %} {{ deleted_reservation }}</h3>
+                <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
+                <a class="rollback-deletion-link"
+                   href="{% url 'bookingsystem:rollback_deletion' %}?reservationID={{ deleted_reservation }}"
+                   onclick="rollbackDeletion()">{% trans 'rollback_deletion' %}</a>
+            </div>
+        {% endif %}
+        {% if rolled_back_deletion %}
+            <div class="deleted-reservation-div">
+                <h3>{% trans 'rolled_back_deletion' %} {{ rolled_back_deletion }}</h3>
+                <button class="hide-deletion-message-button" onclick="hideMessage()">{% trans 'hide_message' %}</button>
+            </div>
+        {% endif %}
+        <div id="reservation-content">
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function formatDateText(dateString) {
+        const options = {year: 'numeric', month: 'long', day: 'numeric'};
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+
+    document.addEventListener('htmx:afterRequest', function (evt) {
+        const responseData = evt.detail.xhr.response;
+        const parsedData = JSON.parse(responseData);
+        const target = document.getElementById('reservation-content');
+        target.innerHTML = '';
+
+        const changeViewButton = document.createElement('button');
+        changeViewButton.onclick = function () {
+            changeReservationView(parsedData, 'calendar');
+        };
+        changeViewButton.id = 'change-view-button';
+        changeViewButton.className = 'change-view-button';
+        changeViewButton.innerHTML = '{% trans "change_view" %}';
+        const reservationHeaderDiv = document.querySelector('.reservation-header-div');
+        reservationHeaderDiv.appendChild(changeViewButton);
+
+        if (Array.isArray(parsedData.dates) && parsedData.dates.length === 0) {
+            const emptyDiv = document.createElement('div');
+            emptyDiv.textContent = "{% trans 'no_reservations_found' %}"
+            target.appendChild(emptyDiv)
+        } else {
+
+            parsedData.dates.forEach(function (date) {
+                const dateDiv = document.createElement('div');
+                dateDiv.id = 'day-div-' + date;
+
+                const dateHeading = document.createElement('div');
+                const hr1 = document.createElement('hr');
+                dateDiv.appendChild(hr1);
+
+                dateHeading.id = 'reservation-date-' + date;
+                dateHeading.textContent = formatDateText(date); // Replace 'formattedDate' with the actual property in your JSON
+
+
+                const button = document.createElement('button');
+                button.onclick = function () {
+                    toggleDate(date); // Replace with your logic
+                };
+                button.id = 'toggle-date-button-' + date;
+                button.className = 'toggle-date-button';
+                button.innerHTML = '{% trans "hide_date" %}'; // Replace with your translation logic
+                dateHeading.appendChild(button);
+
+                const hr2 = document.createElement('hr');
+                dateHeading.appendChild(hr2);
+
+                const table = document.createElement('table');
+                table.className = 'reservations-table';
+
+                const thead = document.createElement('thead');
+                thead.className = 'reservation-table-thead';
+
+                const headerRow = document.createElement('tr');
+                headerRow.className = 'reservation-table-header-row';
+
+                // Create table headers for tables
+                parsedData.tables.forEach(function (table) {
+                    const th = document.createElement('th');
+                    th.className = 'table-nr';
+                    th.textContent = table; // Replace 'table' with the actual property in your JSON
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                tbody.className = 'reservation-table-body';
+
+                parsedData.all_reservations_dict[date].forEach(function (dict) {
+                    const row = document.createElement('tr');
+                    row.className = 'reservation-table-body-row';
+
+                    for (const key in dict) {
+                        if (dict.hasOwnProperty(key)) {
+                            {#console.log('dict', dict)#}
+                            {#console.log('key', key)#}
+                            {#console.log('dictkey', dict[key])#}
+                            const td = document.createElement('td');
+                            td.className = 'reservation-table-value-' + dict[key][0]; // Replace with the actual property in your JSON
+                            td.textContent = dict[key]; // Replace with the actual property in your JSON
+
+                            const infoDiv = document.createElement('div');
+                            infoDiv.className = 'reservation-info-div';
+
+                            const customerInfo = document.createElement('p');
+                            customerInfo.className = 'customer-info';
+                            customerInfo.innerHTML = `
+                            {% trans 'customer_name' %}: ${dict[key][1]}<br>
+                            {% trans 'customer_email' %}: ${dict[key][2]}<br>
+                            {% trans 'customer_telephone_nr' %}: ${dict[key][3]}<br>
+                            <hr>
+                        `;
+                            const reservationInfo = document.createElement('p');
+                            const date = formatDateText(dict[key][5])
+                            reservationInfo.className = 'reservation-info';
+                            reservationInfo.innerHTML = `
+                            {% trans 'reservation_date' %}: ${date}<br>
+                            {% trans 'arrival_time' %}: ${dict[key][4]}<br>
+                            {% trans 'number_of_persons' %}: ${dict[key][6]}<br>
+                            {% trans 'table_nr' %}: ${dict[key][7]}<br>
+                        `;
+
+                            const cancelBookingButton = document.createElement('a');
+                            cancelBookingButton.className = 'cancel-booking-button';
+                            const reservationID = dict[key][8];
+                            cancelBookingButton.href = `{% url 'bookingsystem:delete_reservation' %}?reservationID=${reservationID}&path=show_reservations`
+                            cancelBookingButton.textContent = '{% trans 'cancel_booking' %}';
+
+                            infoDiv.appendChild(customerInfo);
+                            infoDiv.appendChild(reservationInfo);
+                            infoDiv.appendChild(cancelBookingButton);
+
+                            td.appendChild(infoDiv);
+                            row.appendChild(td);
+                        }
+                    }
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+
+                dateDiv.appendChild(dateHeading);
+                dateDiv.appendChild(table);
+                target.appendChild(dateDiv);
+
+            });
+
+        }
+        const loader = document.getElementById('loader-div');
+        loader.style.display = 'none'
+
+        document.addEventListener('click', function (event) {
+            const reservationValue = event.target.closest('.reservation-table-value-booked');
+
+            if (reservationValue) {
+                console.log(reservationValue)
+                const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
+                const reservationValueRect = reservationValue.getBoundingClientRect();
+                const clickX = event.clientX;
+                const windowWidth = window.innerWidth;
+                let horizontalOffset;
+
+                // Check if the click is on the right side of the screen
+                if (clickX > windowWidth / 2) {
+                    horizontalOffset = 380; // If clicked on right side of screen
+                } else {
+                    horizontalOffset = -80; //If clicked on left side of screen
+                }
+
+                const leftPosition = reservationValueRect.left - horizontalOffset;
+
+                // User clicked on a reservation-table-value-booked element
+                reservationInfoDiv.style.display = reservationInfoDiv.style.display === 'block' ? 'none' : 'block';
+                reservationInfoDiv.style.left = leftPosition + 'px';
+
+            } else {
+                // User clicked outside of the reservation-table-value-booked elements
+                const allReservationValues = document.querySelectorAll('.reservation-table-value-booked');
+                allReservationValues.forEach(function (td) {
+                    const reservationInfoDiv = td.querySelector('.reservation-info-div');
+                    reservationInfoDiv.style.display = 'none';
+                });
+            }
+        });
+
+// Prevent clicks within the reservation-info-div from closing it
+        document.querySelectorAll('.reservation-info-div').forEach(function (div) {
+            div.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+
+    });
+
+
+</script>
+<script>
+    function changeReservationView(parsedData, currentview) {
+        if (currentview === 'calendar') {
+            makeSubsequentialTable(parsedData)
+        } else if (currentview === 'sequential') {
+            makeCalendarTable(parsedData)
+        }
+    }
+
+    function makeCalendarTable(parsedData) {
+        const target = document.getElementById('reservation-content');
+        target.innerHTML = '';
+
+        const changeViewButton = document.getElementById('change-view-button');
+        changeViewButton.onclick = function () {
+            changeReservationView(parsedData, 'calendar'); // Replace with your logic
+        };
+        changeViewButton.id = 'change-view-button';
+        changeViewButton.className = 'change-view-button';
+        changeViewButton.innerHTML = '{% trans "change_view" %}';
+        const reservationHeaderDiv = document.querySelector('.reservation-header-div');
+        reservationHeaderDiv.appendChild(changeViewButton);
+
+        if (Array.isArray(parsedData.dates) && parsedData.dates.length === 0) {
+            const emptyDiv = document.createElement('div');
+            emptyDiv.textContent = "{% trans 'no_reservations_found' %}"
+            target.appendChild(emptyDiv)
+        } else {
+
+            parsedData.dates.forEach(function (date) {
+                const dateDiv = document.createElement('div');
+                dateDiv.id = 'day-div-' + date;
+
+                const dateHeading = document.createElement('div');
+                const hr1 = document.createElement('hr');
+                dateDiv.appendChild(hr1);
+
+                dateHeading.id = 'reservation-date-' + date;
+                dateHeading.textContent = formatDateText(date); // Replace 'formattedDate' with the actual property in your JSON
+
+
+                const button = document.createElement('button');
+                button.onclick = function () {
+                    toggleDate(date); // Replace with your logic
+                };
+                button.id = 'toggle-date-button-' + date;
+                button.className = 'toggle-date-button';
+                button.innerHTML = '{% trans "hide_date" %}'; // Replace with your translation logic
+                dateHeading.appendChild(button);
+
+                const hr2 = document.createElement('hr');
+                dateHeading.appendChild(hr2);
+
+                const table = document.createElement('table');
+                table.className = 'reservations-table';
+
+                const thead = document.createElement('thead');
+                thead.className = 'reservation-table-thead';
+
+                const headerRow = document.createElement('tr');
+                headerRow.className = 'reservation-table-header-row';
+
+                // Create table headers for tables
+                parsedData.tables.forEach(function (table) {
+                    const th = document.createElement('th');
+                    th.className = 'table-nr';
+                    th.textContent = table; // Replace 'table' with the actual property in your JSON
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                tbody.className = 'reservation-table-body';
+
+                parsedData.all_reservations_dict[date].forEach(function (dict) {
+                    const row = document.createElement('tr');
+                    row.className = 'reservation-table-body-row';
+
+                    for (const key in dict) {
+                        if (dict.hasOwnProperty(key)) {
+                            {#console.log('dict', dict)#}
+                            {#console.log('key', key)#}
+                            {#console.log('dictkey', dict[key])#}
+                            const td = document.createElement('td');
+                            td.className = 'reservation-table-value-' + dict[key][0]; // Replace with the actual property in your JSON
+                            td.textContent = dict[key]; // Replace with the actual property in your JSON
+
+                            const infoDiv = document.createElement('div');
+                            infoDiv.className = 'reservation-info-div';
+
+                            const customerInfo = document.createElement('p');
+                            customerInfo.className = 'customer-info';
+                            customerInfo.innerHTML = `
+                            {% trans 'customer_name' %}: ${dict[key][1]}<br>
+                            {% trans 'customer_email' %}: ${dict[key][2]}<br>
+                            {% trans 'customer_telephone_nr' %}: ${dict[key][3]}<br>
+                            <hr>
+                        `;
+                            const reservationInfo = document.createElement('p');
+                            const date = formatDateText(dict[key][5])
+                            reservationInfo.className = 'reservation-info';
+                            reservationInfo.innerHTML = `
+                            {% trans 'reservation_date' %}: ${date}<br>
+                            {% trans 'arrival_time' %}: ${dict[key][4]}<br>
+                            {% trans 'number_of_persons' %}: ${dict[key][6]}<br>
+                            {% trans 'table_nr' %}: ${dict[key][7]}<br>
+                        `;
+
+                            const cancelBookingButton = document.createElement('a');
+                            cancelBookingButton.className = 'cancel-booking-button';
+                            const reservationID = dict[key][8];
+                            cancelBookingButton.href = `{% url 'bookingsystem:delete_reservation' %}?reservationID=${reservationID}&path=show_reservations`
+                            cancelBookingButton.textContent = '{% trans 'cancel_booking' %}';
+
+                            infoDiv.appendChild(customerInfo);
+                            infoDiv.appendChild(reservationInfo);
+                            infoDiv.appendChild(cancelBookingButton);
+
+                            td.appendChild(infoDiv);
+                            row.appendChild(td);
+                        }
+                    }
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+
+                dateDiv.appendChild(dateHeading);
+                dateDiv.appendChild(table);
+                target.appendChild(dateDiv);
+
+            });
+        }
+        const loader = document.getElementById('loader-div');
+        loader.style.display = 'none'
+        document.addEventListener('click', function (event) {
+            const reservationValue = event.target.closest('.reservation-table-value-booked');
+
+            if (reservationValue) {
+                console.log(reservationValue)
+                const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
+                const reservationValueRect = reservationValue.getBoundingClientRect();
+                const clickX = event.clientX;
+                const windowWidth = window.innerWidth;
+                let horizontalOffset;
+
+                // Check if the click is on the right side of the screen
+                if (clickX > windowWidth / 2) {
+                    horizontalOffset = 380; // If clicked on right side of screen
+                } else {
+                    horizontalOffset = -80; //If clicked on left side of screen
+                }
+
+                const leftPosition = reservationValueRect.left - horizontalOffset;
+
+                // User clicked on a reservation-table-value-booked element
+                reservationInfoDiv.style.display = reservationInfoDiv.style.display === 'block' ? 'none' : 'block';
+                reservationInfoDiv.style.left = leftPosition + 'px';
+
+            } else {
+                // User clicked outside of the reservation-table-value-booked elements
+                const allReservationValues = document.querySelectorAll('.reservation-table-value-booked');
+                allReservationValues.forEach(function (td) {
+                    const reservationInfoDiv = td.querySelector('.reservation-info-div');
+                    reservationInfoDiv.style.display = 'none';
+                });
+            }
+        });
+
+// Prevent clicks within the reservation-info-div from closing it
+        document.querySelectorAll('.reservation-info-div').forEach(function (div) {
+            div.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+
+
+        document.addEventListener('click', function (event) {
+            const reservationValue = event.target.closest('.reservation-table-value-booked');
+
+            if (reservationValue) {
+                console.log(reservationValue)
+                const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
+                const reservationValueRect = reservationValue.getBoundingClientRect();
+                const clickX = event.clientX;
+                const windowWidth = window.innerWidth;
+                let horizontalOffset;
+
+                // Check if the click is on the right side of the screen
+                if (clickX > windowWidth / 2) {
+                    horizontalOffset = 380; // If clicked on right side of screen
+                } else {
+                    horizontalOffset = -80; //If clicked on left side of screen
+                }
+
+                const leftPosition = reservationValueRect.left - horizontalOffset;
+
+                // User clicked on a reservation-table-value-booked element
+                reservationInfoDiv.style.display = reservationInfoDiv.style.display === 'block' ? 'none' : 'block';
+                reservationInfoDiv.style.left = leftPosition + 'px';
+
+            } else {
+                // User clicked outside of the reservation-table-value-booked elements
+                const allReservationValues = document.querySelectorAll('.reservation-table-value-booked');
+                allReservationValues.forEach(function (td) {
+                    const reservationInfoDiv = td.querySelector('.reservation-info-div');
+                    reservationInfoDiv.style.display = 'none';
+                });
+            }
+        })
+    }
+
+
+    function makeSubsequentialTable(parsedData) {
+        const target = document.getElementById('reservation-content');
+        target.innerHTML = '';
+
+        const changeViewButton = document.getElementById('change-view-button');
+        changeViewButton.onclick = function () {
+            changeReservationView(parsedData, 'sequential'); // Replace with your logic
+        };
+
+
+        parsedData.dates.forEach(function (date) {
+
+            const dateDiv = document.createElement('div');
+            dateDiv.id = 'day-div-' + date;
+
+            const dateHeading = document.createElement('div');
+            const hr1 = document.createElement('hr');
+            dateDiv.appendChild(hr1);
+
+            dateHeading.id = 'reservation-date-' + date;
+            dateHeading.textContent = formatDateText(date); // Replace 'formattedDate' with the actual property in your JSON
+
+
+            const button = document.createElement('button');
+            button.onclick = function () {
+                toggleDate(date); // Replace with your logic
+            };
+            button.id = 'toggle-date-button-' + date;
+            button.className = 'toggle-date-button';
+            button.innerHTML = '{% trans "hide_date" %}'; // Replace with your translation logic
+            dateHeading.appendChild(button);
+
+            const hr2 = document.createElement('hr');
+            dateHeading.appendChild(hr2);
+
+            dateDiv.appendChild(dateHeading);
+            let previousValue = null;
+
+            parsedData.all_reservations_dict[date].forEach(function (dict) {
+                for (const key in dict) {
+                    if (dict.hasOwnProperty(key) && Array.isArray(dict[key])) {
+                        const currentValue = dict[key][8]
+                        if (previousValue !== currentValue) {
+                            const reservationDiv = document.createElement('div');
+                            reservationDiv.className = 'reservation-info-second-view'
+                            reservationDiv.innerHTML = `
+                        <div class="reservation-info-line">
+                            <div class="info-first-half">
+                                  <strong>{% trans "customer_name" %}:</strong> ${dict[key][1]}
+                            </div>
+                            <div class="info-second-half info-${date}">
+                                  <strong>{% trans "reservation_time" %}:</strong> ${dict[key][4].slice(0, 5)}
+                            </div>
+                        </div>
+                        <div class="reservation-info-line">
+                            <div class="info-first-half">
+                              <strong>{% trans "no_persons" %}:</strong> ${dict[key][6]}
+                            </div>
+                            <div class="info-second-half info-${date}">
+                              <strong>{% trans "table_nr" %}:</strong> ${dict[key][7]}
+                            </div>
+                        </div>
+                        <div class="reservation-info-line">
+                            <div class="info-first-half">
+                              <strong>{% trans "telephone_nr" %}:</strong> ${dict[key][3]}
+                            </div>
+                            <div class="info-second-half info-${date}">
+                              <strong>{% trans "customer_email" %}:</strong> ${dict[key][2]}
+                            </div>
+                        </div>
+                        `;
+                            dateDiv.appendChild(reservationDiv)
+                        }
+                        previousValue = currentValue;
+                    }
+                }
+            })
+            target.appendChild(dateDiv);
+        })
+    }
+
+
+    function hideMessage() {
+        const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
+        deletedReservationDiv.forEach(content => {
+            content.style.display = 'none'
+        })
+    }
+
+    function rollbackDeletion() {
+        const deletedReservationDiv = document.querySelectorAll('.deleted-reservation-div')
+        deletedReservationDiv.forEach(content => {
+            content.innerHTML = '{% trans 'rolled_back_deletion' %}'
+        })
+    }
+
+    function toggleDate(date) {
+        const dayDiv = document.getElementById('day-div-' + date);
+        const toggleDateButton = document.getElementById('toggle-date-button-' + date);
+        const secondHalfInfoDivs = document.getElementsByClassName('info-' + date);
+
+        if (dayDiv.style.height === '60px') {
+            dayDiv.style.height = '100%';
+            for (let i = 0; i < secondHalfInfoDivs.length; i++) {
+                secondHalfInfoDivs[i].style.display = 'block';
+            }
+            toggleDateButton.innerHTML = "{% trans 'hide_date' %}";
+        } else {
+            dayDiv.style.height = '60px';
+            dayDiv.style.overflow = 'hidden';
+            for (let i = 0; i < secondHalfInfoDivs.length; i++) {
+                secondHalfInfoDivs[i].style.display = 'none';
+            }
+            toggleDateButton.innerHTML = "{% trans 'show_date' %}";
+        }
+
+    }
+
+    function ToggleaddReservationDiv() {
+        const addReservationDiv = document.getElementById('add-reservation-div');
+        const addReservationButton = document.getElementById('add-reservation-button');
+
+        if (addReservationDiv.style.display === 'none' || addReservationDiv.style.display === '') {
+            addReservationDiv.style.display = 'block';
+            addReservationButton.innerHTML = "{% trans 'cancel_adding_reservation' %}";
+        } else {
+            addReservationDiv.style.display = 'none'
+            addReservationButton.innerHTML = "{% trans 'add_reservations' %}";
+        }
+
+    }
+</script>
+
+</body>
+</html>

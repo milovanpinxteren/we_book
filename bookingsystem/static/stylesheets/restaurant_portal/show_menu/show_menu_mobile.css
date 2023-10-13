@@ -1,0 +1,317 @@
+
+#add-instances-div {
+    display: none;
+    width: 70%;
+    min-height: 100px;
+    border: 1px solid grey;
+    padding-left: 1%;
+}
+
+.add-course-form {
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+
+.add-dish-button {
+    display: block;
+    float: right;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    /*padding: 10px 25px;*/
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 2%;
+    /*margin-top: 1%;*/
+}
+
+.add-course-button {
+    display: block;
+    float: right;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    /*padding: 10px 25px;*/
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+
+.menu-header-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.menu-header {
+    margin-left: 2%;
+    float: left;
+    /*width: 40%;*/
+}
+
+.information-icon-div {
+    float: right;
+}
+
+.information-text {
+    display: none;
+    float: right;
+    top: 0;
+    right: 30%;
+    position: absolute;
+    background-color: #e8e8e8;
+    border: 1px solid #2e2e2e;
+    font-size: 15px;
+    width: 25%;
+    padding: 1%;
+    border-radius: 2%;
+    font-weight: 100;
+}
+
+.information-icon-div:hover + .information-text {
+    display: block;
+}
+
+.add-instances-button {
+    display: block;
+    float: right;
+    background-color: rgba(74, 159, 107, 0.6);
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+
+.course {
+    background-color: #e2e2e2;
+    box-shadow: 0px 0px 10px 0px grey;
+    min-height: 50px;
+    padding-top: 3px;
+
+}
+
+input.course-name-input-field {
+    display: inline-block;
+    font-size: 24px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold like an h2 */
+    padding: 5px; /* Add padding for spacing */
+    border: none; /* Remove the border */
+    background-color: transparent; /* Make the background transparent */
+    width: 10%;
+}
+
+/* Style the input when it's being edited (optional) */
+input.course-name-input-field:focus {
+    outline: none; /* Remove the focus outline */
+    background-color: #f0f0f0; /* Change the background color when editing */
+}
+
+input.dish-name-input-field {
+    display: inline-block;
+    font-size: 18px; /* Adjust the font size as needed */
+    /*font-weight: bold; !* Make the text bold like an h2 *!*/
+    padding: 2px; /* Add padding for spacing */
+    border: none; /* Remove the border */
+    background-color: transparent; /* Make the background transparent */
+    /*width: 10%;*/
+}
+
+/* Style the input when it's being edited (optional) */
+input.dish-name-input-field:focus {
+    outline: none; /* Remove the focus outline */
+    background-color: #f0f0f0; /* Change the background color when editing */
+}
+
+.update-menu-button {
+    display: block;
+    margin-top: 1%;
+    /*float: left;*/
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.delete-button {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    outline: 0;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+}
+
+.delete-button:hover,
+.delete-button:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+}
+
+.delete-button:active {
+    opacity: .5;
+}
+
+.input-field {
+    box-shadow: inset #abacaf 0 0 0 2px;
+    border: 0;
+    background: white;
+    appearance: none;
+    margin-right: 10px;
+    position: relative;
+    border-radius: 3px;
+    font-size: 14px;
+    padding-left: 5px;
+    font-weight: 400;
+    min-height: 24px;
+    width: 40px;
+    transition: all .2s ease;
+}
+
+.input-field :hover {
+    box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 2px;
+}
+
+.input-field :focus {
+    background: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 3px;
+}
+
+.dish-order-label {
+    padding-left: 1%;
+}
+
+.between-courses-hr {
+    border-top: 2px solid black;
+}
+
+.between-dishes-hr {
+    border-top: 1px solid grey;
+    margin-left: 2%;
+}
+
+.dish {
+    margin-left: 2%;
+}
+
+
+.selectdiv {
+    min-height: 24px;
+}
+
+/* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+    display: none;
+}
+
+.selectdiv:after {
+    content: '<>';
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 11px;
+    /*Adjust for position however you want*/
+
+    top: 18px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #999;
+    /*left line */
+
+    position: absolute;
+    pointer-events: none;
+}
+
+.selectdiv select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some styling */
+
+    display: block;
+    /*width: 100%;*/
+    max-width: 320px;
+    height: 50px;
+    float: right;
+    margin: 5px 0px;
+    padding: 0px 24px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    -ms-word-break: normal;
+    word-break: normal;
+}

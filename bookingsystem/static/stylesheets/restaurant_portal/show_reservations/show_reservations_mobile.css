@@ -1,0 +1,314 @@
+.reservation-header-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.reservation-header {
+    margin-left: 2%;
+    float: left;
+    width: 40%;
+}
+
+.loader-div {
+    position: fixed;
+    top: 30%;
+    left: 35%;
+}
+
+.waiting-text {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid lightgray;
+    border-top: 16px solid #e65107;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    animation: spin 2s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Make sure it's on top of other elements */
+    /*display: none; !* Initially hide the loader *!*/
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+#add-reservation-div {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.85);
+    width: 40%;
+    height: 45%;
+    left: 30%;
+    top: 5%;
+    padding: 1%;
+    border-radius: 1%;
+}
+
+.add-reservation-text {
+    color: #e2e2e2;
+    margin-bottom: 15px;
+}
+
+.inputField {
+    margin-bottom: 10px; /* Adjust the value to increase or decrease spacing */
+}
+
+.add-reservation-button {
+    display: block;
+    float: right;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.add-reservation-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+
+
+.toggle-date-button {
+    margin-left: 10px;
+    background-color: rgba(19, 170, 82, 0.3);
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10px;
+    font-weight: 200;
+    outline: none;
+    outline: 0;
+    padding: 5px 15px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+}
+
+.toggle-date-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-1px);
+}
+
+@media (min-width: 768px) {
+    .add-reservation-button {
+        padding: 10px 30px;
+    }
+
+    .toggle-date-button {
+        padding: 10px 30px;
+    }
+}
+
+.deleted-reservation-div {
+    background-color: #e65107;
+    margin: 1%;
+    padding: 1%;
+    width: 40%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.rollback-deletion-link {
+    float: right;
+    color: yellowgreen;
+}
+
+.hide-deletion-message-button {
+    border: none;
+    background: none;
+
+}
+
+.hide-deletion-message-button:hover {
+    text-decoration: 3px underline;
+
+}
+
+.reservation-date {
+    width: 15%;
+    height: 5%;
+    background-color: #f2f2f2;
+    font-style: italic;
+    font-size: 20px;
+    /*margin-left: 1%;*/
+}
+
+.reservation-div {
+    max-width: 85%;
+    background-color: rgba(232, 112, 26, 0.7);
+    margin-bottom: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+    margin-left: 2%;
+    line-height: 0.6;
+    border-radius: 2px;
+    border: 2px solid #e8701a;
+}
+
+
+.reservations-table {
+    width: 100%;
+    min-height: 60%;
+    border-collapse: collapse;
+
+}
+
+.table-nr {
+    background-color: #54585d;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 13px;
+    border: 1px solid #54585d;
+    text-align: left;
+    padding-left: 2px;
+}
+
+
+.reservation-table-thead {
+
+}
+
+.reservation-table-header-row {
+    border-bottom: 2px solid #363636;
+}
+
+.reservation-table-body {
+
+}
+
+.reservation-table-body-row {
+    color: blue;
+    border-bottom: 1px solid #363636;
+}
+
+
+.reservation-table-body-row:nth-child(even) {
+    background-color: rgba(232, 112, 26, 0.1);
+}
+
+.reservation-table-body-row:hover {
+    background-color: rgba(232, 112, 26, 0.4);
+}
+
+.reservation-table-body-row:nth-child(odd) {
+    color: blue;
+}
+
+.reservation-table-value- {
+    background-color: rgba(144, 238, 144, 0.7);
+
+}
+
+.reservation-table-value-booked {
+    background-color: #e65107;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    color: purple;
+}
+
+.reservation-info-div {
+    display: none;
+    width: 25%;
+    height: 30%;
+    background-color: rgba(239, 206, 146, 0.9);
+    border: solid 2px black;
+    border-radius: 2%;
+    padding-left: 1%;
+    color: black;
+    /*position: fixed;*/
+    /*top: 40%;*/
+    /*left: 20%;*/
+    position: absolute;
+    /*left: 10px;*/
+    /*top: 0;*/
+}
+
+.customer-info {
+    text-indent: 0;
+}
+
+.reservation-info {
+    text-indent: 0;
+}
+
+.cancel-booking-button {
+    float: right;
+    margin-right: 2%;
+    color: red;
+    border: none;
+    background: none;
+    text-indent: 0;
+}
+
+.cancel-booking-button:hover {
+    text-decoration: 3px underline;
+}
+
+
+th {
+    word-wrap: break-word;
+    max-width: 20px;
+}
+
+td {
+    border-right: solid 1px #363636;
+    word-wrap: break-word;
+    max-width: 20px;
+}
+
+.reservation-info-second-view {
+    border: 1px solid;
+    background-color: rgba(232, 112, 26, 0.4);
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.change-view-button {
+    margin-left: -30%;
+}
+
+.reservation-info-line {
+    display: flex;
+}
+
+.info-second-half {
+    position: absolute;
+    left: 45%;
+}

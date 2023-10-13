@@ -27,7 +27,7 @@
         {% endfor %}
     </div>
     <div class="table-bill-div" id="table-bill-div">
-        {% trans 'select_table' %}
+        <h3 id="select-table-header">{% trans 'select_table' %}</h3>
     </div>
     <div class="dishes-container">
         <h4 class="table-nr" id="table-nr" data-table-id="">{% trans 'table_nr' %}: </h4>
@@ -91,11 +91,9 @@
         });
     }
 
-    function removeDishFromTable(order_id,course_id, dish_id, table_id, current_quantity) {
-        console.log('dish', order_id, course_id, dish_id, table_id)
-
+    function removeDishFromTable(order_id, course_id, dish_id, table_id, current_quantity) {
         const url = `/remove_dish_from_table/${order_id}/${table_id}/${current_quantity}`;
-                $.ajax({
+        $.ajax({
             url: url,
             method: 'POST',
             headers: {"X-CSRFToken": "{{ csrf_token }}"},
@@ -108,7 +106,26 @@
                 }
             }
         });
+    }
 
+    function clearTable() {
+        const table_id = document.getElementById('table-nr').getAttribute('data-table-id').toString()
+        console.log(table_id)
+        const url = `/clear_table/${table_id}`;
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            headers: {"X-CSRFToken": "{{ csrf_token }}"},
+            success: function (response) {
+                console.log('response', response)
+                const tableNrValue = response.table_nr;
+                const tableElement = document.querySelector(`[data-table-nr="${tableNrValue}"]`);
+                if (tableElement) {
+                    tableElement.click();
+                }
+            }
+        });
     }
 
 
@@ -131,7 +148,7 @@
         const responseData = evt.detail.xhr.response;
         const parsedData = JSON.parse(responseData);
         const target = document.getElementById('table-bill-div');
-        console.log(parsedData)
+
         target.innerHTML = '';
         const orderDiv = document.createElement('table');
         orderDiv.className = 'order-table'
@@ -162,7 +179,7 @@
             orderlineRow.className = 'orderline-row'
             orderlineRow.onclick = function () {
                 console.log('orderlline', orderline)
-                removeDishFromTable(orderline.id,orderline.course_id, orderline.dish_id, orderline.table_id, orderline.quantity)
+                removeDishFromTable(orderline.id, orderline.course_id, orderline.dish_id, orderline.table_id, orderline.quantity)
             }
 
             const dishNameCell = document.createElement('td');
@@ -201,6 +218,14 @@
         orderDiv.appendChild(tbody);
         orderDiv.appendChild(tableTotal)
         target.appendChild(orderDiv)
+
+        const clearTableButton = document.createElement('button')
+        clearTableButton.innerHTML = "{% trans 'clear_table' %}"
+        clearTableButton.className = 'clear-table-button'
+        clearTableButton.onclick = function () {
+            clearTable();
+        };
+        target.appendChild(clearTableButton)
     })
 
 

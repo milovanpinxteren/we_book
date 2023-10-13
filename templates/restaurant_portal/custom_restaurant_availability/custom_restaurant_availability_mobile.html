@@ -1,10 +1,105 @@
+{% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="{% static 'stylesheets/restaurant_portal/custom_restaurant_availability/custom_restaurant_availability_mobile.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
     <title>Title</title>
 </head>
 <body>
 
+<div class="availability-header-div">
+    <h1 class="availability-header">{% trans 'see_and_change_your_availability' %}
+        <div class="information-icon-div"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+        <div class="information-text">{% trans 'custom_availability_page_info_text' %}</div>
+    </h1>
+    <button id="add-availability-button" class="add-availability-button"
+            onclick="ToggleaddAvailabilityDiv()">{% trans 'add_availability' %}</button>
+</div>
+
+<div class="add-availability-form" id="add-availability-div">
+    <form action="./add_custom_restaurant_availability" method="post">
+        {% csrf_token %}
+        <label for="date">{% trans 'date' %}: </label>
+        <input type="date" id="date" placeholder="{% trans 'date' %}" class="input-field"
+               name="date" required>
+
+        <label for="open">{% trans 'open' %}: </label>
+        <input type="checkbox" id="open" placeholder="{% trans 'open' %}"
+               name="open" value="True">
+
+        <label for="start_time">{% trans 'opening_time' %}: </label>
+        <input type="time" id="start_time" placeholder="{% trans 'opening_time' %}" class="input-field"
+               name="start_time" required>
+
+        <label for="end_time">{% trans 'closing_time' %}: </label>
+        <input type="time" id="end_time" placeholder="{% trans 'closing_time' %}" class="input-field"
+               name="end_time" required>
+        <button class="add-custom-availability-button" id="button">{% trans 'add_availability' %}</button>
+    </form>
+</div>
+<hr style="border-top: 2px solid black">
+
+<div class="all-availability-div">
+    <form action="./update_custom_availability" method="post">
+        {% csrf_token %}
+        <button class="update-availability-button" id="button">{% trans 'update_availability' %}</button>
+        {% for availability in custom_restaurant_availability %}
+            <div class="table-div">
+                <label for="date">{% trans 'date' %}: </label>
+                <input type="date" id="date" placeholder="{% trans 'date' %}" class="input-field"
+                       name="date-availabilityID={{ availability.id }}" value="{{ availability.date|date:'Y-m-d' }}">
+
+                <label for="open">{% trans 'open' %}: </label>
+                <input type="hidden" name="open-availabilityID={{ availability.id }}" value="False">
+                <input type="checkbox" id="open" placeholder="{% trans 'open' %}"
+                       name="open-availabilityID={{ availability.id }}" value="{{ availability.open }}"
+                        {% if availability.open %} checked="checked" {% endif %}>
+
+                <label for="start_time">{% trans 'opening_time' %}: </label>
+                <input type="time" id="start_time" placeholder="{% trans 'opening_time' %}" class="input-field"
+                       name="start_time-availabilityID={{ availability.id }}" value="{{ availability.start_time }}">
+
+                <label for="end_time">{% trans 'closing_time' %}: </label>
+                <input type="time" id="end_time" placeholder="{% trans 'closing_time' %}" class="input-field"
+                       name="end_time-availabilityID={{ availability.id }}" value="{{ availability.end_time }}">
+
+                <button class="delete-button" hx-post="{% url 'bookingsystem:delete_availability' availability.id %}"
+                        hx-confirm="{% trans 'are_you_sure_you_want_to_delete_this_availability' %}">{% trans 'delete_availability' %}</button>
+
+            </div>
+            <hr>
+        {% endfor %}
+    </form>
+</div>
+
+<script>
+    $(document).on("click", ".delete-button", function () {
+        location.reload();
+    });
+</script>
+<script>
+    function ToggleaddAvailabilityDiv() {
+        const addAvailabilityDiv = document.getElementById('add-availability-div');
+        const addAvailabilityButton = document.getElementById('add-availability-button');
+
+        if (addAvailabilityDiv.style.display === 'none' || addAvailabilityDiv.style.display === '') {
+            console.log('show')
+            addAvailabilityDiv.style.display = 'block';
+            addAvailabilityButton.innerHTML = "{% trans 'cancel_adding_availability' %}";
+        } else {
+            console.log('hide')
+            addAvailabilityDiv.style.display = 'none'
+            addAvailabilityButton.innerHTML = "{% trans 'add_availability' %}";
+        }
+
+    }
+</script>
 </body>
 </html>

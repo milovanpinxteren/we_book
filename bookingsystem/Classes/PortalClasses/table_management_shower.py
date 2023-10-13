@@ -26,8 +26,7 @@ class TableManagementShower():
             ]
             course_dishes[course] = result_as_dict
 
-
-        context = {'action': './table_management.html', 'tables': tables, 'course_dishes': course_dishes}
+        context = {'action': './table_management/table_management.html', 'tables': tables, 'course_dishes': course_dishes}
         return context
 
     def get_table_bill(self, request, table_id):

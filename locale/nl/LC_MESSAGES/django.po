@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-03 19:16+0200\n"
+"POT-Creation-Date: 2023-10-13 17:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:128
+#: .\bookingsystem\views.py:130
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:86
 msgid "booking_failed"
 msgstr ""
 
-#: .\bookingsystem\views.py:271
+#: .\bookingsystem\views.py:289
 msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr ""
 
@@ -61,7 +61,8 @@ msgstr ""
 #: .\templates\index\index_desktop.html:52
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:36
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:38
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:243
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:207
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:392
 msgid "reservation_date"
 msgstr ""
 
@@ -84,7 +85,8 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:32
 #: .\templates\index\index_desktop.html:116
 #: .\templates\index\index_desktop.html:121
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:245
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:209
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:394
 msgid "number_of_persons"
 msgstr ""
 
@@ -106,6 +108,7 @@ msgstr ""
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:68
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:66
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:65
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:568
 msgid "telephone_nr"
 msgstr ""
 
@@ -250,7 +253,7 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: .\templates\error_page.html:13
+#: .\templates\error_page.html:13 .\templates\no_sufficient_rights_page.html:13
 msgid "go_back"
 msgstr ""
 
@@ -296,7 +299,16 @@ msgstr ""
 #: .\templates\index\index_tablet.html:44
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:31
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:33
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:560
 msgid "no_persons"
+msgstr ""
+
+#: .\templates\no_sufficient_rights_page.html:12
+msgid "no_sufficient_rights_for_this_page"
+msgstr ""
+
+#: .\templates\no_sufficient_rights_page.html:12
+msgid "contact_support_if_this_is_incorrect"
 msgstr ""
 
 #: .\templates\restaurant_portal.html:15
@@ -304,13 +316,9 @@ msgstr ""
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings.html:15
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables.html:15
 #: .\templates\restaurant_portal\show_dashboard\show_dashboard.html:15
-#: .\templates\restaurant_portal\show_reservations\show_reservations.html:15
+#: .\templates\restaurant_portal\show_reservations\show_reservations.html:19
 #: .\templates\restaurant_portal\view_menu\view_menu.html:15
 msgid "restaurant_not_confirmed_yet"
-msgstr ""
-
-#: .\templates\restaurant_portal.html:18
-msgid "go_to_login_page"
 msgstr ""
 
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:18
@@ -504,7 +512,11 @@ msgstr ""
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:47
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:53
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:55
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:246
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:210
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:395
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:563
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:33
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:140
 msgid "table_nr"
 msgstr ""
 
@@ -547,7 +559,7 @@ msgid "current_reservations"
 msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:22
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:360
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:631
 msgid "add_reservations"
 msgstr ""
 
@@ -557,24 +569,30 @@ msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:42
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:44
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:555
 msgid "reservation_time"
 msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:48
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:50
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:234
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:198
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:383
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:552
 msgid "customer_name"
 msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:58
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:60
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:235
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:199
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:384
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:571
 msgid "customer_email"
 msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:63
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:66
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:236
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:200
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:385
 msgid "customer_telephone_nr"
 msgstr ""
 
@@ -596,29 +614,74 @@ msgid "rollback_deletion"
 msgstr ""
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:91
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:332
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:596
 msgid "rolled_back_deletion"
 msgstr ""
 
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:186
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:342
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:122
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:307
+msgid "change_view"
+msgstr ""
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:128
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:313
+msgid "no_reservations_found"
+msgstr ""
+
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:150
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:335
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:533
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:610
 msgid "hide_date"
 msgstr ""
 
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:244
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:208
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:393
 msgid "arrival_time"
 msgstr ""
 
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:253
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:217
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:402
 msgid "cancel_booking"
 msgstr ""
 
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:346
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:617
 msgid "show_date"
 msgstr ""
 
-#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:357
+#: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:628
 msgid "cancel_adding_reservation"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:19
+msgid "table_management"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:30
+msgid "select_table"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:159
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:44
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:45
+#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:84
+msgid "dish_name"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:162
+msgid "quantity"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:165
+msgid "amount"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:208
+msgid "total"
+msgstr ""
+
+#: .\templates\restaurant_portal\table_management\table_management_desktop.html:223
+msgid "clear_table"
 msgstr ""
 
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:18
@@ -647,12 +710,6 @@ msgstr ""
 
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:37
 msgid "add-course"
-msgstr ""
-
-#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:44
-#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:45
-#: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:84
-msgid "dish_name"
 msgstr ""
 
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:47
@@ -1904,22 +1961,22 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
-#: .\we_book\settings.py:147
+#: .\we_book\settings.py:154
 msgid "English"
 msgstr ""
 
-#: .\we_book\settings.py:148
+#: .\we_book\settings.py:155
 msgid "Français"
 msgstr ""
 
-#: .\we_book\settings.py:149
+#: .\we_book\settings.py:156
 msgid "Italiano"
 msgstr ""
 
-#: .\we_book\settings.py:150
+#: .\we_book\settings.py:157
 msgid "Deutsch"
 msgstr ""
 
-#: .\we_book\settings.py:152
+#: .\we_book\settings.py:159
 msgid "Español"
 msgstr ""

@@ -1,10 +1,135 @@
+{% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'stylesheets/restaurant_portal/show_menu/show_menu_mobile.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.5"
+            integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Title</title>
 </head>
 <body>
 
+<div class="menu-header-div">
+    <h1 class="menu-header">{% trans 'see_and_change_your_menu' %}
+        <div class="information-icon-div"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+        <div class="information-text">{% trans 'menu_page_info_text' %}</div>
+    </h1>
+    <button id="add-instances-button" class="add-instances-button"
+            onclick="ToggleaddInstancesDiv()">{% trans 'add_courses_or_dishes' %}</button>
+</div>
+
+<div id="add-instances-div">
+    <!-----------------------------------------------Add courses or dishes ------------------------------------------------>
+    <div class="add-course-form">
+        <form action="./add_course" method="post">
+            {% csrf_token %}
+            <label for="course-name">{% trans 'course_name' %}: </label>
+            <input type="text" id="course-name" placeholder="{% trans 'course_name' %}" class=""
+                   name="name" required>
+            <label for="course-order">{% trans 'course_order' %}: </label>
+            <input type="number" id="course-order" placeholder="1"
+                   name="course_order" class="input-field" required>
+            <button class="add-course-button" id="button">{% trans 'add-course' %}</button>
+        </form>
+    </div>
+    <hr>
+    <div class="add-dish-form">
+        <form action="./add_dish" method="post">
+            {% csrf_token %}
+            <label for="dish-name">{% trans 'dish_name' %}: </label>
+            <input type="text" id="dish-name" placeholder="{% trans 'dish_name' %}" class=""
+                   name="name" required>
+            <label for="dish-price">{% trans 'dish_price' %}: </label>
+            <input type="text" id="dish-price" placeholder="9.50" class="input-field"
+                   name="price" required>
+            <label for="dish-order">{% trans 'dish_order' %}: </label>
+            <input type="text" id="dish-order" placeholder="1" class="input-field"
+                   name="dish_order" required>
+            <select id="dish-course" name="course_id">
+                {% for course in course_dishes.keys %}
+                    <option value="{{ course.id }}"
+                            {% if dish.course == course %}selected{% endif %}>{{ course.name }}</option>
+                {% endfor %}
+            </select>
+            <button class="add-dish-button" id="button">{% trans 'add_dish' %}</button>
+        </form>
+    </div>
+</div>
+<!-----------------------------------------------Update courses or dishes ------------------------------------------------>
+
+<form action="./update_menu" method="post">
+    {% csrf_token %}
+    <button class="update-menu-button" id="button">{% trans 'update_menu' %}</button>
+    {% for course, dishes in course_dishes.items %}
+        <hr class="between-courses-hr">
+        <p class="course">
+            <label class="course-name-label" for="course-name">{% trans 'course_name' %}: </label>
+            <input type="text" id="course-name" value="{{ course.name }}" class="course-name-input-field"
+                   name="name-courseID={{ course.id }}">
+            <label class="course-order-label" for="course-order">{% trans 'course_order' %}: </label>
+            <input type="number" id="course-order" value="{{ course.course_order }}" class="course input-field"
+                   name="course_order-courseID={{ course.id }}">
+            <button class="delete-button" hx-post="{% url 'bookingsystem:delete_course' course.id %}"
+                    hx-confirm="{% trans 'are_you_sure_you_want_to_delete_the_course_this_also_deletes_all_dishes_in_the_course' %}">{% trans 'delete_course' %}</button>
+        </p>
+        {#        <hr class="between-courses-hr">#}
+        {% for dish in dishes %}
+            <hr class="between-dishes-hr">
+            <p class="dish">
+                <label class="dish-name-label" for="dish-name">{% trans 'dish_name' %}: </label>
+                <input type="text" id="dish-name" value="{{ dish.name }}" class="dish-name-input-field"
+                       name="name-dishID={{ dish.id }}">
+                <label class="dish-price-label" for="dish-price">{% trans 'dish_price' %}: </label>
+                <input type="text" id="dish-price" value="{{ dish.price }}" class="dish-price input-field"
+                       name="price-dishID={{ dish.id }}">
+                <label class="dish-order-label" for="dish-order">{% trans 'dish_order' %}: </label>
+                <input type="text" id="dish-order" value="{{ dish.dish_order }}" class="dish-order input-field"
+                       name="dish_order-dishID={{ dish.id }}">
+                {#            <div class="selectdiv">#}
+                <label for="select">{% trans 'select_course' %}: </label>
+                <select class="selectdiv" id="dish-course-{{ dish.id }}" name="course_id-dishID={{ dish.id }}"
+                        id="select">
+                    {% for course in course_dishes.keys %}
+                        <option value="{{ course.id }}"
+                                {% if dish.course == course %}selected{% endif %}>{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+                {#            </div>#}
+                <button class="delete-button" hx-post="{% url 'bookingsystem:delete_dish' dish.id %}"
+                        hx-confirm="{% trans 'are_you_sure_you_want_to_delete_the_dish' %}">{% trans 'delete_dish' %}</button>
+            </p>
+        {% endfor %}
+
+    {% endfor %}
+    {#    <button class="update-menu-button" id="button">{% trans 'update_menu' %}</button>#}
+</form>
+
+<script>
+    $(document).on("click", ".delete-button", function () {
+        location.reload();
+    });
+</script>
+<script>
+    function ToggleaddInstancesDiv() {
+        const addInstancesDiv = document.getElementById('add-instances-div');
+        const addInstancesButton = document.getElementById('add-instances-button');
+
+        if (addInstancesDiv.style.display === 'none' || addInstancesDiv.style.display === '') {
+            console.log('show')
+            addInstancesDiv.style.display = 'block';
+            addInstancesButton.innerHTML = "{% trans 'cancel_adding_courses_or_dishes' %}";
+        } else {
+            console.log('hide')
+            addInstancesDiv.style.display = 'none'
+            addInstancesButton.innerHTML = "{% trans 'add_courses_or_dishes' %}";
+        }
+
+    }
+</script>
 </body>
 </html>

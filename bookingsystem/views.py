@@ -251,6 +251,11 @@ def remove_dish_from_table(request, order_id, table_id, current_quantity):
     response = table_management_manager.remove_dish(order_id, table_id, current_quantity)
     return JsonResponse(response)
 
+def clear_table(request, table_id):
+    table_management_manager = TableManagementManager()
+    response = table_management_manager.clear_table(table_id)
+    return JsonResponse(response)
+
 def show_reservations(request):
     context = {'action': './show_reservations/show_reservations.html'}
     return render(request, 'restaurant_portal.html', context)

@@ -1,0 +1,135 @@
+.table-management-header-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.table-management-header {
+    margin-left: 2%;
+    float: left;
+    /*width: 40%;*/
+}
+
+.table-management-container {
+    width: 100%;
+    height: 100%;
+}
+
+.tables-container {
+    width: 10%;
+    float: left;
+}
+
+.table {
+    background-color: rgba(232, 112, 26, 0.8);
+    border: 1px solid grey;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 8%;
+    padding-top: 8%;
+    margin-bottom: 1%;
+}
+
+.table-bill-div {
+    float: left;
+    width: 35%;
+    min-height: 40%;
+    background-color: lightgray;
+    border: 1px solid #2e2e2e;
+    margin-left: 0.5%;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.order-table thead {
+    text-align: left;
+
+}
+
+.order-table th {
+    border-bottom: 2px solid #000;
+    height: 35px;
+}
+
+.orderline-row {
+    height: 35px;
+    border: 1px solid;
+}
+
+.table-total {
+    border-top: 3px solid black;
+    font-weight: bold;
+    vertical-align: bottom;
+    font-size: 1.1em;
+    height: 40px;
+}
+
+.course-div {
+    display: inline-block;
+    margin-left: 2px;
+    margin-bottom: 1%;
+    width: 23%;
+    min-height: 85px;
+}
+
+.course-button {
+    width: 100%;
+    min-height: 85px;
+    font-weight: bolder;
+}
+
+
+.dishes-container {
+    width: 54%;
+    background-color: rgba(232, 112, 26, 0.4);
+    float: right;
+}
+
+.all-dishes-div {
+    background-color: rgba(232, 112, 26, 0.7);
+    padding-top: 1%;
+}
+
+.dish-div {
+    display: inline-block;
+    margin-left: 2px;
+    margin-bottom: 1%;
+    width: 23%;
+    min-height: 85px;
+    margin-top: 1%;
+    vertical-align: top;
+}
+
+.dish-button {
+    width: 100%;
+    min-height: 85px;
+}
+
+.clear-table-button {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    outline: 0;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin-top: 5%;
+    margin-left: 1%;
+    min-height: 35px;
+    margin-bottom: 1%;
+}

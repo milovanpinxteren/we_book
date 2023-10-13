@@ -4,7 +4,7 @@ from bookingsystem.models import UserRestaurantLink, Dishes, Orders, Tables
 class TableManagementManager():
     def add_dish(self, request, dish_id, table_id):
         restaurant_id = \
-        UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
+            UserRestaurantLink.objects.filter(user_id=request.user.id).values_list('restaurant_id', flat=True)[0]
         print(request)
         dish = Dishes.objects.get(pk=dish_id)
         course = dish.course
@@ -36,5 +36,12 @@ class TableManagementManager():
             order.save()
         elif current_quantity == 1:
             order.delete()
+
+        return {'table_nr': table.table_nr}
+
+    def clear_table(self, table_id):
+        table = Tables.objects.get(pk=table_id)
+        orders = Orders.objects.filter(table=table)
+        orders.delete()
 
         return {'table_nr': table.table_nr}

@@ -1,0 +1,28 @@
+
+body {
+    background-color: #f2f2f2;
+    font-family: gill sans, sans-serif;
+}
+
+.page-container {
+    width: 99%;
+    height: 99%;
+    position: absolute;
+}
+
+.contents {
+    min-width: 80%;
+    min-height: 95%;
+    /*background-color: rgba(113, 116, 151, 0.25);*/
+    border-radius: 1%;
+    margin-left: 4%;
+}
+
+.welcome-title-div {
+    /*margin-left: 5%;*/
+    /*background-color: lightgray;*/
+}
+
+.welcome-title {
+    float: right
+}
