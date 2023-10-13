@@ -34,8 +34,12 @@ class TableManagementShower():
         current_user = request.user.id
         restaurant = UserRestaurantLink.objects.get(user_id=current_user).restaurant
         orders = Orders.objects.filter(table_id=table_id, restaurant=restaurant).select_related('dish').values(
+            'id',
+            'table_id',
             'table__table_nr',
+            'course_id',
             'course__name',
+            'dish_id',
             'dish__name',
             'quantity',
             'amount'

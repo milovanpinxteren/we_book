@@ -63,11 +63,6 @@
                 addDishToTable(dish);
             };
 
-            {#dishButton.setAttribute('hx-post', '{% url "bookingsystem:add_dish_to_table" %}');#}
-            {#dishButton.setAttribute('hx-trigger', 'click');#}
-            {#dishButton.setAttribute('hx-ext', 'debug')#}
-            {#htmx.process(dishButton)#}
-
 
             dishDiv.appendChild(dishButton)
             allDishesDiv.appendChild(dishDiv)
@@ -87,6 +82,24 @@
             method: 'POST',
             headers: {"X-CSRFToken": "{{ csrf_token }}"},
             success: function (response) {
+                const tableNrValue = response.table_nr;
+                const tableElement = document.querySelector(`[data-table-nr="${tableNrValue}"]`);
+                if (tableElement) {
+                    tableElement.click();
+                }
+            }
+        });
+    }
+
+    function removeDishFromTable(order_id,course_id, dish_id, table_id, current_quantity) {
+        console.log('dish', order_id, course_id, dish_id, table_id)
+
+        const url = `/remove_dish_from_table/${order_id}/${table_id}/${current_quantity}`;
+                $.ajax({
+            url: url,
+            method: 'POST',
+            headers: {"X-CSRFToken": "{{ csrf_token }}"},
+            success: function (response) {
                 console.log('response', response)
                 const tableNrValue = response.table_nr;
                 const tableElement = document.querySelector(`[data-table-nr="${tableNrValue}"]`);
@@ -95,6 +108,7 @@
                 }
             }
         });
+
     }
 
 
@@ -146,6 +160,10 @@
         parsedData.orders.forEach(function (orderline) {
             const orderlineRow = document.createElement('tr');
             orderlineRow.className = 'orderline-row'
+            orderlineRow.onclick = function () {
+                console.log('orderlline', orderline)
+                removeDishFromTable(orderline.id,orderline.course_id, orderline.dish_id, orderline.table_id, orderline.quantity)
+            }
 
             const dishNameCell = document.createElement('td');
             dishNameCell.className = 'dish-name';

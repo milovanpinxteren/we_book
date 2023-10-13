@@ -246,6 +246,10 @@ def add_dish_to_table(request, dish_id, table_id):
     response = table_management_manager.add_dish(request, dish_id, table_id)
     return JsonResponse(response)
 
+def remove_dish_from_table(request, order_id, table_id, current_quantity):
+    table_management_manager = TableManagementManager()
+    response = table_management_manager.remove_dish(order_id, table_id, current_quantity)
+    return JsonResponse(response)
 
 def show_reservations(request):
     context = {'action': './show_reservations/show_reservations.html'}
@@ -468,3 +472,5 @@ def add_table(request):
     tables = Tables.objects.filter(restaurant_id=restaurant_id).order_by('table_nr')
     context = {'action': './restaurant_tables/restaurant_tables.html', 'tables': tables}
     return render(request, 'restaurant_portal.html', context)
+
+

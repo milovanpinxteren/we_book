@@ -58,11 +58,12 @@
 }
 
 .orderline-row {
-    height: 25px;
+    height: 35px;
+    border: 1px solid;
 }
 
 .table-total {
-    border-top: 1px solid black;
+    border-top: 3px solid black;
     font-weight: bold;
     vertical-align: bottom;
     font-size: 1.1em;
