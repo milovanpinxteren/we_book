@@ -54,10 +54,14 @@
                 {#    <label class="control-label" for="db1">CalBox style DateBox</label>#}
 
                 {#                <input class="mobile-datepicker-inputField" type="text" id="mobile-datepicker">#}
-                <input class="input" name="db" type="text"
-                       data-role="datebox" id="date-picker-mobile"/>
-{#                <div id="db-dbAttach" style="height: 100px; width: 100px; background: red"></div>#}
-
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="datebox-input" name="db" type="text"
+                               data-role="datebox" id="date-picker-mobile"/>
+{#                        <span style="display: block; width: 50px; height: 50px">test123</span>#}
+                    </div>
+                </div>
+                {#                <div id="db-dbAttach" style="height: 100px; width: 100px; background: red"></div>#}
 
 
             </div>
@@ -112,15 +116,17 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('#datepicker-mobile').datebox({
-            mode: "datebox",
-            displayMode: "dropdown",
-            theme_dropdownContainer: "bg-light border border-dark mt-1",
-        });
-
+    {#$(document).ready(function () {#}
+    $('#date-picker-mobile').datebox({
+        mode: "datebox",
+        displayMode: "dropdown",
+        theme_dropdownContainer: "bg-light border border-dark mt-1",
+        useFocus: "true",
 
     });
+
+
+    // });
 
 </script>
 <script>
