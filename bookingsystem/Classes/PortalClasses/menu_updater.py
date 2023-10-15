@@ -44,29 +44,7 @@ class MenuUpdater():
         file_path = os.path.join(generated_folder, f'menu_{restaurant_id}.html')
 
         html_content = "<html><head>"
-        # html_content += '<style>'
-        # html_content += '''
-        # /* For screens with a width less than 500px */
-        # @media (max-width: 500px) {
-        #     .course-div {
-        #         width: calc(45%);
-        #         margin-left: 1%;
-        #          padding-bottom: 1%;
-        #     }
-        # }
-        #
-        # /* For screens with a width greater than or equal to 500px */
-        # @media (min-width: 500px) {
-        #     .course-div {
-        #         /* Add your regular width or other styles here */
-        #         width: calc(30%);
-        #         margin-left: 2%;
-        #          padding-bottom: 3%;
-        #     }
-        # }
-        # '''
-        # html_content += '</style>'
-        # html_content += """<meta http-equiv='Content-Security-Policy' content="frame-ancestors 'self' '89.145.161.168;'">"""
+
         html_content += '</head><body><div style="display: flex; flex-wrap: wrap;justify-content: space-between;">'
 
         for course in courses:

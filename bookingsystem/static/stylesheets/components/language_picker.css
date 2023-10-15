@@ -26,11 +26,6 @@
     margin-left: 2px;
 }
 
-.language-picker-div:hover .dropdown-content {
-    display: block;
-}
-
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -38,9 +33,14 @@
     left: 30%; /* Adjust the horizontal position */
     transform: translate(-50%, -50%); /* Center the floating div */
     background-color: #fff;
-    z-index: 9;
+    /*z-index: 9;*/
     min-width: 170px;
 }
+
+.language-picker-div:hover .dropdown-content {
+    display: block;
+}
+
 
 .dropdown-ul {
     list-style-type: none;
@@ -48,4 +48,10 @@
 
 .language {
     text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown-content {
+        top: -290%;
+    }
 }
