@@ -53,7 +53,11 @@
                 {#                       autocomplete="off" onchange="enableTimeSlotSelect()">#}
                 {#    <label class="control-label" for="db1">CalBox style DateBox</label>#}
 
-                <input class="inputField" type="text" data-role="datebox" data-options='{"mode":"calbox", "maxDays": 10, "minDays": 10}'>
+                {#                <input class="mobile-datepicker-inputField" type="text" id="mobile-datepicker">#}
+                <input class="input" name="db" type="text"
+                       data-role="datebox" id="date-picker-mobile"/>
+{#                <div id="db-dbAttach" style="height: 100px; width: 100px; background: red"></div>#}
+
 
 
             </div>
@@ -106,6 +110,19 @@
     {% include 'components/footer.html' %}
 </div>
 
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker-mobile').datebox({
+            mode: "datebox",
+            displayMode: "dropdown",
+            theme_dropdownContainer: "bg-light border border-dark mt-1",
+        });
+
+
+    });
+
+</script>
 <script>
     function enableTimeSlotSelect() {
         var numberOfPersons = document.getElementById("number_of_persons");
