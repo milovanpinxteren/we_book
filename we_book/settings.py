@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.5', 'localhost', '127.0.0.1', '192.168.4.50']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookingsystem.apps.BookingsystemConfig',
     'user_agents',
-    'mathfilters'
+    'mathfilters',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'we_book.urls'
@@ -94,8 +95,8 @@ DATABASES = {
     }
 }
 
-
 import dj_database_url
+
 DATABASES['default'] = dj_database_url.config(conn_max_age=600) #uncomment this when pushing to dokku
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -142,7 +143,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
 django_heroku.settings(locals())
 
 # Default primary key field type
@@ -163,6 +163,14 @@ LANGUAGES = (
 LOGOUT_REDIRECT_URL = "login"
 
 import environ
+
 env = environ.Env()
 environ.Env.read_env()
 EMAIL_PASSWORD = env('EMAIL_PASSWORD')
+
+CORS_ALLOWED_ORIGINS = [
+    "https://demo1.ristaiuto.it",
+    "https://demo2.ristaiuto.it",
+    "https://demo3.ristaiuto.it",
+    # Add other allowed origins if needed
+]
