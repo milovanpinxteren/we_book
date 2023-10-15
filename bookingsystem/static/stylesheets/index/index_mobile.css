@@ -30,6 +30,7 @@ body {
     overflow: hidden;
     width: 80%;
     min-height: 320px;
+    margin-top: 10%;
 }
 
 .form_main::before {
@@ -119,8 +120,6 @@ body {
 }
 
 
-
-
 .language-picker-div {
     position: relative;
     display: inline-block;
@@ -160,7 +159,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    top: -125%; /* Adjust the vertical position */
+    top: -160%; /* Adjust the vertical position */
     left: 50%; /* Adjust the horizontal position */
     transform: translate(-50%, -50%); /* Center the floating div */
     background-color: #fff;
@@ -180,5 +179,15 @@ body {
 
 .language {
     text-align: left;
+    border: 1px solid;
+    margin-left: -15%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 1.2em;
+
 }
 
+.language img {
+    width: 30px;
+    height: 30px;
+}
