@@ -44,12 +44,34 @@ class MenuUpdater():
         file_path = os.path.join(generated_folder, f'menu_{restaurant_id}.html')
 
         html_content = "<html><head>"
+        # html_content += '<style>'
+        # html_content += '''
+        # /* For screens with a width less than 500px */
+        # @media (max-width: 500px) {
+        #     .course-div {
+        #         width: calc(45%);
+        #         margin-left: 1%;
+        #          padding-bottom: 1%;
+        #     }
+        # }
+        #
+        # /* For screens with a width greater than or equal to 500px */
+        # @media (min-width: 500px) {
+        #     .course-div {
+        #         /* Add your regular width or other styles here */
+        #         width: calc(30%);
+        #         margin-left: 2%;
+        #          padding-bottom: 3%;
+        #     }
+        # }
+        # '''
+        # html_content += '</style>'
         # html_content += """<meta http-equiv='Content-Security-Policy' content="frame-ancestors 'self' '89.145.161.168;'">"""
-        html_content += '</head><body><div style=" display: flex; flex-wrap: wrap;justify-content: space-between;">'
+        html_content += '</head><body><div style="display: flex; flex-wrap: wrap;justify-content: space-between;">'
 
         for course in courses:
             ordered_dishes = course.dishes_set.order_by('dish_order')
-            html_content += f'<div style="width: calc(30%); margin-left: 2%; border-bottom: 1px solid; padding-bottom: 3%"><h2>{course.name}</h2>'
+            html_content += f'<div class="course-div" style="border-bottom: 1px solid;"><h2>{course.name}</h2>'
             for dish in ordered_dishes:
                 html_content += f'<div><h4 style="display: inline-block; margin-right: 25px; width: 200px; border-bottom: 1px solid">{dish.name}</h4>'
                 html_content += f'<p style="display: inline;">€ {dish.price}</p></div>'
