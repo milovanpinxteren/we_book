@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/index/index_mobile.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/footer.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>
+{#    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>#}
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
     <link href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -29,7 +29,7 @@
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
             <div class="inputContainer">
-                <svg class="inputIcon bi bi-person" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <svg class="inputIcon bi bi-person" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                      fill="currentColor"
                      viewBox="0 0 16 16">
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="inputContainer">
-                <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+                <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
                     <!-- Calendar Outline -->
                     <rect x="6" y="8" width="36" height="32" fill="none" stroke="#000" stroke-width="2"></rect>
                     <line x1="6" y1="16" x2="42" y2="16" fill="none" stroke="#000" stroke-width="2"></line>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="inputContainer">
-                <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+                <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
                     <!-- Clock Face -->
                     <circle cx="24" cy="24" r="22" fill="none" stroke="#000" stroke-width="2"></circle>
 

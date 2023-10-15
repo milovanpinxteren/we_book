@@ -35,12 +35,12 @@ body {
 .form_main::before {
     position: absolute;
     content: "";
-    width: 300px;
-    height: 300px;
+    width: 450px;
+    height: 450px;
     background-color: #e8701a;
     transform: rotate(45deg);
-    left: -180px;
-    bottom: 30px;
+    left: -250px;
+    /*bottom: 30px;*/
     z-index: 1;
     border-radius: 30px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
@@ -48,11 +48,12 @@ body {
 
 
 .heading {
-    font-size: 2em;
+    font-size: 4em;
     color: #2e2e2e;
     font-weight: 549;
     margin: 5px 0 10px 0;
     z-index: 2;
+    margin-bottom: 3%;
 }
 
 .inputContainer {
@@ -62,6 +63,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 2;
+    min-height: 80px;
 }
 
 .inputIcon {
@@ -71,7 +73,7 @@ body {
 
 .inputField {
     width: 100%;
-    height: 30px;
+    height: 45px;
     background-color: transparent;
     border: none;
     border-bottom: 2px solid rgb(173, 173, 173);
@@ -80,7 +82,8 @@ body {
     font-size: .8em;
     font-weight: 500;
     box-sizing: border-box;
-    padding-left: 30px;
+    padding-left: 45px;
+    font-size: 2em;
 }
 
 .inputField:focus {
@@ -90,7 +93,7 @@ body {
 
 .inputField::placeholder {
     color: rgb(80, 80, 80);
-    font-size: 1em;
+    /*font-size: 2em;*/
     font-weight: 500;
 
 }
@@ -98,33 +101,23 @@ body {
 #button {
     z-index: 2;
     position: relative;
-    width: 100%;
     border: none;
     background-color: #e65107;
-    height: 30px;
     color: white;
-    font-size: .8em;
+    font-size: 2.2em;
     font-weight: 500;
     letter-spacing: 1px;
-    margin: 10px;
     cursor: pointer;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 1%;
+    margin-top: 3%;
+    padding: 2%;
+    border-radius: 1%;
 }
 
 #button:hover {
     background-color: #f0ba0a;
 }
 
-.language-picker-div {
-    margin-left: 5%;
-}
-
-@media (max-width: 900px) {
-    footer {
-        height: 75px;
-    }
-}
 
 
 
@@ -139,12 +132,16 @@ body {
     margin-right: 80%;
     z-index: 5;
     margin-bottom: -20px;
+    margin-left: 5%;
+    min-height: 100px;
 }
 
 .lang-img {
     position: relative;
     display: inline-block;
     float: left;
+    width: 75px;
+    height: 75px;
 }
 
 .dropdown-icon {
@@ -155,22 +152,26 @@ body {
     margin-left: 2px;
 }
 
+.dropdown-icon svg {
+    width: 50px;
+    height: 50px;
+}
+
 .dropdown-content {
-    display: none;
+    display: block;
     position: absolute;
-    top: -70%; /* Adjust the vertical position */
-    left: 30%; /* Adjust the horizontal position */
+    top: -125%; /* Adjust the vertical position */
+    left: 50%; /* Adjust the horizontal position */
     transform: translate(-50%, -50%); /* Center the floating div */
     background-color: #fff;
     /*z-index: 9;*/
-    min-width: 170px;
+    min-width: 230px;
+    font-size: 1.8em;
 }
 
 .language-picker-div:hover .dropdown-content {
     display: block;
 }
-
-
 
 
 .dropdown-ul {
