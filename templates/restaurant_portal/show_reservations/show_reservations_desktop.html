@@ -537,13 +537,13 @@
             dateHeading.appendChild(hr2);
 
             dateDiv.appendChild(dateHeading);
-            let previousValue = null;
+            const idsHandled = []
 
             parsedData.all_reservations_dict[date].forEach(function (dict) {
                 for (const key in dict) {
                     if (dict.hasOwnProperty(key) && Array.isArray(dict[key])) {
-                        const currentValue = dict[key][8]
-                        if (previousValue !== currentValue) {
+                        const currentID = dict[key][8]
+                        if (!idsHandled.includes(currentID) ) {
                             const reservationDiv = document.createElement('div');
                             reservationDiv.className = 'reservation-info-second-view'
                             reservationDiv.innerHTML = `
@@ -573,8 +573,8 @@
                         </div>
                         `;
                             dateDiv.appendChild(reservationDiv)
+                            idsHandled.push(currentID)
                         }
-                        previousValue = currentValue;
                     }
                 }
             })

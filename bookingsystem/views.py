@@ -1,3 +1,4 @@
+import os
 from datetime import date, datetime
 
 from django.contrib.auth.views import LoginView as DefaultLoginView
@@ -22,6 +23,7 @@ from bookingsystem.Classes.email_sender import EmailSender
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
     CustomRestaurantAvailability, Orders
+from we_book import settings
 
 
 class LogoutView():
@@ -300,7 +302,8 @@ def view_menu(request):
 def update_menu(request):
     if request.method == 'POST':
         menu_updater = MenuUpdater()
-        menu_updater.update_menu(request)
+        restaurant_id = menu_updater.update_menu(request)
+        menu_updater.generate_menu_html(restaurant_id)
         #TODO: generate html and send html to correct branch and remote and push (GitPython)
     context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
@@ -479,3 +482,11 @@ def add_table(request):
     return render(request, 'restaurant_portal.html', context)
 
 
+def serve_generated_menu(request, template_name):
+    file_path = os.path.join(settings.BASE_DIR, 'bookingsystem/static/menus', template_name)
+    try:
+        with open(file_path, 'r') as file:
+            html_content = file.read()
+        return HttpResponse(html_content)
+    except FileNotFoundError:
+        return HttpResponse("File not found", status=404)
