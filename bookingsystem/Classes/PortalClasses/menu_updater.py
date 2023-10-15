@@ -44,19 +44,19 @@ class MenuUpdater():
         file_path = os.path.join(generated_folder, f'menu_{restaurant_id}.html')
 
         html_content = "<html><head>"
-        html_content += """<meta http-equiv='Content-Security-Policy' content="frame-ancestors 'self' '89.145.161.168;'">"""
-        html_content += "</head><body>"
+        # html_content += """<meta http-equiv='Content-Security-Policy' content="frame-ancestors 'self' '89.145.161.168;'">"""
+        html_content += '</head><body><div style=" display: flex; flex-wrap: wrap;justify-content: space-between;">'
 
         for course in courses:
             ordered_dishes = course.dishes_set.order_by('dish_order')
-            html_content += f"<div><h2>{course.name}</h2>"
+            html_content += f'<div style="width: calc(30%); margin-left: 2%; border-bottom: 1px solid; padding-bottom: 3%"><h2>{course.name}</h2>'
             for dish in ordered_dishes:
-                html_content += f"<div><h3>{dish.name}</h3>"
-                html_content += f"<p>{dish.price}</p></div>"
+                html_content += f'<div><h4 style="display: inline-block; margin-right: 25px; width: 200px; border-bottom: 1px solid">{dish.name}</h4>'
+                html_content += f'<p style="display: inline;">€ {dish.price}</p></div>'
             html_content += "</div>"
                 # Add more dish details here
 
-        html_content += "</body></html>"
+        html_content += "</div></body></html>"
 
 
 
