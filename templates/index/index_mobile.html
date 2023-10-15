@@ -13,10 +13,21 @@
     {#    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>#}
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
-    <link href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+{#    <link href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet">#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>#}
+{#    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>#}
 
+    <script>
+        //reset type=date inputs to text
+        $(document).bind("mobileinit", function () {
+            $.mobile.page.prototype.options.degradeInputs.date = true;
+        });
+    </script>
+
+
+    <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css"/>
+    <script src="jQuery.ui.datepicker.js"></script>
+    <script src="jquery.ui.datepicker.mobile.js"></script>
 
     <title>{% trans 'book_a_table' %}</title>
 </head>
