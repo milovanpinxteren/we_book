@@ -47,5 +47,16 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmCancellation(reservationID) {
+        if (confirm("{% trans 'are_you_sure_you_want_to_delete_your_reservation' %}")) {
+            // If the user confirms, navigate to the cancellation page.
+            window.location.href = "{% url 'bookingsystem:delete_reservation' %}?reservationID=" + reservationID + "&path=confirmed_booking";
+        } else {
+            // If the user cancels, do nothing or provide feedback.
+            {#alert('Cancellation canceled');#}
+        }
+    }
+</script>
 </body>
 </html>
