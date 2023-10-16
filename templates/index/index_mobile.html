@@ -107,25 +107,55 @@
 
 
 <script>
-    {#$(document).ready(function () {#}
-    $('#date-picker-mobile').datebox({
-        mode: "calbox",
-        displayMode: "dropdown",
-        {#theme_dropdownContainer: "bg-dark border border-dark mt-1",#}
-        useFocus: "true",
-        iconFactory: function () {
-            return ''
-        },
-        overrideDateFormat: "%m/%d/%Y",
-        displayForcePosition: ["400px", "350px"],
-        {#theme_dropdownContainer: "bg-light border border-light mt-6",#}
-        useHeader: false,
-        afterToday: true,
-        calHighToday: true,
-        //https://datebox.jtsage.dev/optDemo/calBox/
+    console.log({{ disabled_dates|safe }})
+    var disabledDates = {{ disabled_dates|safe }}
+        $('#date-picker-mobile').datebox({
+            mode: "calbox",
+            displayMode: "dropdown",
+            useFocus: "true",
+            iconFactory: function () {
+                return ''
+            },
+            overrideDateFormat: "%m/%d/%Y",
+            displayForcePosition: ["400px", "350px"],
+            useHeader: false,
+            afterToday: true,
+            calHighToday: true,
+            blackDates: disabledDates,
+            //https://datebox.jtsage.dev/optDemo/calBox/
 
+        });
+    $('#date-picker-mobile').bind('datebox', function (e, passed) {
+
+        if (passed.method === 'displayChange') {
+            const month = parseInt(passed.shownDate.getMonth()) + 1 //they start counting month from 0
+            const year = parseInt(passed.shownDate.getFullYear())
+            console.log('month shown', month)
+            console.log('year shown', year)
+            var postData = {
+                year: year,
+                month: month,
+                restaurantID: {{ restaurant.id }}
+            };
+            $.ajax({
+                url: "{% url 'bookingsystem:check_available_dates' %}",
+                method: "POST",
+                data: postData,
+                dateType: "json",
+                headers: {
+                    "X-CSRFToken": '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // Update the disableddates array based on the response
+                    disabledDates = data.disabled_dates
+                    $('#date-picker-mobile').datebox('option', 'blackDates', disabledDates);
+                    $('#date-picker-mobile').datebox('refresh');
+
+                },
+            });
+
+        }
     });
-
 
 </script>
 <style>
@@ -172,6 +202,11 @@
 
     .font-weight-bold {
         border: none
+    }
+
+    .disabled {
+        color: grey;
+        pointer-events: none;
     }
 </style>
 <script>

@@ -78,9 +78,25 @@
 
             </form>
         </div>
-    {% elif confirmed_reservation %}
-        Wijzigen? {{ reservation }} {{ customer }}
-    {% endif %}
+    {% else %}
+                <div class="form-div">
+            <div class="form_main">
+                <p class="subHeading">{% trans "booking_failed" %}<br>
+                    {% trans 'no_table_found_for' %}: <br>
+                </p>
+                <p class="reservation-info">
+                    {% trans "restaurant_name" %}: {{ restaurant_name }} <br>
+                    {% trans "reservation_date" %}: {{ reservation_date|date:"d-m-Y" }} <br>
+                    {% trans "start_time" %}: {{ start_time|time:"H:i" }} <br>
+                    {% trans "number_of_persons" %}: {{ number_of_persons }} <br><br>
+                    {% trans "try_again_on_other_date_or_less_people" %} <br>
+                    {% trans 'or_call_restaurant' %}: {{ restaurant_phone_nr }}
+                </p>
+                <a class="goHomeLink" href="{% url 'bookingsystem:index' %}">{% trans 'go_to_home' %}</a>
+            </div>
+
+        </div>
+    {% else %}
 </div>
 
 <script>
