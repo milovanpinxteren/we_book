@@ -124,7 +124,7 @@ input {
 }
 
 .dropdown-content {
-    display: block;
+    display: none;
     position: absolute;
     top: -160%; /* Adjust the vertical position */
     left: 50%; /* Adjust the horizontal position */
