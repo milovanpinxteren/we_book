@@ -1,16 +1,44 @@
 
 #add-instances-div {
     display: none;
-    width: 70%;
     min-height: 100px;
     border: 1px solid grey;
     padding-left: 1%;
+    margin-top: 2%;
+    font-size: 1.5em;
+    padding-bottom: 3%;
+    margin-bottom: 2%;
 }
 
 .add-course-form {
     margin-bottom: 2%;
     margin-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px 0; /* Add margin to separate forms */
 }
+
+.add-course-form form {
+    width: 100%;
+}
+
+
+.add-dish-form form select {
+    font-size: 1.1em;
+}
+
+.add-course-form label, .add-dish-form label {
+    flex: 1; /* Labels take up 50% of the available width */
+    margin-right: 10px; /* Optional spacing between label and input */
+    text-align: right; /* Align text to the right */
+}
+
+.add-course-form input, .add-dish-form input, .add-dish-form select {
+    flex: 2; /* Inputs and select take up 50% of the available width */
+    margin: 5px 0; /* Add vertical spacing between input elements */
+}
+
 
 .add-dish-button {
     display: block;
@@ -23,7 +51,8 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1.1em;
+    padding: 1%;
     font-weight: 400;
     outline: none;
     outline: 0;
@@ -49,7 +78,8 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1.1em;
+    padding: 1%;
     font-weight: 400;
     outline: none;
     outline: 0;
@@ -61,7 +91,7 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-right: 2%;
-    margin-top: 1%;
+    margin-top: 2px;
 }
 
 .menu-header-div {
@@ -94,6 +124,7 @@
     padding: 1%;
     border-radius: 2%;
     font-weight: 100;
+    z-index: 1;
 }
 
 .information-icon-div:hover + .information-text {
@@ -140,7 +171,7 @@ input.course-name-input-field {
     padding: 5px; /* Add padding for spacing */
     border: none; /* Remove the border */
     background-color: transparent; /* Make the background transparent */
-    width: 10%;
+    /*width: 10%;*/
 }
 
 /* Style the input when it's being edited (optional) */
@@ -207,6 +238,8 @@ input.dish-name-input-field:focus {
     -webkit-user-select: none;
     touch-action: manipulation;
     vertical-align: middle;
+    font-size: 1.1em;
+    padding: 1%;
 }
 
 .delete-button:hover,
@@ -314,4 +347,27 @@ select::-ms-expand {
     border: 1px solid #cccccc;
     -ms-word-break: normal;
     word-break: normal;
+}
+
+.fa-question-circle {
+    font-size: 1em;
+}
+
+.dish {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px 0; /* Add margin to separate dish items */
+    font-size: 1.1em;
+}
+
+.dish label {
+    flex: 1; /* Labels take up 50% of the available width */
+    margin-right: 10px; /* Optional spacing between label and input */
+
+}
+
+.dish input, .dish select {
+    flex: 2; /* Inputs and select take up 50% of the available width */
+    margin: 5px 0; /* Add vertical spacing between input elements */
 }
