@@ -301,7 +301,7 @@ td {
 }
 
 .change-view-button {
-    margin-left: -30%;
+    margin-left: -25%;
 }
 
 .reservation-info-line {
@@ -312,3 +312,5 @@ td {
     position: absolute;
     left: 45%;
 }
+
+

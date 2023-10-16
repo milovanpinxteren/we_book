@@ -152,3 +152,54 @@ nav ul, nav li {
     font-weight: 300;
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
+
+@media (min-width: 768px) {
+    .fa {
+        font-size: 3em;
+        /*margin-bottom: 7%;*/
+        padding: 2% 3% 2% 8%;
+    }
+
+    .nav-text {
+        /*font-size: 1.4em;*/
+        padding-left: 6%;
+    }
+
+    .main-menu {
+        width: 60px;
+        padding-right: 15px;
+        height: 99%;
+    }
+
+    .main-menu li > a {
+        font-size: 1em;
+    }
+
+    .lang-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .dropdown-content {
+        /*display: block;*/
+        width: 100%;
+        min-height: 200px;
+        position: absolute;
+        top: -380%;
+        left: 10%;
+    }
+
+    .language {
+        font-size: 2em;
+        padding: 1%;
+        text-align: left;
+        border: 1px solid #e2e2e2;
+        max-width: 90%;
+    }
+
+    .language a img {
+        width: 28px;
+        height: 28px;
+    }
+
+}
