@@ -153,7 +153,7 @@ nav ul, nav li {
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .fa {
         font-size: 3em;
         /*margin-bottom: 7%;*/
