@@ -117,9 +117,11 @@
             return ''
         },
         overrideDateFormat: "%m/%d/%Y",
-        displayForcePosition: ["400px", "470px"],
+        displayForcePosition: ["400px", "350px"],
         {#theme_dropdownContainer: "bg-light border border-light mt-6",#}
         useHeader: false,
+        afterToday: true,
+        calHighToday: true,
         //https://datebox.jtsage.dev/optDemo/calBox/
 
     });
@@ -129,12 +131,47 @@
 <style>
     .dbContainer_0 {
         background: #e2e2e2;
-        width: 50%;
+        width: 60%;
         font-size: 35px;
+        padding: 1%;
+        border-radius: 2%;
     }
 
-    .dbContainer_0 h4 {
+    .dbContainer_0 span div {
+        border-bottom: 2px solid;
+        padding-bottom: 0;
+    }
+
+    .dbContainer_0 span div .dbCalPrev {
+        display: block;
+        width: 50px;
+        border: 1px solid;
+        float: left;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 7l-5 5 5 5V7z' fill='currentColor' /%3E%3C/svg%3E");
+    }
+
+    .dbContainer_0 span div .dbCalNext {
+        display: block;
+        width: 50px;
+        border: 1px solid;
+        float: right;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 17l5-5-5-5v10z' fill='currentColor' /%3E%3C/svg%3E");
+
+    }
+
+    .dbContainer_0 span div h4 {
+        display: block;
         text-align: center;
+    }
+
+    td {
+        border: 1px solid;
+        padding: 1%;
+    }
+
+
+    .font-weight-bold {
+        border: none
     }
 </style>
 <script>
