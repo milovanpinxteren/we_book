@@ -48,37 +48,37 @@
             <hr>
             <label for="restaurant-name" class="restaurant-name-label">{% trans 'restaurant_name' %}: </label>
             <input type="text" id="restaurant-name" value="{{ restaurant_info.name }}"
-                   name="name">
-
+                   name="name" size="{{ restaurant_info.name|length }}">
+            <br>
             <label for="restaurant-website" class="restaurant-website-label">{% trans 'restaurant_website' %}: </label>
             <input type="text" id="restaurant-website" value="{{ restaurant_info.website }}"
-                   name="website">
-
+                   name="website" size="{{ restaurant_info.website|length }}">
+            <br>
             <label for="restaurant-email" class="restaurant-email-label">{% trans 'restaurant_email' %}: </label>
             <input type="text" id="restaurant-email" value="{{ restaurant_info.email }}"
-                   name="email">
-
+                   name="email" size="{{ restaurant_info.email|length }}">
+            <br>
             <label for="restaurant-telephone_nr"
                    class="restaurant-telephone_nr-label">{% trans 'restaurant_telephone_nr' %}: </label>
             <input type="text" id="restaurant-telephone_nr" value="{{ restaurant_info.telephone_nr }}"
-                   name="telephone_nr">
-
+                   name="telephone_nr" size="{{ restaurant_info.telephone_nr|length }}">
+            <br>
             <label for="restaurant-address" class="restaurant-address-label">{% trans 'restaurant_address' %}: </label>
             <input type="text" id="restaurant-address" value="{{ restaurant_info.address }}"
-                   name="address">
-
+                   name="address" size="{{ restaurant_info.address|length }}">
+            <br>
             <label for="restaurant-place" class="restaurant-place-label">{% trans 'restaurant_place' %}: </label>
             <input type="text" id="restaurant-place" value="{{ restaurant_info.place }}"
-                   name="place">
-
+                   name="place" size="{{ restaurant_info.place|length }}">
+            <br>
             <label for="restaurant-postal_code"
                    class="restaurant-postal_code-label">{% trans 'restaurant_postal_code' %}: </label>
             <input type="text" id="restaurant-postal_code" value="{{ restaurant_info.postal_code }}"
-                   name="postal_code">
-
+                   name="postal_code" size="{{ restaurant_info.postal_code|length }}">
+            <br>
             <label for="restaurant-country" class="restaurant-country-label">{% trans 'restaurant_country' %}: </label>
             <input type="text" id="restaurant-country" value="{{ restaurant_info.country }}"
-                   name="country">
+                   name="country" size="{{ restaurant_info.country|length }}">
         </div>
         <div class="front-page-text-div">
             <h3>{% trans 'front_page_text' %}</h3>
