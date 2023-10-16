@@ -43,11 +43,6 @@ class CustomLoginView(DefaultLoginView):
                                                                                                 flat=True).first()
             self.request.session['restaurant_name'] = Restaurants.objects.get(pk=restaurant_id).name
             self.request.session['restaurant_url'] = Restaurants.objects.get(pk=restaurant_id).website
-
-        # Authenticate the user using the form's cleaned data
-        # user = authenticate(request=self.request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-        # print(user)
-
         user_language = self.request.LANGUAGE_CODE  # Use the name of the language selector field in your form
         redirect_url = reverse('bookingsystem:restaurant_portal')
         # Append the language code as a prefix to the URL path
@@ -73,7 +68,13 @@ def index(request):
     disabled_dates = AvailabilityChecker.get_disabled_dates(request, restaurant, current_month, current_year)
     timestamps = AvailabilityChecker.make_timestamps(request)
     request.session['timestamps'] = timestamps
-    context = {'restaurant': restaurant, 'disabled_dates': disabled_dates}
+    try:
+        status = request.session['status']
+        print(status)
+    except Exception as e:
+        print(e)
+        status = ''
+    context = {'restaurant': restaurant, 'disabled_dates': disabled_dates, 'status': status}
     return render(request, 'index.html', context)
 
 
@@ -111,37 +112,38 @@ def make_reservation(request):
             reservation_time = reservation_form['reservation_time'].value()
             bookingmaker = BookingMaker()
             context = bookingmaker.make_booking(restaurant_id, number_of_persons, reservation_date, reservation_time)
+            request.session['status'] = context['status']
+            request.session['reservation_date'] = reservation_date
+            request.session['start_time'] = reservation_time
+            request.session['number_of_persons'] = number_of_persons
+            request.session['restaurant_name'] = restaurant.name
+            request.session['restaurant_email'] = restaurant.email
+            request.session['restaurant_website'] = restaurant.website
 
             if context['status'] == 'possible_reservation_found':
-                request.session['status'] = context['status']
+                request.session['held_reservation_id'] = context['held_reservation_id']
                 request.session['table_id'] = context['table_id']
-                request.session['reservation_date'] = str(context['reservation_date'])
-                request.session['start_time'] = str(context['start_time'])
-                request.session['number_of_persons'] = context['number_of_persons']
-                request.session['held_reservation_id'] = context['held_reservation_id']
-                request.session['held_reservation_id'] = context['held_reservation_id']
-                request.session['restaurant_name'] = restaurant.name
-                request.session['restaurant_email'] = restaurant.email
-                request.session['restaurant_website'] = restaurant.website
-            confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
-            context['confirmation_form'] = confirmation_form
-            context['restaurant_name'] = restaurant.name
-            context['restaurant_email'] = restaurant.email
-            context['restaurant_website'] = restaurant.website
-        else:
+                confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
+                context['confirmation_form'] = confirmation_form
+                context['restaurant_name'] = restaurant.name
+                context['restaurant_email'] = restaurant.email
+                context['restaurant_website'] = restaurant.website
+                return render(request, 'booking_confirmation.html', context)
+            else:  # form valid, but no possible reservation found
+                message = _("booking_failed")
+                request.session['status'] = message
+                context = {'message': message, 'restaurant_name': restaurant.name,
+                           'reservation_date': request.session['reservation_date'],
+                           'start_time': request.session['start_time'],
+                           'number_of_persons': request.session['number_of_persons'],
+                           'restaurant_phone_nr': restaurant.telephone_nr}
+                return render(request, 'booking_confirmation.html', context)
+        else:  # form invalid
+            print('invalid form')
             message = _("booking_failed")
-            print(reservation_form.errors)
-            context = {'message': message}
-    else:
-        context = {}
-        context['status'] = request.session['status']
-        context['table_id'] = request.session['table_id']
-        context['reservation_date'] = request.session['reservation_date']
-        context['start_time'] = request.session['start_time']
-        context['number_of_persons'] = request.session['number_of_persons']
-        context['held_reservation_id'] = request.session['held_reservation_id']
-        context['held_reservation_id'] = request.session['held_reservation_id']
-    return render(request, 'booking_confirmation.html', context)
+            request.session['status'] = message
+            return redirect('bookingsystem:index')
+    return redirect('bookingsystem:index')  # request methods is not post
 
 
 def confirm_booking(request):
@@ -206,15 +208,22 @@ def delete_reservation(request):
     restaurant_name = reservation.restaurant.name
 
     booker_subject = 'Cancellazione Prenotazione al ' + restaurant_name
-    booker_message_text = 'Gentile Cliente,\n\n La tua prenotazione presso ' + restaurant_name + ' per ' + str(reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[:5] + " viene cancellato. \n\n Puoi effettuare un'altra prenotazione sul sito web " + reservation.restaurant.website + " oppure contatta il ristorante tramite " + reservation.restaurant.telephone_nr + "\n\nCordiali saluti,\n" + restaurant_name
-    english_translation = 'Dear Customer,\n\nYour reservation at ' + restaurant_name + ' for ' + str(reservation.reservation_date) + ' at ' + str(reservation.arrival_time)[:5] + " has been canceled. \n\nYou can make another reservation on the website " + reservation.restaurant.website + " or contact the restaurant at " + reservation.restaurant.telephone_nr + "\n\nBest regards,\n" + restaurant_name + '\n\n'
+    booker_message_text = 'Gentile Cliente,\n\n La tua prenotazione presso ' + restaurant_name + ' per ' + str(
+        reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[
+                                                       :5] + " viene cancellato. \n\n Puoi effettuare un'altra prenotazione sul sito web " + reservation.restaurant.website + " oppure contatta il ristorante tramite " + reservation.restaurant.telephone_nr + "\n\nCordiali saluti,\n" + restaurant_name
+    english_translation = 'Dear Customer,\n\nYour reservation at ' + restaurant_name + ' for ' + str(
+        reservation.reservation_date) + ' at ' + str(reservation.arrival_time)[
+                                                 :5] + " has been canceled. \n\nYou can make another reservation on the website " + reservation.restaurant.website + " or contact the restaurant at " + reservation.restaurant.telephone_nr + "\n\nBest regards,\n" + restaurant_name + '\n\n'
 
     restaurant_subject = 'Cancellazione Prenotazione'
-    restaurant_message_text = 'Gentile Cliente,\n\n Una prenotazione presso per ' + str(reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[:5] + ' viene cancellato. \n\n Nome di cliente: ' + reservation.customer.full_name + '\n Email: ' + reservation.customer.email + '\n numerò di telephono: ' + str(reservation.customer.telephone_nr) + '\n numerò di tavolo: ' + str(reservation.table.table_nr) + '\n\n'
+    restaurant_message_text = 'Gentile Cliente,\n\n Una prenotazione presso per ' + str(
+        reservation.reservation_date) + ' alle ore ' + str(reservation.arrival_time)[
+                                                       :5] + ' viene cancellato. \n\n Nome di cliente: ' + reservation.customer.full_name + '\n Email: ' + reservation.customer.email + '\n numerò di telephono: ' + str(
+        reservation.customer.telephone_nr) + '\n numerò di tavolo: ' + str(reservation.table.table_nr) + '\n\n'
 
     email_sender.send_booker_email(reservation.customer.email, booker_subject, booker_message_text, english_translation)
     email_sender.send_restaurant_email(reservation.restaurant.email, restaurant_subject, restaurant_message_text)
-    email_sender.send_restaurant_email('info@ristaiuto.it', restaurant_subject, restaurant_message_text) #for checking
+    email_sender.send_restaurant_email('info@ristaiuto.it', restaurant_subject, restaurant_message_text)  # for checking
     request.session['status'] = 'reservation_cancelled'
     if path == 'confirmed_booking':
         context = {'status': request.session['status'],
@@ -238,25 +247,30 @@ def restaurant_portal(request):
     context = table_management_shower.prepare_table_management(request)
     return render(request, 'restaurant_portal.html', context)
 
+
 def get_table_bill(request, table_id):
     table_management_shower = TableManagementShower()
     context = table_management_shower.get_table_bill(request, table_id)
     return JsonResponse(context)
+
 
 def add_dish_to_table(request, dish_id, table_id):
     table_management_manager = TableManagementManager()
     response = table_management_manager.add_dish(request, dish_id, table_id)
     return JsonResponse(response)
 
+
 def remove_dish_from_table(request, order_id, table_id, current_quantity):
     table_management_manager = TableManagementManager()
     response = table_management_manager.remove_dish(order_id, table_id, current_quantity)
     return JsonResponse(response)
 
+
 def clear_table(request, table_id):
     table_management_manager = TableManagementManager()
     response = table_management_manager.clear_table(table_id)
     return JsonResponse(response)
+
 
 def show_reservations(request):
     context = {'action': './show_reservations/show_reservations.html'}
@@ -304,7 +318,7 @@ def update_menu(request):
         menu_updater = MenuUpdater()
         restaurant_id = menu_updater.update_menu(request)
         menu_updater.generate_menu_html(restaurant_id)
-        #TODO: generate html and send html to correct branch and remote and push (GitPython)
+        # TODO: generate html and send html to correct branch and remote and push (GitPython)
     context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
     # return redirect('bookingsystem:/view_menu')

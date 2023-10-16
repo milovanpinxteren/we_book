@@ -34,6 +34,7 @@
         <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main">
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
+            <h4>{{ status }}</h4>
             <input type="hidden" value="{{ restaurant.id }}" name="restaurantID">
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">

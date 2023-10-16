@@ -35,8 +35,12 @@
                     {% trans "telephone_number" %}: {{ telephone_number }} <br>
                     {% trans "reservation_number" %}: {{ reservationID }}
                 </p>
-                <a class="cancelLink"
-                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>
+                <div class="linksdiv">
+                    <a class="gotoWebsiteLink" href="{{ restaurant_website }}"
+                       target="_blank">{% trans 'go_to_website' %}</a>
+                    <a class="cancelLink" href="#"
+                       onclick="confirmCancellation('{{ reservationID }}')">{% trans 'cancel_reservation' %}</a>
+                </div>
             {% endif %}
 
 

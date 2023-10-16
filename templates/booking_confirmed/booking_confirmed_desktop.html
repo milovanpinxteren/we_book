@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
     <link rel="stylesheet" type="text/css"
           href="{% static 'stylesheets/booking_confirmed/booking_confirmed_desktop.css' %}"/>
@@ -39,9 +39,8 @@
                 <div class="linksdiv">
                     <a class="gotoWebsiteLink" href="{{ restaurant_website }}"
                        target="_blank">{% trans 'go_to_website' %}</a>
-{#                    <a class="cancelLink"#}
-{#                       href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>#}
- <a class="cancelLink" href="#" onclick="confirmCancellation('{{ reservationID }}')">{% trans 'cancel_reservation' %}</a>
+                    <a class="cancelLink" href="#"
+                       onclick="confirmCancellation('{{ reservationID }}')">{% trans 'cancel_reservation' %}</a>
 
                 </div>
             {% endif %}

@@ -35,6 +35,7 @@
               hx-post="{% url 'bookingsystem:check_availability' %}" hx-trigger="input delay:1s" hx-target=".textDiv">
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
+            <h4>{{ status }}</h4>
             <input type="hidden" value="{{ restaurant.id }}" name="restaurantID">
             <div class="inputContainer">
                 <svg class="inputIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">

@@ -8,8 +8,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/booking_confirmation/booking_confirmation_tablet.css' %}"/>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'stylesheets/booking_confirmation/booking_confirmation_tablet.css' %}"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 
     <title>{% trans 'booking_confirmation' %}</title>
@@ -77,8 +78,24 @@
 
             </form>
         </div>
-    {% elif confirmed_reservation %}
-        Wijzigen? {{ reservation }} {{ customer }}
+    {% else %}
+        <div class="form-div">
+            <div class="form_main">
+                <p class="subHeading">{% trans "booking_failed" %}<br>
+                    {% trans 'no_table_found_for' %}: <br>
+                </p>
+                <p class="reservation-info">
+                    {% trans "restaurant_name" %}: {{ restaurant_name }} <br>
+                    {% trans "reservation_date" %}: {{ reservation_date }} <br>
+                    {% trans "start_time" %}: {{ start_time }} <br>
+                    {% trans "number_of_persons" %}: {{ number_of_persons }} <br><br>
+                    {% trans "try_again_on_other_date_or_less_people" %} <br>
+                    {% trans 'or_call_restaurant' %}: {{ restaurant_phone_nr }}
+                </p>
+                <a class="goHomeLink" href="{% url 'bookingsystem:index' %}">{% trans 'go_to_home' %}</a>
+            </div>
+
+        </div>
     {% endif %}
 </div>
 
@@ -113,7 +130,7 @@
                     timerElement.innerHTML = "{% trans 'booking_no_longer_held' %}";
                     heading.innerHTML = "{% trans 'booking_no_longer_held' %}"
 
-{#                    {% csrf_token %}#}
+                    {#                    {% csrf_token %}#}
                     $.ajax({
                         url: "{% url 'bookingsystem:drop_reservation' %}",
                         type: "GET",
