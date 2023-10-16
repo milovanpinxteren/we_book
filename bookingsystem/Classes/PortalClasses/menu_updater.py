@@ -31,11 +31,6 @@ class MenuUpdater():
     def generate_menu_html(self, restaurant_id):
         print(restaurant_id)
         courses = Courses.objects.filter(restaurant_id=restaurant_id).order_by('course_order')
-        # course_dishes = {}
-        # for course in courses:
-        #     ordered_dishes = course.dishes_set.order_by('dish_order')
-        #     ordered_dishes = course.dishes_set.order_by('dish_order')
-        #     course_dishes[course] = ordered_dishes
 
         generated_folder = os.path.join(settings.BASE_DIR, 'bookingsystem/static/menus')
         if not os.path.exists(generated_folder):
@@ -57,7 +52,6 @@ class MenuUpdater():
                 # Add more dish details here
 
         html_content += "</div></body></html>"
-
 
 
         with open(file_path, 'w') as file:

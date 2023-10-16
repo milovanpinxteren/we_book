@@ -49,11 +49,10 @@
                     <circle cx="37" cy="13" r="2" fill="#000"></circle>
                 </svg>
                 <div class="form-group">
-                        <input class="datebox-input" name="reservation_date" type="text"
-                               data-role="datebox" id="date-picker-mobile" onchange="enableTimeSlotSelect()"
-                               placeholder="{% trans 'reservation_date' %}"/>
+                    <input class="datebox-input" name="reservation_date" type="text"
+                           data-role="datebox" id="date-picker-mobile" onchange="enableTimeSlotSelect()"
+                           placeholder="{% trans 'reservation_date' %}"/>
                 </div>
-
 
 
             </div>
@@ -112,19 +111,32 @@
     $('#date-picker-mobile').datebox({
         mode: "calbox",
         displayMode: "dropdown",
-        theme_dropdownContainer: "bg-light border border-dark mt-1",
+        {#theme_dropdownContainer: "bg-dark border border-dark mt-1",#}
         useFocus: "true",
         iconFactory: function () {
             return ''
         },
-        overrideDateFormat: "%m/%d/%Y"
+        overrideDateFormat: "%m/%d/%Y",
+        displayForcePosition: ["400px", "470px"],
+        {#theme_dropdownContainer: "bg-light border border-light mt-6",#}
+        useHeader: false,
+        //https://datebox.jtsage.dev/optDemo/calBox/
 
     });
 
 
-    // });
-
 </script>
+<style>
+    .dbContainer_0 {
+        background: #e2e2e2;
+        width: 50%;
+        font-size: 35px;
+    }
+
+    .dbContainer_0 h4 {
+        text-align: center;
+    }
+</style>
 <script>
     function enableTimeSlotSelect() {
         var numberOfPersons = document.getElementById("number_of_persons");
