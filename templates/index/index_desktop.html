@@ -27,8 +27,7 @@
 <body>
 
 <div class="page-container">
-    <div class="textDiv" id="textDiv" style="display: none">
-    </div>
+    <div class="textDiv" id="textDiv" style="display: none"></div>
     <div class="form-div">
 
         <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main"
@@ -188,7 +187,8 @@
 
             if (optionElement) {
                 if (parsedtimeSlotAvailability[timeSlot] === 'disabled') {
-                    optionElement.disabled = true;
+                    {#optionElement.disabled = true;#}
+                    optionElement.style.display = 'none'
                 } else {
                     optionElement.disabled = false;
                 }

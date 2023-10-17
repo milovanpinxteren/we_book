@@ -30,8 +30,11 @@
 
 
 <div class="page-container">
+    <div class="textDiv" id="textDiv" style="display: none"></div>
+
     <div class="form-div">
-        <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main">
+        <form action="./make_reservation?restaurantID={{ restaurant.id }}" method="post" class="form_main"
+              hx-post="{% url 'bookingsystem:check_availability' %}" hx-trigger="input delay:1s" hx-target=".textDiv">
             {% csrf_token %}
             <p class="heading">{% trans "reserve_table" %} {{ restaurant.name }}</p>
             <h4>{{ status }}</h4>
@@ -107,8 +110,48 @@
 </div>
 
 
+
 <script>
-    console.log({{ disabled_dates|safe }})
+    function enableTimeSlotSelect() {
+        var numberOfPersons = document.getElementById("number_of_persons");
+        var datepickerInput = document.getElementById("date-picker-mobile");
+        var timeSlotSelect = document.getElementById("timeSlotSelect");
+        var placeholderOption = timeSlotSelect.querySelector('option[value=""]');
+
+        // Enable the time slot select if the datepicker has a value, otherwise disable it
+        if (datepickerInput.value && numberOfPersons.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'select_timeslot' %}";
+            timeSlotSelect.disabled = false;
+        } else if (datepickerInput.value) {
+            numberOfPersons.disabled = false;
+            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
+            placeholderOption.textContent = "{% trans 'fill_in_number_of_persons' %}";
+        } else {
+            numberOfPersons.disabled = true;
+            timeSlotSelect.disabled = true;
+        }
+    }
+</script>
+
+<script>
+    // Function to be triggered when text changes
+    function textChangeCallback(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                updateTimeSlotAvailability(mutation.target.textContent)
+            }
+        }
+    }
+
+    const textDiv = document.getElementById('textDiv');
+    const observer = new MutationObserver(textChangeCallback);
+    const config = {childList: true};
+    observer.observe(textDiv, config);
+
+</script>
+<script>
     var disabledDates = {{ disabled_dates|safe }}
         $('#date-picker-mobile').datebox({
             mode: "calbox",
@@ -131,8 +174,6 @@
         if (passed.method === 'displayChange') {
             const month = parseInt(passed.shownDate.getMonth()) + 1 //they start counting month from 0
             const year = parseInt(passed.shownDate.getFullYear())
-            console.log('month shown', month)
-            console.log('year shown', year)
             var postData = {
                 year: year,
                 month: month,
@@ -211,52 +252,10 @@
     }
 </style>
 <script>
-    function enableTimeSlotSelect() {
-        var numberOfPersons = document.getElementById("number_of_persons");
-        var datepickerInput = document.getElementById("date-picker-mobile");
-        var timeSlotSelect = document.getElementById("timeSlotSelect");
-        var placeholderOption = timeSlotSelect.querySelector('option[value=""]');
-        console.log('input', datepickerInput)
-
-        // Enable the time slot select if the datepicker has a value, otherwise disable it
-        if (datepickerInput.value && numberOfPersons.value) {
-            numberOfPersons.disabled = false;
-            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
-            placeholderOption.textContent = "{% trans 'select_timeslot' %}";
-            timeSlotSelect.disabled = false;
-        } else if (datepickerInput.value) {
-            numberOfPersons.disabled = false;
-            numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
-            placeholderOption.textContent = "{% trans 'fill_in_number_of_persons' %}";
-        } else {
-            numberOfPersons.disabled = true;
-            timeSlotSelect.disabled = true;
-        }
-    }
-</script>
-
-<script>
-    // Function to be triggered when text changes
-    function textChangeCallback(mutationsList, observer) {
-        for (let mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-                updateTimeSlotAvailability(mutation.target.textContent)
-            }
-        }
-    }
-
-    const textDiv = document.getElementById('textDiv');
-    const observer = new MutationObserver(textChangeCallback);
-    const config = {childList: true};
-    {#observer.observe(textDiv, config);#}
-
-</script>
-<script>
     var disableddates = {{ disabled_dates|safe }}
 
 
         function DisableSpecificDates(date) {
-            {#var string = jQuery.datepicker.formatDate('yy-mm-dd', date);#}
             return [disableddates.indexOf(string) === -1];
         }
 
@@ -269,7 +268,7 @@
 
             if (optionElement) {
                 if (parsedtimeSlotAvailability[timeSlot] === 'disabled') {
-                    optionElement.disabled = true;
+                    optionElement.style.display = 'none'
                 } else {
                     optionElement.disabled = false;
                 }
