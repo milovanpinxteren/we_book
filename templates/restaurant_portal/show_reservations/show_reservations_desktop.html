@@ -242,7 +242,11 @@
 
         document.addEventListener('click', function (event) {
             const reservationValue = event.target.closest('.reservation-table-value-booked');
-
+            const allReservationValues = document.querySelectorAll('.reservation-table-value-booked');
+            allReservationValues.forEach(function (td) {
+                const reservationInfoDiv = td.querySelector('.reservation-info-div');
+                reservationInfoDiv.style.display = 'none';
+            });
             if (reservationValue) {
                 console.log(reservationValue)
                 const reservationInfoDiv = reservationValue.querySelector('.reservation-info-div');
@@ -543,7 +547,7 @@
                 for (const key in dict) {
                     if (dict.hasOwnProperty(key) && Array.isArray(dict[key])) {
                         const currentID = dict[key][8]
-                        if (!idsHandled.includes(currentID) ) {
+                        if (!idsHandled.includes(currentID)) {
                             const reservationDiv = document.createElement('div');
                             reservationDiv.className = 'reservation-info-second-view'
                             reservationDiv.innerHTML = `

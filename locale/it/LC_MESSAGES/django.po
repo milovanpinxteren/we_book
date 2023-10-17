@@ -636,7 +636,7 @@ msgstr "Cambia vista"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:128
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:313
 msgid "no_reservations_found"
-msgstr "Prenotazione possibile trovata"
+msgstr "Nessuna prenotazione trovata"
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:150
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:335
