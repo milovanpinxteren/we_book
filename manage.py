@@ -4,6 +4,7 @@ import os
 import sys
 
 from django.conf import settings
+import django
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    settings.configure()
+    django.setup()
     from management.commands.generate_menus import GenerateMenus
 
     GenerateMenus().handle()
