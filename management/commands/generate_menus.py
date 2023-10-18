@@ -2,7 +2,15 @@
 from django.core.management.base import BaseCommand
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
 from bookingsystem.models import Restaurants
+from django.conf import settings
+
+
+
+
+
 class GenerateMenus(BaseCommand):
+    settings.configure()
+
     help = 'Generate menus post-deployment task for each restaurant'
 
     def handle(self, *args, **options):
