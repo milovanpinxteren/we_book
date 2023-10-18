@@ -1,8 +1,7 @@
 # your_app/management/commands/my_custom_command.py
 from django.core.management.base import BaseCommand
 from bookingsystem.Classes.PortalClasses.menu_updater import MenuUpdater
-from bookingsystem.models import Restaurants
-import django
+from django.conf import settings
 
 
 
@@ -13,7 +12,9 @@ class GenerateMenus(BaseCommand):
     help = 'Generate menus post-deployment task for each restaurant'
 
     def handle(self, *args, **options):
-        django.setup()
+        settings.configure()
+        from bookingsystem.models import Restaurants
+
         restaurants = Restaurants.objects.all()  # Query all restaurants
         for restaurant in restaurants:
             # Your task logic here for each restaurant
