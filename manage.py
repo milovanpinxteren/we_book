@@ -2,9 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
-from django.conf import settings
 import django
+from management.commands.generate_menus import GenerateMenus
 
 
 def main():
@@ -20,8 +19,6 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
     django.setup()
-    from management.commands.generate_menus import GenerateMenus
-
     GenerateMenus().handle()
 
 
