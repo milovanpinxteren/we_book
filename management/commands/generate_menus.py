@@ -14,3 +14,4 @@ class GenerateMenus(BaseCommand):
             menu_updater = MenuUpdater()
             menu_updater.generate_menu_html(restaurant.id)
 
+
