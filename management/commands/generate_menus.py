@@ -13,7 +13,6 @@ class GenerateMenus(BaseCommand):
     help = 'Generate menus post-deployment task for each restaurant'
 
     def handle(self, *args, **options):
-        settings.configure()
         restaurants = Restaurants.objects.all()  # Query all restaurants
         for restaurant in restaurants:
             # Your task logic here for each restaurant
