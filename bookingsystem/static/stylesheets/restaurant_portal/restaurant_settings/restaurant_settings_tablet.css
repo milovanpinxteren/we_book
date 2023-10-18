@@ -10,11 +10,11 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1.6em;
     font-weight: 400;
     outline: none;
     outline: 0;
-    padding: 10px 25px;
+    padding: 2%;
     text-align: center;
     transform: translateY(0);
     transition: transform 150ms, box-shadow 150ms;
@@ -31,26 +31,27 @@ h3 {
 .restaurant-contact-info {
     border: 1px solid;
     padding: 1%;
-    width: 70%;
+    /*width: 70%;*/
     margin: 1%;
+    font-size: 1.4em;
 }
 
 .restaurant-contact-info label {
-    float: left;
+    /*float: left;*/
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .restaurant-contact-info input {
-    display: block; /* Make labels and inputs block-level elements */
+    /*display: block; !* Make labels and inputs block-level elements *!*/
     margin-bottom: 10px; /* Add spacing between them */
     /*font-weight: bold; !* Make the text bold like an h2 *!*/
-    font-size: 16px;
+    font-size: 1em;
     /*padding: 5px; !* Add padding for spacing *!*/
     border: none; /* Remove the border */
     background-color: transparent;
     padding-top: 0;
-    width: 70%;
+    /*width: 70%;*/
 }
 
 .restaurant-meal-duration {
@@ -82,14 +83,15 @@ h3 {
     margin: 1%;
     border: 1px solid;
     padding: 1%;
-    width: 70%;
+    /*width: 70%;*/
 }
 
 .front-page-text-div {
     margin: 1%;
     border: 1px solid;
     padding: 1%;
-    width: 70%;
+    /*width: 70%;*/
+    font-size: 1.4em;
 
 }
 
@@ -97,8 +99,9 @@ h3 {
     width: 100%;
 }
 .day-div {
-    margin: 1%;
+    margin: 2%;
     display: flex;
+    font-size: 1.4em;
 }
 
 .day-div input[type="checkbox"] {

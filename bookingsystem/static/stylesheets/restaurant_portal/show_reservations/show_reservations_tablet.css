@@ -245,19 +245,15 @@
 
 .reservation-info-div {
     display: none;
-    width: 25%;
-    height: 30%;
+    padding: 1%;
     background-color: rgba(239, 206, 146, 0.9);
     border: solid 2px black;
     border-radius: 2%;
-    padding-left: 1%;
+    padding-left: 2%;
     color: black;
-    /*position: fixed;*/
-    /*top: 40%;*/
-    /*left: 20%;*/
+    font-size: 1.4em;
     position: absolute;
-    /*left: 10px;*/
-    /*top: 0;*/
+
 }
 
 .customer-info {
@@ -301,7 +297,7 @@ td {
 }
 
 .change-view-button {
-    margin-left: -30%;
+    margin-left: -25%;
 }
 
 .reservation-info-line {
@@ -312,3 +308,5 @@ td {
     position: absolute;
     left: 45%;
 }
+
+

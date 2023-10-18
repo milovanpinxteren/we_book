@@ -3,7 +3,7 @@
     display: none;
     border: 1px solid grey;
     padding: 1%;
-    width: 70%;
+    /*width: 70%;*/
 }
 
 .availability-header-div {
@@ -19,9 +19,16 @@
     /*width: 40%;*/
 }
 
+form {
+    margin-left: 1%;
+}
 
 .information-icon-div {
     float: right;
+}
+
+.fa-question-circle {
+    font-size: 1em;
 }
 
 .information-text {
@@ -44,7 +51,7 @@
     display: block;
 }
 
-.add-availabilitys-button {
+.add-availabilities-button {
     display: block;
     float: right;
     background-color: rgba(74, 159, 107, 0.6);
@@ -55,11 +62,11 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1em;
+    padding: 1%;
     font-weight: 400;
     outline: none;
     outline: 0;
-    padding: 10px 25px;
     text-align: center;
     transform: translateY(0);
     transition: transform 150ms, box-shadow 150ms;
@@ -95,7 +102,7 @@
 
 .add-custom-availability-button {
     display: block;
-    float: right;
+    /*float: right;*/
     background-color: #13aa52;
     border: 1px solid #13aa52;
     border-radius: 4px;
@@ -104,7 +111,8 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1em;
+    padding: 1%;
     font-weight: 400;
     outline: none;
     outline: 0;
@@ -116,12 +124,14 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-right: 2%;
+    margin-top: 1%;
 }
 
 .add-availability-form {
     margin-bottom: 2%;
     margin-top: 1%;
     padding-left: 1%;
+    font-size: 1.2em;
 }
 
 input[type="checkbox"] {
@@ -156,7 +166,7 @@ input[type="checkbox"] {
 }
 
 .all-availability-div {
-    width: 70%;
+    /*width: 70%;*/
 }
 
 .update-availability-button {
@@ -202,6 +212,9 @@ input[type="checkbox"] {
     -webkit-user-select: none;
     touch-action: manipulation;
     vertical-align: middle;
+    font-size: 0.9em;
+    margin: 1%;
+    padding: 1%;
 }
 
 .delete-button:hover,

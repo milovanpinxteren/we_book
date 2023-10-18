@@ -121,6 +121,8 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-right: 2%;
+    margin-top: 1%;
+
 }
 
 .add-availability-form {

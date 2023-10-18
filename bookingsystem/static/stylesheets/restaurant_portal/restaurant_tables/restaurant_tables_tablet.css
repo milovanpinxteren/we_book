@@ -4,6 +4,7 @@
     border: 1px solid grey;
     padding: 1%;
     width: 60%;
+    font-size: 1.1em;
 }
 
 .table-header-div {
@@ -45,7 +46,7 @@
 
 .add-table-button {
     display: block;
-    float: right;
+    /*float: right;*/
     background-color: #13aa52;
     border: 1px solid #13aa52;
     border-radius: 4px;
@@ -54,7 +55,9 @@
     color: #fff;
     cursor: pointer;
     font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
+    font-size: 1.2em;
+    padding: 1%;
+    margin: 1%;
     font-weight: 400;
     outline: none;
     outline: 0;
@@ -101,7 +104,8 @@
 }
 
 .all-tables-div {
-    width: 60%;
+    /*width: 60%;*/
+    margin-left: 1%;
 }
 
 .update-tables-button {
@@ -147,6 +151,9 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     vertical-align: middle;
+    font-size: 0.9em;
+    padding: 1%;
+    margin: 1%;
 }
 
 .delete-button:hover,
@@ -159,3 +166,4 @@
 .delete-button:active {
     opacity: .5;
 }
+

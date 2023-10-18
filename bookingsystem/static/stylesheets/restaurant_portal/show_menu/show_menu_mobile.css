@@ -23,6 +23,11 @@
     width: 100%;
 }
 
+.add-dish-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
 
 .add-dish-form form select {
     font-size: 1.1em;
@@ -64,7 +69,7 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin-right: 2%;
-    /*margin-top: 1%;*/
+    margin-top: 1%;
 }
 
 .add-course-button {
