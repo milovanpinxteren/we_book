@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/login/login_tablet.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/footer.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>
+{#    <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>#}
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <title>{% trans 'login' %}</title>
 </head>
@@ -22,7 +22,7 @@
             <div class="login-form-contents">
                 {{ form.as_p }}
             </div>
-            <button class="button-4" role="button">{% trans 'login' %}</button>
+            <button class="login-button" role="button">{% trans 'login' %}</button>
             <div class="language-picker-div">
                 {% include 'components/language_picker.html' %}
             </div>

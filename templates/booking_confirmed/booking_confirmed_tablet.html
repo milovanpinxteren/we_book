@@ -35,13 +35,28 @@
                     {% trans "telephone_number" %}: {{ telephone_number }} <br>
                     {% trans "reservation_number" %}: {{ reservationID }}
                 </p>
-                <a class="cancelLink"
-                   href="{% url 'bookingsystem:delete_reservation' %}?reservationID={{ reservationID }}&path=confirmed_booking">{% trans 'cancel_reservation' %}</a>
+                <div class="linksdiv">
+                    <a class="gotoWebsiteLink" href="{{ restaurant_website }}"
+                       target="_blank">{% trans 'go_to_website' %}</a>
+                    <a class="cancelLink" href="#"
+                       onclick="confirmCancellation('{{ reservationID }}')">{% trans 'cancel_reservation' %}</a>
+                </div>
             {% endif %}
 
 
         </div>
     </div>
 </div>
+<script>
+    function confirmCancellation(reservationID) {
+        if (confirm("{% trans 'are_you_sure_you_want_to_delete_your_reservation' %}")) {
+            // If the user confirms, navigate to the cancellation page.
+            window.location.href = "{% url 'bookingsystem:delete_reservation' %}?reservationID=" + reservationID + "&path=confirmed_booking";
+        } else {
+            // If the user cancels, do nothing or provide feedback.
+            {#alert('Cancellation canceled');#}
+        }
+    }
+</script>
 </body>
 </html>

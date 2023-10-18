@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 
 .form_main {
@@ -24,21 +24,25 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgb(255, 255, 255);
-    padding: 30px 30px 30px 30px;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+    padding: 10px;
+    box-shadow: 0px 0px 150px rgba(0, 0, 0, 0.062);
     position: relative;
     overflow: hidden;
+    width: 80%;
+    min-height: 320px;
+    margin-top: 10%;
+    border-radius: 3%;
 }
 
 .form_main::before {
     position: absolute;
     content: "";
-    width: 300px;
-    height: 300px;
+    width: 450px;
+    height: 450px;
     background-color: #e8701a;
     transform: rotate(45deg);
-    left: -180px;
-    bottom: 30px;
+    left: -250px;
+    /*bottom: 30px;*/
     z-index: 1;
     border-radius: 30px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
@@ -46,11 +50,12 @@ body {
 
 
 .heading {
-    font-size: 2em;
+    font-size: 4em;
     color: #2e2e2e;
     font-weight: 549;
     margin: 5px 0 10px 0;
     z-index: 2;
+    margin-bottom: 3%;
 }
 
 .inputContainer {
@@ -60,6 +65,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 2;
+    min-height: 80px;
 }
 
 .inputIcon {
@@ -69,7 +75,7 @@ body {
 
 .inputField {
     width: 100%;
-    height: 30px;
+    height: 45px;
     background-color: transparent;
     border: none;
     border-bottom: 2px solid rgb(173, 173, 173);
@@ -78,7 +84,8 @@ body {
     font-size: .8em;
     font-weight: 500;
     box-sizing: border-box;
-    padding-left: 30px;
+    padding-left: 45px;
+    font-size: 2em;
 }
 
 .inputField:focus {
@@ -88,7 +95,7 @@ body {
 
 .inputField::placeholder {
     color: rgb(80, 80, 80);
-    font-size: 1em;
+    /*font-size: 2em;*/
     font-weight: 500;
 
 }
@@ -96,31 +103,126 @@ body {
 #button {
     z-index: 2;
     position: relative;
-    width: 100%;
     border: none;
     background-color: #e65107;
-    height: 30px;
     color: white;
-    font-size: .8em;
+    font-size: 2.2em;
     font-weight: 500;
     letter-spacing: 1px;
-    margin: 10px;
     cursor: pointer;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 1%;
+    margin-top: 3%;
+    padding: 2%;
+    border-radius: 1%;
 }
 
 #button:hover {
     background-color: #f0ba0a;
 }
 
-/*.forgotLink {*/
-/*    z-index: 2;*/
-/*    font-size: .7em;*/
-/*    font-weight: 500;*/
-/*    color: rgb(44, 24, 128);*/
-/*    text-decoration: none;*/
-/*    padding: 8px 15px;*/
-/*    border-radius: 20px;*/
-/*}*/
 
+.language-picker-div {
+    position: relative;
+    display: inline-block;
+    float: left;
+    bottom: 0;
+    width: 25%;
+    height: 5%;
+    left: 0;
+    margin-right: 80%;
+    z-index: 5;
+    margin-bottom: -20px;
+    margin-left: 5%;
+    min-height: 100px;
+}
+
+.lang-img {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 75px;
+    height: 75px;
+}
+
+.dropdown-icon {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+.dropdown-icon svg {
+    width: 50px;
+    height: 50px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: -160%; /* Adjust the vertical position */
+    left: 50%; /* Adjust the horizontal position */
+    transform: translate(-50%, -50%); /* Center the floating div */
+    background-color: #fff;
+    /*z-index: 9;*/
+    min-width: 230px;
+    font-size: 1.8em;
+}
+
+.language-picker-div:hover .dropdown-content {
+    display: block;
+}
+
+
+.dropdown-ul {
+    list-style-type: none;
+}
+
+.language {
+    text-align: left;
+    border: 1px solid;
+    margin-left: -15%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 1.2em;
+
+}
+
+.language img {
+    width: 30px;
+    height: 30px;
+}
+
+.form-group {
+    position: absolute;
+    /* float: left; */
+    height: 50px;
+    width: 100%;
+}
+
+.datebox-input {
+    width: 100%;
+    height: 45px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgb(173, 173, 173);
+    margin: 10px 0;
+    color: black;
+    font-size: .8em;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding-left: 45px;
+    font-size: 2em;
+}
+
+.datebox-input:focus {
+    outline: none;
+    border-bottom: 2px solid #e8701a;
+}
+
+.datebox-input::placeholder {
+    color: rgb(80, 80, 80);
+    /*font-size: 2em;*/
+    font-weight: 500;
+
+}
