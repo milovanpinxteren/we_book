@@ -12,7 +12,7 @@ class GenerateMenus(BaseCommand):
     help = 'Generate menus post-deployment task for each restaurant'
 
     def handle(self, *args, **options):
-        settings.configure()
+        # settings.configure()
         from bookingsystem.models import Restaurants
 
         restaurants = Restaurants.objects.all()  # Query all restaurants
