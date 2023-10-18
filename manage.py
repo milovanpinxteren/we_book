@@ -3,7 +3,6 @@
 import os
 import sys
 import django
-from management.commands.generate_menus import GenerateMenus
 
 
 def main():
@@ -18,8 +17,9 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    django.setup()
-    GenerateMenus().handle()
+    # django.setup()
+    # from bookingsystem.management.commands.generate_menus import GenerateMenus
+    # GenerateMenus().handle()
 
 
 if __name__ == '__main__':
