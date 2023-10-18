@@ -57,5 +57,3 @@ class MenuUpdater():
         with open(file_path, 'w') as file:
             file.write(html_content)
 
-
-
