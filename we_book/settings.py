@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookingsystem.apps.BookingsystemConfig',
+    'bookingsystem',
     'user_agents',
     'mathfilters',
     'corsheaders'
