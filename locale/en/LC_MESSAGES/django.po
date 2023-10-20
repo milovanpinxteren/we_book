@@ -84,7 +84,7 @@ msgstr "Name of Restaurant:"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:396
 #| msgid "make_reservation"
 msgid "reservation_date"
-msgstr "Enter date"
+msgstr "Reservation date"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:34
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:92
