@@ -82,7 +82,6 @@ msgstr "Name of Restaurant:"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:38
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:207
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:396
-#, fuzzy
 #| msgid "make_reservation"
 msgid "reservation_date"
 msgstr "Enter date"
@@ -96,7 +95,6 @@ msgstr "Enter date"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:32
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:31
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:31
-#, fuzzy
 #| msgid "make_reservation"
 msgid "start_time"
 msgstr "Begin time"
@@ -122,7 +120,6 @@ msgstr "Begin time"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:398
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:398
-#, fuzzy
 #| msgid "no_persons"
 msgid "number_of_persons"
 msgstr "Number of Persons"
@@ -239,7 +236,6 @@ msgstr "Telephone number"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:37
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:36
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:36
-#, fuzzy
 #| msgid "make_reservation"
 msgid "reservation_number"
 msgstr "Enter time"
@@ -247,7 +243,6 @@ msgstr "Enter time"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:41
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:40
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:40
-#, fuzzy
 #| msgid "go_to_own_website"
 msgid "go_to_website"
 msgstr "Go to own website"
@@ -255,7 +250,6 @@ msgstr "Go to own website"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:43
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:42
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:42
-#, fuzzy
 #| msgid "make_reservation"
 msgid "cancel_reservation"
 msgstr "Make reservation"
@@ -289,7 +283,6 @@ msgid "home"
 msgstr "Home"
 
 #: .\templates\components\sidebar.html:19
-#, fuzzy
 #| msgid "make_reservation"
 msgid "show_reservations"
 msgstr "Make reservation"
@@ -311,7 +304,6 @@ msgid "custom_opening_hours"
 msgstr "Custom Opening Hours"
 
 #: .\templates\components\sidebar.html:102
-#, fuzzy
 #| msgid "reserve_table"
 msgid "view_tables"
 msgstr "Book a table at"
@@ -370,7 +362,6 @@ msgstr "Select Timeslot"
 #: .\templates\index\index_desktop.html:122
 #: .\templates\index\index_mobile.html:130
 #: .\templates\index\index_tablet.html:130
-#, fuzzy
 #| msgid "no_persons"
 msgid "fill_in_number_of_persons"
 msgstr "Number of Persons"
@@ -403,7 +394,6 @@ msgstr "See and change you availability"
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:20
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_mobile.html:20
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_tablet.html:20
-#, fuzzy
 #| msgid "menu_page_info_text"
 msgid "custom_availability_page_info_text"
 msgstr ""
@@ -556,7 +546,6 @@ msgstr "Restaurant email"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:62
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:62
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:62
-#, fuzzy
 #| msgid "telephone_nr"
 msgid "restaurant_telephone_nr"
 msgstr "Telephone number"
@@ -564,7 +553,6 @@ msgstr "Telephone number"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:66
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:66
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:66
-#, fuzzy
 #| msgid "email_adress"
 msgid "restaurant_address"
 msgstr "Email-adress"
@@ -644,7 +632,6 @@ msgstr "Restaurant open Monday"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:199
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:220
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:241
-#, fuzzy
 #| msgid "make_reservation"
 msgid "restaurant_opening_time"
 msgstr "Enter time"
@@ -759,7 +746,6 @@ msgstr "Add tables"
 #: .\templates\restaurant_portal\table_management\table_management_mobile.html:140
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:33
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:140
-#, fuzzy
 #| msgid "telephone_nr"
 msgid "table_nr"
 msgstr "Telephone number"
