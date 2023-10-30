@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 14:01+0200\n"
+"POT-Creation-Date: 2023-10-30 15:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:133 .\bookingsystem\views.py:143
+#: .\bookingsystem\views.py:132 .\bookingsystem\views.py:142
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:86
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:84
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:84
 msgid "booking_failed"
 msgstr "Prenotazione non riuscita"
 
-#: .\bookingsystem\views.py:305
+#: .\bookingsystem\views.py:304
 msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr ""
 "Impossibile effettuare la prenotazione. Controllare il numero del tavolo, la "
@@ -108,11 +108,11 @@ msgstr "Orario di inizio"
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:32
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:32
 #: .\templates\index\index_desktop.html:116
-#: .\templates\index\index_desktop.html:121
-#: .\templates\index\index_mobile.html:124
-#: .\templates\index\index_mobile.html:129
-#: .\templates\index\index_tablet.html:124
-#: .\templates\index\index_tablet.html:129
+#: .\templates\index\index_desktop.html:120
+#: .\templates\index\index_mobile.html:123
+#: .\templates\index\index_mobile.html:127
+#: .\templates\index\index_tablet.html:123
+#: .\templates\index\index_tablet.html:127
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:398
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:209
@@ -347,24 +347,30 @@ msgid "fill_in_date_and_persons_first"
 msgstr "Inserisci prima la data e il numero di persone"
 
 #: .\templates\index\index_desktop.html:117
-#: .\templates\index\index_mobile.html:125
-#: .\templates\index\index_tablet.html:125
-msgid "select_timeslot"
-msgstr "Seleziona l'orario"
+#: .\templates\index\index_mobile.html:124
+#: .\templates\index\index_tablet.html:124
+msgid "getting_available_timeslots"
+msgstr "Ottenere le fasce orarie disponibili"
 
-#: .\templates\index\index_desktop.html:122
-#: .\templates\index\index_mobile.html:130
-#: .\templates\index\index_tablet.html:130
+#: .\templates\index\index_desktop.html:121
+#: .\templates\index\index_mobile.html:128
+#: .\templates\index\index_tablet.html:128
 msgid "fill_in_number_of_persons"
 msgstr "Inserisci il numero di persone"
 
+#: .\templates\index\index_desktop.html:200
+#: .\templates\index\index_mobile.html:279
+#: .\templates\index\index_tablet.html:279
+msgid "select_timeslot"
+msgstr "Seleziona l'orario"
+
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "no_sufficient_rights_for_this_page"
-msgstr ""
+msgstr "Non ci sono diritti sufficienti per questa pagina"
 
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "contact_support_if_this_is_incorrect"
-msgstr ""
+msgstr "Contattare l'assistenza se questo non è corretto"
 
 #: .\templates\restaurant_portal.html:15
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability.html:15

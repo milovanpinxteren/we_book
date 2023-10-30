@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 14:01+0200\n"
+"POT-Creation-Date: 2023-10-30 15:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\bookingsystem\views.py:133 .\bookingsystem\views.py:143
+#: .\bookingsystem\views.py:132 .\bookingsystem\views.py:142
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:86
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:84
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:84
 msgid "booking_failed"
 msgstr ""
 
-#: .\bookingsystem\views.py:305
+#: .\bookingsystem\views.py:304
 msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr ""
 
@@ -106,11 +106,11 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:32
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:32
 #: .\templates\index\index_desktop.html:116
-#: .\templates\index\index_desktop.html:121
-#: .\templates\index\index_mobile.html:124
-#: .\templates\index\index_mobile.html:129
-#: .\templates\index\index_tablet.html:124
-#: .\templates\index\index_tablet.html:129
+#: .\templates\index\index_desktop.html:120
+#: .\templates\index\index_mobile.html:123
+#: .\templates\index\index_mobile.html:127
+#: .\templates\index\index_tablet.html:123
+#: .\templates\index\index_tablet.html:127
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:398
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:209
@@ -345,15 +345,21 @@ msgid "fill_in_date_and_persons_first"
 msgstr ""
 
 #: .\templates\index\index_desktop.html:117
-#: .\templates\index\index_mobile.html:125
-#: .\templates\index\index_tablet.html:125
-msgid "select_timeslot"
+#: .\templates\index\index_mobile.html:124
+#: .\templates\index\index_tablet.html:124
+msgid "getting_available_timeslots"
 msgstr ""
 
-#: .\templates\index\index_desktop.html:122
-#: .\templates\index\index_mobile.html:130
-#: .\templates\index\index_tablet.html:130
+#: .\templates\index\index_desktop.html:121
+#: .\templates\index\index_mobile.html:128
+#: .\templates\index\index_tablet.html:128
 msgid "fill_in_number_of_persons"
+msgstr ""
+
+#: .\templates\index\index_desktop.html:200
+#: .\templates\index\index_mobile.html:279
+#: .\templates\index\index_tablet.html:279
+msgid "select_timeslot"
 msgstr ""
 
 #: .\templates\no_sufficient_rights_page.html:12

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 14:01+0200\n"
+"POT-Creation-Date: 2023-10-30 15:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:133 .\bookingsystem\views.py:143
+#: .\bookingsystem\views.py:132 .\bookingsystem\views.py:142
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:86
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:84
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:84
 msgid "booking_failed"
 msgstr "Booking Failed"
 
-#: .\bookingsystem\views.py:305
+#: .\bookingsystem\views.py:304
 msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr "Could not make booking. Please check table number, date, and time."
 
@@ -34,7 +34,6 @@ msgstr "Could not make booking. Please check table number, date, and time."
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:16
 msgid "booking_confirmation"
 msgstr "Booking Confirmation"
-
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:29
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:28
@@ -82,7 +81,6 @@ msgstr "Name of Restaurant:"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:38
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:207
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:396
-#| msgid "make_reservation"
 msgid "reservation_date"
 msgstr "Reservation date"
 
@@ -95,7 +93,6 @@ msgstr "Reservation date"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:32
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:31
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:31
-#| msgid "make_reservation"
 msgid "start_time"
 msgstr "Begin time"
 
@@ -109,18 +106,17 @@ msgstr "Begin time"
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:32
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:32
 #: .\templates\index\index_desktop.html:116
-#: .\templates\index\index_desktop.html:121
-#: .\templates\index\index_mobile.html:124
-#: .\templates\index\index_mobile.html:129
-#: .\templates\index\index_tablet.html:124
-#: .\templates\index\index_tablet.html:129
+#: .\templates\index\index_desktop.html:120
+#: .\templates\index\index_mobile.html:123
+#: .\templates\index\index_mobile.html:127
+#: .\templates\index\index_tablet.html:123
+#: .\templates\index\index_tablet.html:127
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:398
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:398
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:398
-#| msgid "no_persons"
 msgid "number_of_persons"
 msgstr "Number of Persons"
 
@@ -236,21 +232,18 @@ msgstr "Telephone number"
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:37
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:36
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:36
-#| msgid "make_reservation"
 msgid "reservation_number"
 msgstr "Enter time"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:41
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:40
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:40
-#| msgid "go_to_own_website"
 msgid "go_to_website"
 msgstr "Go to own website"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:43
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:42
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:42
-#| msgid "make_reservation"
 msgid "cancel_reservation"
 msgstr "Make reservation"
 
@@ -283,7 +276,6 @@ msgid "home"
 msgstr "Home"
 
 #: .\templates\components\sidebar.html:19
-#| msgid "make_reservation"
 msgid "show_reservations"
 msgstr "Make reservation"
 
@@ -304,7 +296,6 @@ msgid "custom_opening_hours"
 msgstr "Custom Opening Hours"
 
 #: .\templates\components\sidebar.html:102
-#| msgid "reserve_table"
 msgid "view_tables"
 msgstr "Book a table at"
 
@@ -354,17 +345,22 @@ msgid "fill_in_date_and_persons_first"
 msgstr "fill in date and number of persons first"
 
 #: .\templates\index\index_desktop.html:117
-#: .\templates\index\index_mobile.html:125
-#: .\templates\index\index_tablet.html:125
-msgid "select_timeslot"
-msgstr "Select Timeslot"
+#: .\templates\index\index_mobile.html:124
+#: .\templates\index\index_tablet.html:124
+msgid "getting_available_timeslots"
+msgstr "Getting available timeslots"
 
-#: .\templates\index\index_desktop.html:122
-#: .\templates\index\index_mobile.html:130
-#: .\templates\index\index_tablet.html:130
-#| msgid "no_persons"
+#: .\templates\index\index_desktop.html:121
+#: .\templates\index\index_mobile.html:128
+#: .\templates\index\index_tablet.html:128
 msgid "fill_in_number_of_persons"
 msgstr "Fill in number of Persons"
+
+#: .\templates\index\index_desktop.html:200
+#: .\templates\index\index_mobile.html:279
+#: .\templates\index\index_tablet.html:279
+msgid "select_timeslot"
+msgstr "Select Timeslot"
 
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "no_sufficient_rights_for_this_page"
@@ -394,7 +390,6 @@ msgstr "See and change you availability"
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_desktop.html:20
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_mobile.html:20
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability_tablet.html:20
-#| msgid "menu_page_info_text"
 msgid "custom_availability_page_info_text"
 msgstr ""
 "Here you can see and modify your menu. Your menu will be shown on your "
@@ -546,14 +541,12 @@ msgstr "Restaurant email"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:62
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:62
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:62
-#| msgid "telephone_nr"
 msgid "restaurant_telephone_nr"
 msgstr "Telephone number"
 
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:66
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:66
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:66
-#| msgid "email_adress"
 msgid "restaurant_address"
 msgstr "Email-adress"
 
@@ -632,7 +625,6 @@ msgstr "Restaurant open Monday"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:199
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:220
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:241
-#| msgid "make_reservation"
 msgid "restaurant_opening_time"
 msgstr "Enter time"
 
@@ -657,8 +649,6 @@ msgstr "Enter time"
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:204
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:225
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:246
-
-#| msgid "make_reservation"
 msgid "restaurant_closing_time"
 msgstr "Enter time"
 
@@ -746,9 +736,8 @@ msgstr "Add tables"
 #: .\templates\restaurant_portal\table_management\table_management_mobile.html:140
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:33
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:140
-#| msgid "telephone_nr"
 msgid "table_nr"
-msgstr "Telephone number"
+msgstr "Table number"
 
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:29
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:30
@@ -765,7 +754,6 @@ msgstr "Telephone number"
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:51
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:52
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:56
-#| msgid "no_persons"
 msgid "min_amount_of_persons"
 msgstr "Number of Persons"
 
@@ -778,7 +766,6 @@ msgstr "Number of Persons"
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:33
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:34
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:55
-#| msgid "no_persons"
 msgid "max_amount_of_persons"
 msgstr "Number of Persons"
 
@@ -803,7 +790,6 @@ msgstr "Are you sure you want to delete this table"
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:59
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_mobile.html:60
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:60
-#| msgid "reserve_table"
 msgid "delete_table"
 msgstr "Delete table"
 
@@ -816,7 +802,6 @@ msgstr "Cancel adding tables"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:20
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:20
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:20
-#| msgid "make_reservation"
 msgid "current_reservations"
 msgstr "Current reservations"
 
@@ -826,15 +811,12 @@ msgstr "Current reservations"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:636
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:22
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:636
-
-#| msgid "make_reservation"
 msgid "add_reservations"
 msgstr "Add reservations"
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:27
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:27
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:27
-#| msgid "make_reservation"
 msgid "add_reservation"
 msgstr "Add reservation"
 
@@ -859,7 +841,6 @@ msgstr "Number of Persons"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:42
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:44
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:559
-#| msgid "make_reservation"
 msgid "reservation_time"
 msgstr "Reservation time"
 
@@ -911,7 +892,6 @@ msgstr "Customer email"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:66
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:200
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:389
-#| msgid "telephone_nr"
 msgid "customer_telephone_nr"
 msgstr "Telephone number"
 
@@ -924,7 +904,6 @@ msgstr "Please wait"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:82
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:82
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:82
-#| msgid "make_reservation"
 msgid "deleted_reservation"
 msgstr "Deleted reservation"
 
@@ -967,7 +946,6 @@ msgstr "Change view"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:317
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:128
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:317
-#| msgid "possible_reservation_found"
 msgid "no_reservations_found"
 msgstr "No reservations found"
 
@@ -992,7 +970,6 @@ msgstr "Hide date"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:397
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:208
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:397
-#| msgid "make_reservation"
 msgid "arrival_time"
 msgstr "Arrival time"
 
@@ -1008,14 +985,12 @@ msgstr "Cancel booking"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:621
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:622
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:622
-#| msgid "show_dashboard"
 msgid "show_date"
 msgstr "Show date"
 
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:632
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:633
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:633
-#| msgid "make_reservation"
 msgid "cancel_adding_reservation"
 msgstr "Cancel adding reservation"
 
@@ -1028,7 +1003,6 @@ msgstr "Table Management"
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:30
 #: .\templates\restaurant_portal\table_management\table_management_mobile.html:30
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:30
-#| msgid "reserve_table"
 msgid "select_table"
 msgstr "Select table"
 
@@ -1044,7 +1018,6 @@ msgstr "Select table"
 #: .\templates\restaurant_portal\view_menu\view_menu_tablet.html:44
 #: .\templates\restaurant_portal\view_menu\view_menu_tablet.html:45
 #: .\templates\restaurant_portal\view_menu\view_menu_tablet.html:84
-#| msgid "name"
 msgid "dish_name"
 msgstr "Dish name"
 
@@ -1069,7 +1042,6 @@ msgstr "Total"
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:233
 #: .\templates\restaurant_portal\table_management\table_management_mobile.html:223
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:223
-#| msgid "reserve_table"
 msgid "clear_table"
 msgstr "Clear table"
 
@@ -1162,7 +1134,9 @@ msgstr "Update menu"
 #: .\templates\restaurant_portal\view_menu\view_menu_mobile.html:78
 #: .\templates\restaurant_portal\view_menu\view_menu_tablet.html:78
 msgid "are_you_sure_you_want_to_delete_the_course_this_also_deletes_all_dishes_in_the_course"
-msgstr "Are you sure you want to delete the course this also deletes all dishes in the course."
+msgstr ""
+"Are you sure you want to delete the course this also deletes all dishes in "
+"the course."
 
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:78
 #: .\templates\restaurant_portal\view_menu\view_menu_mobile.html:78
