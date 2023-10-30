@@ -364,7 +364,7 @@ msgstr "Select Timeslot"
 #: .\templates\index\index_tablet.html:130
 #| msgid "no_persons"
 msgid "fill_in_number_of_persons"
-msgstr "Number of Persons"
+msgstr "Fill in number of Persons"
 
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "no_sufficient_rights_for_this_page"

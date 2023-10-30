@@ -56,7 +56,7 @@ class AvailabilityChecker():
         return closed_dates
 
 
-    def query_availability(self, restaurant, reservation_date, number_of_persons, reservation_time, timestamps):
+    def query_availability(self, restaurant, reservation_date, number_of_persons, timestamps):
         date = datetime.strptime(reservation_date, '%m/%d/%Y')
         query_date = date.strftime('%Y-%m-%d')
         day = date.strftime('%A').lower()

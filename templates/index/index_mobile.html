@@ -110,7 +110,6 @@
 </div>
 
 
-
 <script>
     function enableTimeSlotSelect() {
         var numberOfPersons = document.getElementById("number_of_persons");
@@ -122,8 +121,7 @@
         if (datepickerInput.value && numberOfPersons.value) {
             numberOfPersons.disabled = false;
             numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
-            placeholderOption.textContent = "{% trans 'select_timeslot' %}";
-            timeSlotSelect.disabled = false;
+            placeholderOption.textContent = "{% trans 'getting_available_timeslots' %}";
         } else if (datepickerInput.value) {
             numberOfPersons.disabled = false;
             numberOfPersons.placeholder = "{% trans 'number_of_persons' %}";
@@ -263,6 +261,10 @@
     function updateTimeSlotAvailability(timeSlotAvailability) {
         const selectElement = document.getElementById('timeSlotSelect');
         const parsedtimeSlotAvailability = JSON.parse(timeSlotAvailability)
+
+        var timeSlotSelect = document.getElementById("timeSlotSelect");
+        var placeholderOption = timeSlotSelect.querySelector('option[value=""]');
+
         for (const timeSlot in parsedtimeSlotAvailability) {
             const optionElement = selectElement.querySelector(`option[value="${timeSlot}"]`)
 
@@ -274,6 +276,8 @@
                 }
             }
         }
+        placeholderOption.textContent = "{% trans 'select_timeslot' %}";
+        timeSlotSelect.disabled = false;
     }
 
 </script>

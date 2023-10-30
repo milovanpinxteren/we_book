@@ -93,8 +93,7 @@ def check_availability(request):
     restaurant = Restaurants.objects.get(pk=restaurant_id)
     if request.POST['number_of_persons'] != '':
         availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'],
-                                                              request.POST['number_of_persons'],
-                                                              request.POST['reservation_time'], timestamps)
+                                                              request.POST['number_of_persons'], timestamps)
     else:
         print('number of persons not filled in')
     return JsonResponse(availability)
