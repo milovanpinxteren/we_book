@@ -23,29 +23,29 @@ msgstr ""
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:84
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:84
 msgid "booking_failed"
-msgstr ""
+msgstr "Échec de la réservation"
 
 #: .\bookingsystem\views.py:304
 msgid "could_not_make_booking_check_table_nr_date_and_time"
-msgstr ""
+msgstr "Impossible de faire la réservation. Vérifiez le numéro de table, la date et l'heure."
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:17
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:16
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:16
 msgid "booking_confirmation"
-msgstr ""
+msgstr "Confirmation de la réservation"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:29
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:28
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:28
 msgid "possible_reservation_found"
-msgstr ""
+msgstr "Réservation possible trouvée"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:30
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:29
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:29
 msgid "fill_in_contact_info"
-msgstr ""
+msgstr "Remplissez les informations de contact"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:32
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:90
@@ -55,7 +55,7 @@ msgstr ""
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:49
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:49
 msgid "restaurant_name"
-msgstr ""
+msgstr "Nom du restaurant"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:33
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:91
@@ -82,7 +82,7 @@ msgstr ""
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:207
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:396
 msgid "reservation_date"
-msgstr ""
+msgstr "Date de réservation"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:34
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:92
@@ -94,7 +94,7 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:31
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:31
 msgid "start_time"
-msgstr ""
+msgstr "Heure de début"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:35
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:93
@@ -118,7 +118,7 @@ msgstr ""
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:209
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:398
 msgid "number_of_persons"
-msgstr ""
+msgstr "Nombre de personnes"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:45
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:43
@@ -127,13 +127,13 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:33
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:33
 msgid "name"
-msgstr ""
+msgstr "Nom"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:57
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:55
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:55
 msgid "email"
-msgstr ""
+msgstr "E-mail"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:68
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:66
@@ -142,7 +142,7 @@ msgstr ""
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:572
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:572
 msgid "telephone_nr"
-msgstr ""
+msgstr "Numéro de téléphone"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:71
 #: .\templates\index\index_desktop.html:92
@@ -152,37 +152,37 @@ msgstr ""
 #: .\templates\restaurant_portal\show_reservations\show_reservations_mobile.html:69
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:69
 msgid "submit"
-msgstr ""
+msgstr "Envoyer"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:76
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:72
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:72
 msgid "booking_held_for"
-msgstr ""
+msgstr "Réservation maintenue pendant"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:78
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:74
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:74
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:87
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:85
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:85
 msgid "no_table_found_for"
-msgstr ""
+msgstr "Aucune table disponible pour"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:94
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:92
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:92
 msgid "try_again_on_other_date_or_less_people"
-msgstr ""
+msgstr "Essayez une autre date ou réduisez le nombre de personnes"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:95
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:93
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:93
 msgid "or_call_restaurant"
-msgstr ""
+msgstr "ou appelez le restaurant"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:97
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:95
@@ -191,7 +191,7 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:25
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:25
 msgid "go_to_home"
-msgstr ""
+msgstr "Aller à la page d'accueil"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:132
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:133
@@ -200,7 +200,7 @@ msgstr ""
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:130
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:131
 msgid "booking_no_longer_held"
-msgstr ""
+msgstr "La réservation n'est plus maintenue"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:17
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:28
@@ -209,107 +209,107 @@ msgstr ""
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:16
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:27
 msgid "booking_confirmed"
-msgstr ""
+msgstr "Réservation confirmée"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:24
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:23
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:23
 msgid "booking_cancelled"
-msgstr ""
+msgstr "Réservation annulée"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:35
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:34
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:34
 msgid "email_adress"
-msgstr ""
+msgstr "Adresse e-mail"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:36
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:35
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:35
 msgid "telephone_number"
-msgstr ""
+msgstr "Numéro de téléphone"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:37
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:36
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:36
 msgid "reservation_number"
-msgstr ""
+msgstr "Numéro de réservation"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:41
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:40
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:40
 msgid "go_to_website"
-msgstr ""
+msgstr "Aller sur le site web"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:43
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:42
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:42
 msgid "cancel_reservation"
-msgstr ""
+msgstr "Annuler la réservation"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:55
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:52
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:52
 msgid "are_you_sure_you_want_to_delete_your_reservation"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir annuler votre réservation ?"
 
 #: .\templates\components\footer.html:5 .\templates\login\login_desktop.html:20
 #: .\templates\login\login_mobile.html:20
 #: .\templates\login\login_tablet.html:20
 msgid "partner_login"
-msgstr ""
+msgstr "Connexion partenaire"
 
 #: .\templates\components\footer.html:6
 msgid "cookie_policy"
-msgstr ""
+msgstr "Politique des cookies"
 
 #: .\templates\components\footer.html:7
 msgid "terms_conditions"
-msgstr ""
+msgstr "Conditions générales"
 
 #: .\templates\components\footer.html:8
 msgid "become_partner"
-msgstr ""
+msgstr "Devenir partenaire"
 
 #: .\templates\components\sidebar.html:11
 msgid "home"
-msgstr ""
+msgstr "Accueil"
 
 #: .\templates\components\sidebar.html:19
 msgid "show_reservations"
-msgstr ""
+msgstr "Voir les réservations"
 
 #: .\templates\components\sidebar.html:29
 msgid "view_menu"
-msgstr ""
+msgstr "Voir le menu"
 
 #: .\templates\components\sidebar.html:37
 msgid "go_to_own_website"
-msgstr ""
+msgstr "Aller sur son propre site web"
 
 #: .\templates\components\sidebar.html:82
 msgid "settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: .\templates\components\sidebar.html:91
 msgid "custom_opening_hours"
-msgstr ""
+msgstr "Horaires d'ouverture personnalisés"
 
 #: .\templates\components\sidebar.html:102
 msgid "view_tables"
-msgstr ""
+msgstr "Voir les tables"
 
 #: .\templates\components\sidebar.html:134
 msgid "logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #: .\templates\error_page.html:13 .\templates\no_sufficient_rights_page.html:13
 msgid "go_back"
-msgstr ""
+msgstr "Revenir en arrière"
 
 #: .\templates\go_to_login_page.html:11
 msgid "user_not_authenticated_go_to_login"
-msgstr ""
+msgstr "Utilisateur non authentifié, aller à la page de connexion"
 
 #: .\templates\go_to_login_page.html:12 .\templates\login\login_desktop.html:14
 #: .\templates\login\login_desktop.html:25
@@ -318,57 +318,57 @@ msgstr ""
 #: .\templates\login\login_tablet.html:14
 #: .\templates\login\login_tablet.html:25
 msgid "login"
-msgstr ""
+msgstr "Connexion"
 
 #: .\templates\index\index_desktop.html:25
 #: .\templates\index\index_mobile.html:27
 #: .\templates\index\index_tablet.html:27
 msgid "book_a_table"
-msgstr ""
+msgstr "Réserver une table"
 
 #: .\templates\index\index_desktop.html:36
 #: .\templates\index\index_mobile.html:39
 #: .\templates\index\index_tablet.html:39
 msgid "reserve_table"
-msgstr ""
+msgstr "Réserver une table"
 
 #: .\templates\index\index_desktop.html:66
 #: .\templates\index\index_mobile.html:71
 #: .\templates\index\index_tablet.html:71
 msgid "fill_in_date_first"
-msgstr ""
+msgstr "Remplissez d'abord la date"
 
 #: .\templates\index\index_desktop.html:87
 #: .\templates\index\index_mobile.html:93
 #: .\templates\index\index_tablet.html:93
 msgid "fill_in_date_and_persons_first"
-msgstr ""
+msgstr "Remplissez d'abord la date et le nombre de personnes"
 
 #: .\templates\index\index_desktop.html:117
 #: .\templates\index\index_mobile.html:124
 #: .\templates\index\index_tablet.html:124
 msgid "getting_available_timeslots"
-msgstr ""
+msgstr "Obtention des créneaux horaires disponibles"
 
 #: .\templates\index\index_desktop.html:121
 #: .\templates\index\index_mobile.html:128
 #: .\templates\index\index_tablet.html:128
 msgid "fill_in_number_of_persons"
-msgstr ""
+msgstr "Indiquez le nombre de personnes"
 
 #: .\templates\index\index_desktop.html:200
 #: .\templates\index\index_mobile.html:279
 #: .\templates\index\index_tablet.html:279
 msgid "select_timeslot"
-msgstr ""
+msgstr "Sélectionnez un créneau horaire"
 
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "no_sufficient_rights_for_this_page"
-msgstr ""
+msgstr "Droits insuffisants pour cette page"
 
 #: .\templates\no_sufficient_rights_page.html:12
 msgid "contact_support_if_this_is_incorrect"
-msgstr ""
+msgstr "Contactez le support si cela est incorrect"
 
 #: .\templates\restaurant_portal.html:15
 #: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability.html:15
