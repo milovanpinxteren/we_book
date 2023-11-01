@@ -17,28 +17,70 @@
 }
 
 .tables-container {
-    width: 10%;
-    float: left;
+    /*width: 10%;*/
+    /*float: left;*/
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    height: 15%;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8%;
+    width: 100%;
+    min-height: 100px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    border-radius: 2%;
+}
+
+
+
+.dropdown-content {
+    display: none;
+    top: 100%;
+
+}
+
+.dropdown-content a {
+    padding: 10%;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .table {
-    background-color: rgba(232, 112, 26, 0.8);
-    border: 1px solid grey;
+    background-color: rgba(232, 112, 26, 1);
+    border: 2px solid grey;
     text-align: center;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 8%;
-    padding-top: 8%;
-    margin-bottom: 1%;
+    /*padding-left: 5%;*/
+    /*padding-right: 5%;*/
+    /*padding-bottom: 8%;*/
+    /*padding-top: 8%;*/
+    /*margin-bottom: 1%;*/
 }
 
 .table-bill-div {
-    float: left;
-    width: 35%;
-    min-height: 40%;
+    /*float: left;*/
+    /*width: 35%;*/
+    /*min-height: 40%;*/
     background-color: lightgray;
     border: 1px solid #2e2e2e;
     margin-left: 0.5%;
+    margin-top: 3%;
+    font-size: 2em;
 }
 
 .order-table {
@@ -75,20 +117,20 @@
     margin-left: 2px;
     margin-bottom: 1%;
     width: 23%;
-    min-height: 85px;
+    min-height: 115px;
 }
 
 .course-button {
     width: 100%;
-    min-height: 85px;
+    min-height: 115px;
     font-weight: bolder;
 }
 
 
 .dishes-container {
-    width: 54%;
+    /*width: 54%;*/
     background-color: rgba(232, 112, 26, 0.4);
-    float: right;
+    /*float: right;*/
 }
 
 .all-dishes-div {
@@ -101,14 +143,14 @@
     margin-left: 2px;
     margin-bottom: 1%;
     width: 23%;
-    min-height: 85px;
+    min-height: 100px;
     margin-top: 1%;
     vertical-align: top;
 }
 
 .dish-button {
     width: 100%;
-    min-height: 85px;
+    min-height: 115px;
 }
 
 .clear-table-button {
@@ -130,6 +172,7 @@
     vertical-align: middle;
     margin-top: 5%;
     margin-left: 1%;
-    min-height: 35px;
+    min-height: 100px;
+    min-width: 150px;
     margin-bottom: 1%;
 }
