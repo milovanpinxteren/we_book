@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('bookingsystem', '0029_orders_quantity'),
     ]
-
     operations = [
         migrations.RenameField(
             model_name='restaurants',
