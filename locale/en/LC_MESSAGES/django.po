@@ -245,7 +245,7 @@ msgstr "Go to own website"
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:42
 #: .\templates\booking_confirmed\booking_confirmed_tablet.html:42
 msgid "cancel_reservation"
-msgstr "Make reservation"
+msgstr "Cancel reservation"
 
 #: .\templates\booking_confirmed\booking_confirmed_desktop.html:55
 #: .\templates\booking_confirmed\booking_confirmed_mobile.html:52

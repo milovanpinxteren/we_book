@@ -93,7 +93,7 @@
 
         </div>
 
-        <div class="restaurant-opening-times">
+  <div class="restaurant-opening-times">
             <h3>{% trans 'opening_hours' %}</h3>
             <hr>
             <div class="restaurant-meal-duration">
@@ -111,16 +111,30 @@
                        onchange="toggleDivVisibility('restaurant-open-monday', 'restaurant-opening-hours-div-monday')"
                         {% if restaurant_info.open_monday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-monday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-monday-opening-time"
-                           class="restaurant-open-monday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-monday-opening-time"
-                           value="{{ restaurant_info.opening_time_monday }}"
-                           name="opening_time_monday">
-                    <label for="restaurant-open-monday-closing-time"
-                           class="restaurant-open-monday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-monday-closing-time"
-                           value="{{ restaurant_info.closing_time_monday }}"
-                           name="closing_time_monday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-monday-opening-time"
+                               class="restaurant-open-monday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-monday-opening-time"
+                               value="{{ restaurant_info.opening_time_monday_1 }}"
+                               name="opening_time_monday_1">
+                        <label for="restaurant-open-monday-closing-time"
+                               class="restaurant-open-monday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-monday-closing-time"
+                               value="{{ restaurant_info.closing_time_monday_1 }}"
+                               name="closing_time_monday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-monday-opening-time"
+                               class="restaurant-open-monday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-monday-opening-time"
+                               value="{{ restaurant_info.opening_time_monday_2 }}"
+                               name="opening_time_monday_2">
+                        <label for="restaurant-open-monday-closing-time"
+                               class="restaurant-open-monday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-monday-closing-time"
+                               value="{{ restaurant_info.closing_time_monday_2 }}"
+                               name="closing_time_monday_2">
+                    </p>
                 </div>
             </div>
 
@@ -132,16 +146,30 @@
                        onchange="toggleDivVisibility('restaurant-open-tuesday', 'restaurant-opening-hours-div-tuesday')"
                         {% if restaurant_info.open_tuesday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-tuesday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-tuesday-opening-time"
-                           class="restaurant-open-tuesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-tuesday-opening-time"
-                           value="{{ restaurant_info.opening_time_tuesday }}"
-                           name="opening_time_tuesday">
-                    <label for="restaurant-open-tuesday-closing-time"
-                           class="restaurant-open-tuesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-tuesday-closing-time"
-                           value="{{ restaurant_info.closing_time_tuesday }}"
-                           name="closing_time_tuesday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-tuesday-opening-time"
+                               class="restaurant-open-tuesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-tuesday-opening-time"
+                               value="{{ restaurant_info.opening_time_tuesday_1 }}"
+                               name="opening_time_tuesday_1">
+                        <label for="restaurant-open-tuesday-closing-time"
+                               class="restaurant-open-tuesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-tuesday-closing-time"
+                               value="{{ restaurant_info.closing_time_tuesday_1 }}"
+                               name="closing_time_tuesday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-tuesday-opening-time"
+                               class="restaurant-open-tuesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-tuesday-opening-time"
+                               value="{{ restaurant_info.opening_time_tuesday_2 }}"
+                               name="opening_time_tuesday_2">
+                        <label for="restaurant-open-tuesday-closing-time"
+                               class="restaurant-open-tuesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-tuesday-closing-time"
+                               value="{{ restaurant_info.closing_time_tuesday_2 }}"
+                               name="closing_time_tuesday_2">
+                    </p>
                 </div>
             </div>
 
@@ -153,16 +181,31 @@
                        onchange="toggleDivVisibility('restaurant-open-wednesday', 'restaurant-opening-hours-div-wednesday')"
                         {% if restaurant_info.open_wednesday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-wednesday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-wednesday-opening-time"
-                           class="restaurant-open-wednesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-wednesday-opening-time"
-                           value="{{ restaurant_info.opening_time_wednesday }}"
-                           name="opening_time_wednesday">
-                    <label for="restaurant-open-wednesday-closing-time"
-                           class="restaurant-open-wednesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-wednesday-closing-time"
-                           value="{{ restaurant_info.closing_time_wednesday }}"
-                           name="closing_time_wednesday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-wednesday-opening-time"
+                               class="restaurant-open-wednesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-wednesday-opening-time"
+                               value="{{ restaurant_info.opening_time_wednesday_1 }}"
+                               name="opening_time_wednesday_1">
+                        <label for="restaurant-open-wednesday-closing-time"
+                               class="restaurant-open-wednesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-wednesday-closing-time"
+                               value="{{ restaurant_info.closing_time_wednesday_1 }}"
+                               name="closing_time_wednesday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-wednesday-opening-time"
+                               class="restaurant-open-wednesday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-wednesday-opening-time"
+                               value="{{ restaurant_info.opening_time_wednesday_2 }}"
+                               name="opening_time_wednesday_2">
+                        <label for="restaurant-open-wednesday-closing-time"
+                               class="restaurant-open-wednesday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-wednesday-closing-time"
+                               value="{{ restaurant_info.closing_time_wednesday_2 }}"
+                               name="closing_time_wednesday_2">
+                    </p>
+
                 </div>
             </div>
 
@@ -174,16 +217,30 @@
                        onchange="toggleDivVisibility('restaurant-open-thursday', 'restaurant-opening-hours-div-thursday')"
                         {% if restaurant_info.open_thursday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-thursday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-thursday-opening-time"
-                           class="restaurant-open-thursday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-thursday-opening-time"
-                           value="{{ restaurant_info.opening_time_thursday }}"
-                           name="opening_time_thursday">
-                    <label for="restaurant-open-thursday-closing-time"
-                           class="restaurant-open-thursday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-thursday-closing-time"
-                           value="{{ restaurant_info.closing_time_thursday }}"
-                           name="closing_time_thursday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-thursday-opening-time"
+                               class="restaurant-open-thursday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-thursday-opening-time"
+                               value="{{ restaurant_info.opening_time_thursday_1 }}"
+                               name="opening_time_thursday_1">
+                        <label for="restaurant-open-thursday-closing-time"
+                               class="restaurant-open-thursday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-thursday-closing-time"
+                               value="{{ restaurant_info.closing_time_thursday_1 }}"
+                               name="closing_time_thursday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-thursday-opening-time"
+                               class="restaurant-open-thursday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-thursday-opening-time"
+                               value="{{ restaurant_info.opening_time_thursday_2 }}"
+                               name="opening_time_thursday_2">
+                        <label for="restaurant-open-thursday-closing-time"
+                               class="restaurant-open-thursday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-thursday-closing-time"
+                               value="{{ restaurant_info.closing_time_thursday_2 }}"
+                               name="closing_time_thursday_2">
+                    </p>
                 </div>
             </div>
 
@@ -195,16 +252,30 @@
                        onchange="toggleDivVisibility('restaurant-open-friday', 'restaurant-opening-hours-div-friday')"
                         {% if restaurant_info.open_friday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-friday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-friday-opening-time"
-                           class="restaurant-open-friday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-friday-opening-time"
-                           value="{{ restaurant_info.opening_time_friday }}"
-                           name="opening_time_friday">
-                    <label for="restaurant-open-friday-closing-time"
-                           class="restaurant-open-friday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-friday-closing-time"
-                           value="{{ restaurant_info.closing_time_friday }}"
-                           name="closing_time_friday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-friday-opening-time"
+                               class="restaurant-open-friday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-friday-opening-time"
+                               value="{{ restaurant_info.opening_time_friday_1 }}"
+                               name="opening_time_friday_1">
+                        <label for="restaurant-open-friday-closing-time"
+                               class="restaurant-open-friday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-friday-closing-time"
+                               value="{{ restaurant_info.closing_time_friday_1 }}"
+                               name="closing_time_friday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-friday-opening-time"
+                               class="restaurant-open-friday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-friday-opening-time"
+                               value="{{ restaurant_info.opening_time_friday_2 }}"
+                               name="opening_time_friday_2">
+                        <label for="restaurant-open-friday-closing-time"
+                               class="restaurant-open-friday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-friday-closing-time"
+                               value="{{ restaurant_info.closing_time_friday_2 }}"
+                               name="closing_time_friday_2">
+                    </p>
                 </div>
             </div>
 
@@ -216,16 +287,30 @@
                        onchange="toggleDivVisibility('restaurant-open-saturday', 'restaurant-opening-hours-div-saturday')"
                         {% if restaurant_info.open_saturday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-saturday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-saturday-opening-time"
-                           class="restaurant-open-saturday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-saturday-opening-time"
-                           value="{{ restaurant_info.opening_time_saturday }}"
-                           name="opening_time_saturday">
-                    <label for="restaurant-open-saturday-closing-time"
-                           class="restaurant-open-saturday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-saturday-closing-time"
-                           value="{{ restaurant_info.closing_time_saturday }}"
-                           name="closing_time_saturday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-saturday-opening-time"
+                               class="restaurant-open-saturday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-saturday-opening-time"
+                               value="{{ restaurant_info.opening_time_saturday_1 }}"
+                               name="opening_time_saturday_1">
+                        <label for="restaurant-open-saturday-closing-time"
+                               class="restaurant-open-saturday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-saturday-closing-time"
+                               value="{{ restaurant_info.closing_time_saturday_1 }}"
+                               name="closing_time_saturday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-saturday-opening-time"
+                               class="restaurant-open-saturday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-saturday-opening-time"
+                               value="{{ restaurant_info.opening_time_saturday_2 }}"
+                               name="opening_time_saturday_2">
+                        <label for="restaurant-open-saturday-closing-time"
+                               class="restaurant-open-saturday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-saturday-closing-time"
+                               value="{{ restaurant_info.closing_time_saturday_2 }}"
+                               name="closing_time_saturday_2">
+                    </p>
                 </div>
             </div>
 
@@ -237,20 +322,32 @@
                        onchange="toggleDivVisibility('restaurant-open-sunday', 'restaurant-opening-hours-div-sunday')"
                         {% if restaurant_info.open_sunday %} checked="checked" {% endif %}>
                 <div id="restaurant-opening-hours-div-sunday" class="restaurant-opening-hours-div">
-                    <label for="restaurant-open-sunday-opening-time"
-                           class="restaurant-open-sunday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
-                    <input type="time" id="restaurant-open-sunday-opening-time"
-                           value="{{ restaurant_info.opening_time_sunday }}"
-                           name="opening_time_sunday">
-                    <label for="restaurant-open-sunday-closing-time"
-                           class="restaurant-open-sunday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
-                    <input type="time" id="restaurant-open-sunday-closing-time"
-                           value="{{ restaurant_info.closing_time_sunday }}"
-                           name="closing_time_sunday">
+                    <p class="opening-hours-lunch">
+                        <label for="restaurant-open-sunday-opening-time"
+                               class="restaurant-open-sunday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-sunday-opening-time"
+                               value="{{ restaurant_info.opening_time_sunday_1 }}"
+                               name="opening_time_sunday_1">
+                        <label for="restaurant-open-sunday-closing-time"
+                               class="restaurant-open-sunday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-sunday-closing-time"
+                               value="{{ restaurant_info.closing_time_sunday_1 }}"
+                               name="closing_time_sunday_1">
+                    </p>
+                    <p class="opening-hours-dinner">
+                        <label for="restaurant-open-sunday-opening-time"
+                               class="restaurant-open-sunday-opening-time-label">{% trans 'restaurant_opening_time' %}: </label>
+                        <input type="time" id="restaurant-open-sunday-opening-time"
+                               value="{{ restaurant_info.opening_time_sunday_2 }}"
+                               name="opening_time_sunday_2">
+                        <label for="restaurant-open-sunday-closing-time"
+                               class="restaurant-open-sunday-closing-time-label">{% trans 'restaurant_closing_time' %}: </label>
+                        <input type="time" id="restaurant-open-sunday-closing-time"
+                               value="{{ restaurant_info.closing_time_sunday_2 }}"
+                               name="closing_time_sunday_2">
+                    </p>
                 </div>
             </div>
-
-
         </div>
     </form>
     <script>

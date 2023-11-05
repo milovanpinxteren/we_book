@@ -102,6 +102,7 @@ h3 {
     margin: 2%;
     display: flex;
     font-size: 1.4em;
+    align-items: center;
 }
 
 .day-div input[type="checkbox"] {

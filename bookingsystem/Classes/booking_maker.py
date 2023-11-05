@@ -58,28 +58,27 @@ class BookingMaker():
 
     def get_restaurant_availability(self, restaurant_id, reservation_date, reservation_time):
         valid_reservation = False
-        restaurant = Restaurants.objects.filter(id=restaurant_id)
+        restaurant = Restaurants.objects.get(id=restaurant_id)
 
         changed_availability = CustomRestaurantAvailability.objects.filter(date=reservation_date)
 
         if not changed_availability:
             day_name = calendar.day_name[reservation_date.weekday()].lower()
             column_name = 'open_' + day_name
-            restaurant_open = restaurant.values_list(column_name, flat=True)[0]
+            restaurant_open = getattr(restaurant, column_name)
             if restaurant_open: #check if reservation date is within opening hours
-                opening_time_name = 'opening_time_' + day_name
-                closing_time_name = 'closing_time_' + day_name
-                restaurant_opening_time = restaurant.values_list(opening_time_name, flat=True)[0]
-                restaurant_closing_time = restaurant.values_list(closing_time_name, flat=True)[0]
-                meal_duration = restaurant.values_list('meal_duration', flat=True)[0]
+                opening_time_1_field_name = f'opening_time_{day_name}_1'
+                opening_time_1 = getattr(restaurant, opening_time_1_field_name)
+                closing_time_1_field_name = f'closing_time_{day_name}_1'
+                closing_time_1 = getattr(restaurant, closing_time_1_field_name)
+                opening_time_2_field_name = f'opening_time_{day_name}_2'
+                opening_time_2 = getattr(restaurant, opening_time_2_field_name)
+                closing_time_2_field_name = f'closing_time_{day_name}_2'
+                closing_time_2 = getattr(restaurant, closing_time_2_field_name)
+                # meal_duration = getattr(restaurant, 'meal_duration')
+                reservation_time = reservation_time.time()
 
-                fixed_date = datetime(1900, 1, 1)
-                restaurant_opening_time = fixed_date.replace(hour=restaurant_opening_time.hour, minute=restaurant_opening_time.minute)
-                restaurant_closing_time = fixed_date.replace(hour=restaurant_closing_time.hour, minute=restaurant_closing_time.minute)
-                last_reservation_time = restaurant_closing_time - timedelta(hours=meal_duration)
-                reservation_time = fixed_date.replace(hour=reservation_time.hour, minute=reservation_time.minute)
-
-                valid_reservation = restaurant_opening_time <= reservation_time <= last_reservation_time
+                valid_reservation = (opening_time_1 <= reservation_time <= closing_time_1) or (opening_time_2 <= reservation_time <= closing_time_2)
                 if valid_reservation:
                     valid_reservation = True
                 else:
