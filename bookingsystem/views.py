@@ -20,6 +20,7 @@ from bookingsystem.Classes.availability_checker import AvailabilityChecker
 from bookingsystem.Classes.booking_confirmer import BookingConfirmer
 from bookingsystem.Classes.booking_maker import BookingMaker
 from bookingsystem.Classes.email_sender import EmailSender
+from bookingsystem.Classes.id_handler import IDHandler
 from bookingsystem.forms import ReservationForm, ConfirmBookingForm
 from bookingsystem.models import Restaurants, UserRestaurantLink, Reservations, Courses, Dishes, Errors, Tables, \
     CustomRestaurantAvailability, Orders
@@ -53,7 +54,9 @@ class CustomLoginView(DefaultLoginView):
 
 def index(request):
     try:
-        restaurantID = request.GET['restaurantID']
+        id_code = request.GET['restaurantID']
+        restaurantID = IDHandler().decode(id_code)
+        # restaurantID = request.GET['restaurantID']
         request.session['restaurantID'] = restaurantID
     except Exception as e:
         try:
@@ -242,9 +245,14 @@ def delete_reservation(request):
 ###########################################FOR RESTAURANTS##############################################################
 
 def restaurant_portal(request):
-    table_management_shower = TableManagementShower()
-    context = table_management_shower.prepare_table_management(request)
-    return render(request, 'restaurant_portal.html', context)
+    if request.user.groups.filter(name='table_management'):
+        table_management_shower = TableManagementShower()
+        context = table_management_shower.prepare_table_management(request)
+        return render(request, 'restaurant_portal.html', context)
+    else:
+        context = {'action': './show_reservations/show_reservations.html'}
+        return render(request, 'restaurant_portal.html', context)
+
 
 
 def get_table_bill(request, table_id):

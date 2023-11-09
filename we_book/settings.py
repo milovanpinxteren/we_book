@@ -103,7 +103,7 @@ DATABASES = {
 
 import dj_database_url
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600) #uncomment this when pushing to dokku
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600) #uncomment this when pushing to dokku
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

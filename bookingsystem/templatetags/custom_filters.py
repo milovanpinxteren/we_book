@@ -11,3 +11,8 @@ def table_reservations(tables, date, reservations):
         if any(reservation.reservation_date == date and reservation.table.table_nr == table for reservation in reservations):
             booked_tables.append(table)
     return booked_tables
+
+
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()

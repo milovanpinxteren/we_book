@@ -1,15 +1,20 @@
+{% load custom_filters %}
 {% load i18n %}
 {#<h2>{{ request.user_agent }}</h2>#}
 {% if user.is_authenticated %}
     {% if status != 'no_restaurant_known_for_user' %}
-        {% if request.user_agent.is_pc %}
-            {% include 'restaurant_portal/table_management/table_management_desktop.html' %}
-        {% endif %}
-        {% if request.user_agent.is_mobile %}
-            {% include 'restaurant_portal/table_management/table_management_mobile.html' %}
-        {% endif %}
-        {% if request.user_agent.is_tablet %}
-            {% include 'restaurant_portal/table_management/table_management_tablet.html' %}
+        {% if request.user|has_group:"table_management" %}
+            {% if request.user_agent.is_pc %}
+                {% include 'restaurant_portal/table_management/table_management_desktop.html' %}
+            {% endif %}
+            {% if request.user_agent.is_mobile %}
+                {% include 'restaurant_portal/table_management/table_management_mobile.html' %}
+            {% endif %}
+            {% if request.user_agent.is_tablet %}
+                {% include 'restaurant_portal/table_management/table_management_tablet.html' %}
+            {% endif %}
+        {% else %}
+            {% include 'no_sufficient_rights_page.html' %}
         {% endif %}
     {% else %}
         <h1>{% trans 'restaurant_not_confirmed_yet' %}</h1>
