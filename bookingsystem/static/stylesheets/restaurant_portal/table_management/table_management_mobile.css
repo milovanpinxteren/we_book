@@ -48,8 +48,14 @@
 }
 
 .dropdown-content a {
-    padding: 10%;
+    padding-top: 15%;
+    padding-bottom: 15%;
+    padding-right: 10%;
+    padding-left: 10%;
     display: block;
+    font-size: 2em;
+    /*margin-bottom: 1%;*/
+
 }
 
 .dropdown-content a:hover {
@@ -99,7 +105,7 @@
 }
 
 .orderline-row {
-    height: 35px;
+    height: 70px;
     border: 1px solid;
 }
 

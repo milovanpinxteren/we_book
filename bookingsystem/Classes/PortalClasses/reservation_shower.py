@@ -77,8 +77,8 @@ class reservationShower:
         restaurant = Restaurants.objects.get(id=current_restaurant_id)
         for day in days_of_week:
             # Construct the field names for opening and closing times for the current day
-            opening_time_field = f'opening_time_{day}'
-            closing_time_field = f'closing_time_{day}'
+            opening_time_field = f'opening_time_{day}_1'
+            closing_time_field = f'closing_time_{day}_2'
             opening_time = getattr(restaurant, opening_time_field)
             closing_time = getattr(restaurant, closing_time_field)
             if earliest_opening_time != '':
