@@ -8,8 +8,6 @@ from we_book import settings
 
 
 class MenuUpdater():
-
-
     def update_menu(self, request):
         current_user = request.user.id
         restaurant_id = UserRestaurantLink.objects.filter(user_id=current_user).values_list('restaurant_id', flat=True).first()
@@ -18,7 +16,7 @@ class MenuUpdater():
             if response != 'csrfmiddlewaretoken':
                 parts = response.split('-')
                 column_name = parts[0]
-                column_value = request.POST[response]
+                column_value = request.POST[response].replace('"', '`').replace("'", '`')
                 part_id = parts[1]
                 if 'dish' in part_id:
                     row_id = part_id[7:]
