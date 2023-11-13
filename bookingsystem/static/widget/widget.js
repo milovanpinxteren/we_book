@@ -32,7 +32,7 @@ class Widget {
         widgetText.classList.add('widget-text');
         this.widgetText = widgetText
         const icon = document.createElement('img');
-        icon.src = '/static/images/favicon.ico';
+        icon.src = 'https://sistema.ristaiuto.it/static/images/favicon.ico';
         icon.classList.add('icon');
         this.icon = icon;
         buttonContainer.appendChild(this.icon);
