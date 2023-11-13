@@ -18,6 +18,7 @@ class Widget {
     initalise() {
         const container = document.createElement('div');
         container.style.position = 'fixed';
+        container.style.zIndex = '1000';
         Object.keys(this.position).forEach(
             key => container.style[key] = this.position[key]);
         document.body.appendChild(container)
@@ -89,8 +90,11 @@ class Widget {
                 background: white;
                 box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
                 cursor: pointer;
-                font-family: gill sans, sans-serif;
+                font-family: Monaco, serif;
                 font-weight: lighter;
+                color: black;
+                font-size: 17px;
+                line-height: normal;
                   
             }
             .message-container {
