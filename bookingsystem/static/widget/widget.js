@@ -25,8 +25,18 @@ class Widget {
 
         const buttonContainer = document.createElement('div');
         buttonContainer.classList.add('button-container');
-        buttonContainer.innerHTML = 'Prenota un tavolo/ Book a Table'
+        // buttonContainer.innerHTML = 'Prenota/Book a Table'
         buttonContainer.addEventListener('click', this.toggleOpen.bind(this));
+        const widgetText = document.createElement('div');
+        widgetText.innerHTML = 'Prenota/Book a Table'
+        widgetText.classList.add('widget-text');
+        this.widgetText = widgetText
+        const icon = document.createElement('img');
+        icon.src = '/static/images/favicon.ico';
+        icon.classList.add('icon');
+        this.icon = icon;
+        buttonContainer.appendChild(this.icon);
+        buttonContainer.appendChild(this.widgetText);
 
         this.messageContainer = document.createElement('div');
         this.messageContainer.classList.add('hidden', 'message-container');
@@ -67,36 +77,35 @@ class Widget {
     createStyles() {
         const styleTag = document.createElement('style');
         styleTag.innerHTML = `
-            .icon {
-                cursor: pointer;
-                width: 70%;
-                position: absolute;
-                top: 9px;
-                left: 9px;
-                transition: transform .3s ease;
-            }
-            .hidden {
-                transform: scale(0);
-            }
             .button-container {
                 background-color: #04b73f;
                 display: flex;
                 align-items: center;
-                width: 150px;
+                width: 200px;
                 text-align: center;
-                height: 60px;
+                height: 75px;
                 border-radius: 25px;
                 border: 4px solid #e8701a;
-                background: white;
+                background: #e2e2e2e2;
                 box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
                 cursor: pointer;
+            }
+            .icon {
+                cursor: pointer;
+                transition: transform .3s ease;
+            }
+            .widget-text {
                 font-family: Monaco, serif;
                 font-weight: lighter;
                 color: black;
-                font-size: 17px;
+                font-size: 19px;
                 line-height: normal;
-                  
+                margin-left: -10px; 
             }
+            .hidden {
+                transform: scale(0);
+            }
+
             .message-container {
                 box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
                 width: 400px;
