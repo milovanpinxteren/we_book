@@ -51,7 +51,7 @@ class Widget {
         form.appendChild(dateInput);
 
         // Initialize jQuery datepicker
-        $(dateInput).datepicker();
+        // $(dateInput).datepicker();
 
         const btn = document.createElement('button');
         btn.textContent = 'Submit';
