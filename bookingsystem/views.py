@@ -91,15 +91,26 @@ def check_available_dates(request):
 
 
 def check_availability(request):
-    restaurant_id = int(request.POST['restaurantID'])
-    timestamps = request.session['timestamps']
-    restaurant = Restaurants.objects.get(pk=restaurant_id)
-    if request.POST['number_of_persons'] != '':
-        availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'],
-                                                              request.POST['number_of_persons'], timestamps)
-    else:
-        print('number of persons not filled in')
-    return JsonResponse(availability)
+    if request.method == 'POST': #request on own website
+        restaurant_id = int(request.POST['restaurantID'])
+        timestamps = request.session['timestamps']
+        restaurant = Restaurants.objects.get(pk=restaurant_id)
+        if request.POST['number_of_persons'] != '':
+            availability = AvailabilityChecker.query_availability(request, restaurant, request.POST['reservation_date'],
+                                                                  request.POST['number_of_persons'], timestamps)
+        else:
+            print('number of persons not filled in')
+        return JsonResponse(availability)
+    elif request.method == 'GET': #If API call from widget
+        restaurant_id = int(request.GET['restaurantID'])
+        timestamps = AvailabilityChecker.make_timestamps(request)
+        restaurant = Restaurants.objects.get(pk=restaurant_id)
+        reservation_date = datetime.strptime(request.GET['reservation_date'], "%Y-%m-%d").strftime("%m/%d/%Y")
+        availability = AvailabilityChecker.query_availability(request, restaurant, reservation_date,
+                                                              request.GET['number_of_persons'], timestamps)
+        filtered_array = [key for key, value in availability.items() if value == 'enabled']
+        response_dict = {'available_times': filtered_array}
+        return JsonResponse(response_dict)
 
 
 def make_reservation(request):

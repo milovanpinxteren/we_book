@@ -11,9 +11,9 @@ class AvailabilityChecker():
         timestamps = []
         start_time = datetime.strptime("00:00", "%H:%M")
         for i in range(
-                96):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
+                48):  # Generate timestamps for every 15 minutes in a day (24 hours * 60 minutes / 15 minutes)
             timestamps.append(start_time.strftime("%H:%M"))
-            start_time += timedelta(minutes=15)
+            start_time += timedelta(minutes=30)
         return timestamps
 
     def get_disabled_dates(self, restaurant, current_month, current_year):

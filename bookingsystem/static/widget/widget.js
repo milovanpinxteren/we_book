@@ -1,6 +1,5 @@
 class Widget {
     constructor({position = 'bottom-right'} = {}) {
-        console.log('loaded')
         this.position = this.getPosition(position); //{ bottom: '30px', right: '30px'}
         this.open = false;
         this.initalise();
@@ -45,6 +44,9 @@ class Widget {
 
         container.appendChild(this.messageContainer);
         container.appendChild(buttonContainer);
+
+        document.addEventListener('click', this.closeOnOutsideClick.bind(this));
+
     }
 
     createMessageContainerContent() {
@@ -57,12 +59,17 @@ class Widget {
         const dateInput = document.createElement('input');
         dateInput.required = true;
         dateInput.id = 'date';
-        dateInput.type = 'text'; // Change type to text for the datepicker to work
+        dateInput.type = 'date'; // Change type to text for the datepicker to work
         dateInput.placeholder = 'Select a date';
-        form.appendChild(dateInput);
 
-        // Initialize jQuery datepicker
-        // $(dateInput).datepicker();
+        const numberOfPersonsInput = document.createElement('input');
+        numberOfPersonsInput.required = true;
+        numberOfPersonsInput.id = 'numberOfPersons';
+        numberOfPersonsInput.type = 'number'; // Change type to text for the datepicker to work
+        numberOfPersonsInput.placeholder = 'Select number of persons';
+
+        form.appendChild(dateInput);
+        form.appendChild(numberOfPersonsInput);
 
         const btn = document.createElement('button');
         btn.textContent = 'Submit';
@@ -110,12 +117,14 @@ class Widget {
                 box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
                 width: 400px;
                 right: -25px;
-                bottom: 75px;
+                bottom: 95px;
                 max-height: 400px;
                 position: absolute;
                 transition: max-height .2s ease;
                 font-family: Helvetica, Arial ,sans-serif;
                 border-radius: 5px;
+                background: #e2e2e2e2;
+                font-size: 13px;
 
             }
             .message-container.hidden {
@@ -160,6 +169,21 @@ class Widget {
             .message-container form button:hover {
                 background-color: #16632f;
             }
+            
+            .available-time-button {
+              background-color: #fff;
+              border-radius: 24px;
+              border-style: none;
+              box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+              box-sizing: border-box;
+              color: #3c4043;
+              font-size: 14px;
+              font-weight: 500;
+              height: 48px;
+              width: 80px;
+              margin: 1%;
+            }
+            
         `.replace(/^\s+|\n/gm, '');
         document.head.appendChild(styleTag);
     }
@@ -174,18 +198,52 @@ class Widget {
         }
     }
 
-    submit(event) {
-        event.preventDefault();
-        const formSubmission = {
-            email: event.srcElement.querySelector('#email').value,
-            message: event.srcElement.querySelector('#message').value,
-        };
-
-        this.messageContainer.innerHTML = '<h2>Thanks for your submission.</h2><p class="content">Someone will be in touch with your shortly regarding your enquiry';
-
-        console.log(formSubmission);
+    closeOnOutsideClick(event) {
+        // Check if the clicked element is outside the widget
+        if (!this.messageContainer.contains(event.target) && !this.widgetText.contains(event.target)) {
+            // Close the widget
+            this.open = false;
+            this.createMessageContainerContent();
+            this.messageContainer.classList.add('hidden');
+            document.removeEventListener('click', this.closeOnOutsideClick.bind(this));
+        }
     }
 
+    submit(event) {
+        event.preventDefault();
+        const dateFormSubmission = {
+            date: event.srcElement.querySelector('#date').value,
+            numberOfPersons: event.srcElement.querySelector('#numberOfPersons').value,
+        };
+        // this.messageContainer.innerHTML = '<h2>Thanks for your submission.</h2><p class="content">Someone will be in touch with your shortly regarding your enquiry';
+        console.log(dateFormSubmission);
+        const data = {date: dateFormSubmission.date, numberOfPersons: dateFormSubmission.numberOfPersons};
+        const reservationDate = data.date.toString()
+        console.log('data', reservationDate)
+        console.log('persons', data.numberOfPersons)
+        const url = `http://127.0.0.1:8000/check_availability?restaurantID=1&reservation_date=${reservationDate}&number_of_persons=${data.numberOfPersons}`
+        fetch(url, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json',},
+        }).then(response => response.json())
+            .then(responseData => {
+                console.log('Response content:', responseData);
+                const availableTimesList = document.createElement('ul');
+                responseData.available_times.forEach(time => {
+                    const listItem = document.createElement('button');
+                    listItem.classList.add('available-time-button')
+                    listItem.textContent = time;
+                    availableTimesList.appendChild(listItem);
+                });
+
+                this.messageContainer.innerHTML = '<h2>Available Times:</h2>';
+                this.messageContainer.appendChild(availableTimesList);
+                // Uncomment the following lines if you want to update the message container
+                // this.messageContainer.innerHTML = '<h2>Thanks for your submission.</h2><p class="content">Someone will be in touch with you shortly regarding your inquiry</p>';
+            }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
 }
 
 
