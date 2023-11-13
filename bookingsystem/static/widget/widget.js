@@ -184,6 +184,13 @@ class Widget {
               margin: 1%;
             }
             
+            input {
+                color: black;
+                border: 1px solid #555555;
+                border-radius: 5px;
+            }
+            
+            
         `.replace(/^\s+|\n/gm, '');
         document.head.appendChild(styleTag);
     }
