@@ -91,7 +91,7 @@ def check_available_dates(request):
 
 
 def check_availability(request):
-    if request.method == 'POST': #request on own website
+    if request.method == 'POST':  # request on own website
         restaurant_id = int(request.POST['restaurantID'])
         timestamps = request.session['timestamps']
         restaurant = Restaurants.objects.get(pk=restaurant_id)
@@ -101,8 +101,8 @@ def check_availability(request):
         else:
             print('number of persons not filled in')
         return JsonResponse(availability)
-    elif request.method == 'GET': #If API call from widget
-        restaurant_id = int(request.GET['restaurantID'])
+    elif request.method == 'GET':  # If API call from widget
+        restaurant_id = IDHandler().decode(request.GET['restaurantSQID'])
         timestamps = AvailabilityChecker.make_timestamps(request)
         restaurant = Restaurants.objects.get(pk=restaurant_id)
         reservation_date = datetime.strptime(request.GET['reservation_date'], "%Y-%m-%d").strftime("%m/%d/%Y")
@@ -114,33 +114,29 @@ def check_availability(request):
 
 
 def make_reservation(request):
+    print('make reservation')
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST, request.FILES)
         if reservation_form.is_valid():
             # Form is valid, check if you can find a possible table
             restaurant_id = request.GET['restaurantID']
             restaurant = Restaurants.objects.get(pk=restaurant_id)
-            number_of_persons = reservation_form['number_of_persons'].value()
-            reservation_date = reservation_form['reservation_date'].value()
-            reservation_time = reservation_form['reservation_time'].value()
             bookingmaker = BookingMaker()
-            context = bookingmaker.make_booking(restaurant_id, number_of_persons, reservation_date, reservation_time)
-            request.session['status'] = context['status']
-            request.session['reservation_date'] = reservation_date
-            request.session['start_time'] = reservation_time
-            request.session['number_of_persons'] = number_of_persons
-            request.session['restaurant_name'] = restaurant.name
-            request.session['restaurant_email'] = restaurant.email
-            request.session['restaurant_website'] = restaurant.website
-
+            context = bookingmaker.make_booking(restaurant_id, reservation_form['number_of_persons'].value(),
+                                                reservation_form['reservation_date'].value(),
+                                                reservation_form['reservation_time'].value())
+            request.session.update({
+                'status': context['status'], 'reservation_date': reservation_form['reservation_date'].value(),
+                'start_time': reservation_form['reservation_time'].value(),
+                'number_of_persons': reservation_form['number_of_persons'].value(),
+                'restaurant_name': restaurant.name, 'restaurant_email': restaurant.email,
+                'restaurant_website': restaurant.website})
             if context['status'] == 'possible_reservation_found':
-                request.session['held_reservation_id'] = context['held_reservation_id']
-                request.session['table_id'] = context['table_id']
+                request.session.update({'held_reservation_id': context.get('held_reservation_id'),
+                                        'table_id': context.get('table_id')})
                 confirmation_form = ConfirmBookingForm(request.POST, request.FILES)
-                context['confirmation_form'] = confirmation_form
-                context['restaurant_name'] = restaurant.name
-                context['restaurant_email'] = restaurant.email
-                context['restaurant_website'] = restaurant.website
+                context.update({'confirmation_form': confirmation_form, 'restaurant_name': restaurant.name,
+                                'restaurant_email': restaurant.email, 'restaurant_website': restaurant.website})
                 return render(request, 'booking_confirmation.html', context)
             else:  # form valid, but no possible reservation found
                 message = _("booking_failed")
@@ -156,7 +152,17 @@ def make_reservation(request):
             message = _("booking_failed")
             request.session['status'] = message
             return redirect('bookingsystem:index')
-    return redirect('bookingsystem:index')  # request methods is not post
+    elif request.method == 'GET':
+        print('asdfasd')
+        restaurant_id = IDHandler().decode(request.GET['restaurantSQID'])
+        reservation_date = datetime.strptime(request.GET['reservation_date'], "%Y-%m-%d").strftime("%m/%d/%Y")
+
+        bookingmaker = BookingMaker()
+        context = bookingmaker.make_booking(restaurant_id, request.GET['number_of_persons'], reservation_date,
+                                            request.GET['reservation_time'])
+        print(context)
+        return JsonResponse(context)
+    return redirect('bookingsystem:index')  # request methods is not post or get
 
 
 def confirm_booking(request):
@@ -265,7 +271,6 @@ def restaurant_portal(request):
         return render(request, 'restaurant_portal.html', context)
 
 
-
 def get_table_bill(request, table_id):
     table_management_shower = TableManagementShower()
     context = table_management_shower.get_table_bill(request, table_id)
@@ -336,7 +341,6 @@ def update_menu(request):
         menu_updater = MenuUpdater()
         restaurant_id = menu_updater.update_menu(request)
         menu_updater.generate_menu_html(restaurant_id)
-        # TODO: generate html and send html to correct branch and remote and push (GitPython)
     context = MenuShower().prepare_menu(request)
     return render(request, 'restaurant_portal.html', context)
     # return redirect('bookingsystem:/view_menu')

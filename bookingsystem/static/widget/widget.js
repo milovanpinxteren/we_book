@@ -1,3 +1,6 @@
+import styles from './styles.js';
+
+
 class Widget {
     constructor({position = 'bottom-right'} = {}) {
         this.position = this.getPosition(position); //{ bottom: '30px', right: '30px'}
@@ -74,7 +77,7 @@ class Widget {
         const btn = document.createElement('button');
         btn.textContent = 'Submit';
         form.appendChild(btn);
-        form.addEventListener('submit', this.submit.bind(this));
+        form.addEventListener('submit', this.submitDateAndPersons.bind(this));
 
         this.messageContainer.appendChild(title);
         this.messageContainer.appendChild(form);
@@ -83,115 +86,7 @@ class Widget {
 
     createStyles() {
         const styleTag = document.createElement('style');
-        styleTag.innerHTML = `
-            .button-container {
-                background-color: #04b73f;
-                display: flex;
-                align-items: center;
-                width: 200px;
-                text-align: center;
-                height: 75px;
-                border-radius: 25px;
-                border: 4px solid #e8701a;
-                background: #e2e2e2e2;
-                box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-                cursor: pointer;
-            }
-            .icon {
-                cursor: pointer;
-                transition: transform .3s ease;
-            }
-            .widget-text {
-                font-family: Monaco, serif;
-                font-weight: lighter;
-                color: black;
-                font-size: 19px;
-                line-height: normal;
-                margin-left: -10px; 
-            }
-            .hidden {
-                transform: scale(0);
-            }
-
-            .message-container {
-                box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
-                width: 400px;
-                right: -25px;
-                bottom: 95px;
-                max-height: 400px;
-                position: absolute;
-                transition: max-height .2s ease;
-                font-family: Helvetica, Arial ,sans-serif;
-                border-radius: 5px;
-                background: #e2e2e2e2;
-                font-size: 13px;
-
-            }
-            .message-container.hidden {
-                max-height: 0px;
-            }
-            .message-container h2 {
-                margin: 0;
-                padding: 20px 20px;
-                color: #fff;
-                background-color: #e8701a;
-                border-radius: 5px;
-            }
-            .message-container .content {
-                margin: 20px 10px ;
-                // border: 1px solid #e8701a;
-                padding: 10px;
-                display: flex;
-                background-color: #fff;
-                flex-direction: column;
-            }
-            .message-container form * {
-                margin: 5px 0;
-            }
-            .message-container form input {
-                padding: 10px;
-            }
-            .message-container form textarea {
-                height: 100px;
-                padding: 10px;
-            }
-            .message-container form textarea::placeholder {
-                font-family: Helvetica, Arial ,sans-serif;
-            }
-            .message-container form button {
-                cursor: pointer;
-                background-color: #e8701a;
-                color: #fff;
-                border: 0;
-                border-radius: 4px;
-                padding: 10px;
-            }
-            .message-container form button:hover {
-                background-color: #16632f;
-            }
-            
-            .available-time-button {
-              background-color: #fff;
-              border-radius: 24px;
-              border-style: none;
-              box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-              box-sizing: border-box;
-              color: #3c4043;
-              font-size: 14px;
-              font-weight: 500;
-              height: 48px;
-              width: 80px;
-              margin: 1%;
-            }
-            
-            input {
-                color: black;
-                border: 1px solid #555555;
-                border-radius: 5px;
-            }
-            
-            
-        `.replace(/^\s+|\n/gm, '');
+        styleTag.innerHTML = styles;
         document.head.appendChild(styleTag);
     }
 
@@ -216,40 +111,121 @@ class Widget {
         }
     }
 
-    submit(event) {
+    submitDateAndPersons(event) {
         event.preventDefault();
         const dateFormSubmission = {
             date: event.srcElement.querySelector('#date').value,
             numberOfPersons: event.srcElement.querySelector('#numberOfPersons').value,
         };
-        // this.messageContainer.innerHTML = '<h2>Thanks for your submission.</h2><p class="content">Someone will be in touch with your shortly regarding your enquiry';
-        console.log(dateFormSubmission);
+        const scriptTag = document.querySelector('#widgetScript');
+        const restaurantSqid = scriptTag.dataset.restaurantSqid;
         const data = {date: dateFormSubmission.date, numberOfPersons: dateFormSubmission.numberOfPersons};
         const reservationDate = data.date.toString()
-        console.log('data', reservationDate)
-        console.log('persons', data.numberOfPersons)
-        const url = `http://127.0.0.1:8000/check_availability?restaurantID=1&reservation_date=${reservationDate}&number_of_persons=${data.numberOfPersons}`
+        console.log('submit date and persons')
+
+        // https://sistema.ristaiuto.it/check_availability?restaurantID=1&reservation_date=2023-11-11&number_of_persons=4
+        const url = `http://127.0.0.1:8000/check_availability?restaurantSQID=${restaurantSqid}&reservation_date=${reservationDate}&number_of_persons=${data.numberOfPersons}`
         fetch(url, {
             method: 'GET',
             headers: {'Content-Type': 'application/json',},
         }).then(response => response.json())
             .then(responseData => {
-                console.log('Response content:', responseData);
-                const availableTimesList = document.createElement('ul');
+                this.messageContainer.innerHTML = '';
+                const availableTimesForm = document.createElement('form');
+                availableTimesForm.classList.add('time-buttons-content')
+
                 responseData.available_times.forEach(time => {
-                    const listItem = document.createElement('button');
-                    listItem.classList.add('available-time-button')
+                    const listItem = document.createElement('a');
+                    listItem.classList.add('available-time-a')
                     listItem.textContent = time;
-                    availableTimesList.appendChild(listItem);
+                    listItem.addEventListener('click', () => this.toggleSelected(listItem, time));
+                    availableTimesForm.appendChild(listItem);
                 });
 
-                this.messageContainer.innerHTML = '<h2>Available Times:</h2>';
-                this.messageContainer.appendChild(availableTimesList);
-                // Uncomment the following lines if you want to update the message container
-                // this.messageContainer.innerHTML = '<h2>Thanks for your submission.</h2><p class="content">Someone will be in touch with you shortly regarding your inquiry</p>';
+                const btn = document.createElement('button');
+                btn.textContent = 'Submit';
+                btn.classList.add('submit-time-button')
+                availableTimesForm.appendChild(btn);
+
+                availableTimesForm.addEventListener('submit', () => this.submitTimeForm(restaurantSqid, reservationDate, data.numberOfPersons));
+                this.messageContainer.innerHTML = '<h2>Choose a Time:</h2>';
+                this.messageContainer.appendChild(availableTimesForm);
+
             }).catch(error => {
             console.error('Error:', error);
         });
+    }
+
+    submitTimeForm(restaurantSqid, reservationDate, numberOfPersons) {
+        console.log('ASDFASDFSDAFSDFASDF', restaurantSqid, reservationDate, this.selectedTime)
+        this.messageContainer.innerHTML = '<h2>Fill in Contact info:</h2>';
+        const url = `http://127.0.0.1:8000/make_reservation?restaurantSQID=${restaurantSqid}&reservation_date=${reservationDate}&number_of_persons=${numberOfPersons}&reservation_time=${this.selectedTime}`
+        fetch(url, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json',},
+        }).then(response => response.json())
+            .then(responseData => {
+                console.log('held reservation', responseData.held_reservation_id)
+                this.messageContainer.innerHTML = '';
+                if (responseData.status === 'possible_reservation_found') {
+                    this.messageContainer.innerHTML = '<h2>Fill in Contact Details</h2>';
+                    const contactInfoForm = document.createElement('form');
+                    contactInfoForm.classList.add('content')
+
+                    const nameInput = document.createElement('input');
+                    nameInput.required = true;
+                    nameInput.id = 'nameInput';
+                    nameInput.type = 'text';
+                    nameInput.placeholder = 'Fill in name';
+
+                    const emailInput = document.createElement('input');
+                    emailInput.required = true;
+                    emailInput.id = 'emailInput';
+                    emailInput.type = 'text'; // Change type to text for the datepicker to work
+                    emailInput.placeholder = 'Fill in email';
+
+                    const telephoneInput = document.createElement('input');
+                    telephoneInput.required = true;
+                    telephoneInput.id = 'telephoneInput';
+                    telephoneInput.type = 'text';
+                    telephoneInput.placeholder = 'telephone number';
+
+                    const btn = document.createElement('button');
+                    btn.textContent = 'Submit';
+                    btn.classList.add('submit-time-button')
+
+                    contactInfoForm.appendChild(nameInput)
+                    contactInfoForm.appendChild(emailInput)
+                    contactInfoForm.appendChild(telephoneInput)
+                    contactInfoForm.appendChild(btn);
+                    contactInfoForm.addEventListener('submit', (event) => this.submitContactInfo(event, responseData.held_reservation_id));
+
+                    this.messageContainer.appendChild(contactInfoForm)
+
+                }
+
+            }).catch(error => {
+            console.error('Error:', error);
+            this.messageContainer.innerHTML = '<h2>Error</h2>';
+        });
+    }
+
+    submitContactInfo(event, responseData) {
+        console.log('event', event)
+        console.log('submit contact info', responseData)
+        // reservationID, name, email, telephone_nr
+        // const url = `http://127.0.0.1:8000/confirm_booking?restaurantSQID=${restaurantSqid}&reservation_date=${reservationDate}&number_of_persons=${numberOfPersons}&reservation_time=${this.selectedTime}`
+
+        this.messageContainer.innerHTML = '<h2>Reservation made</h2>';
+    }
+
+    toggleSelected(selectedItem, time) {
+        // Reset color for all items
+        document.querySelectorAll('.available-time-a').forEach(item => item.classList.remove('selected'));
+        // Set color for the selected item
+        selectedItem.classList.add('selected');
+        // Store the selected time in a property or variable
+        this.selectedTime = time;
     }
 }
 

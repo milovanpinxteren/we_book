@@ -297,7 +297,7 @@ msgstr "Custom Opening Hours"
 
 #: .\templates\components\sidebar.html:102
 msgid "view_tables"
-msgstr "Book a table at"
+msgstr "View tables"
 
 #: .\templates\components\sidebar.html:134
 msgid "logout"
@@ -773,7 +773,7 @@ msgstr "Number of Persons"
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_mobile.html:37
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_tablet.html:37
 msgid "add_table"
-msgstr "Add tabke"
+msgstr "Add table"
 
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_desktop.html:43
 #: .\templates\restaurant_portal\restaurant_tables\restaurant_tables_mobile.html:44
