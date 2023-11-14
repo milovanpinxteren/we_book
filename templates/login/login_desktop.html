@@ -26,6 +26,7 @@
             <div class="language-picker-div">
                 {% include 'components/language_picker.html' %}
             </div>
+            <a class="forgotLink" href="{% url 'show_change_password_page' %}">{% trans 'forgot_password' %}</a>
         </form>
     </div>
     {% include 'components/footer.html' %}
