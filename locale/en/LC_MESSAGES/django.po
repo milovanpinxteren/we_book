@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-30 15:03+0100\n"
+"POT-Creation-Date: 2023-11-15 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\bookingsystem\views.py:132 .\bookingsystem\views.py:142
+#: .\bookingsystem\views\auth_views.py:53
+msgid "all_fields_are_required"
+msgstr "All fields are required"
+
+#: .\bookingsystem\views\auth_views.py:58
+msgid "username_or_email_not_known"
+msgstr "Username or email not known"
+
+#: .\bookingsystem\views\auth_views.py:62
+msgid "incorrect_old_password"
+msgstr "old password Incorrect"
+
+#: .\bookingsystem\views\main_views.py:97
+#: .\bookingsystem\views\main_views.py:107
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:86
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:84
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:84
 msgid "booking_failed"
 msgstr "Booking Failed"
 
-#: .\bookingsystem\views.py:304
+#: .\bookingsystem\views\portal_views.py:86
 msgid "could_not_make_booking_check_table_nr_date_and_time"
 msgstr "Could not make booking. Please check table number, date, and time."
 
@@ -132,6 +145,7 @@ msgstr "name"
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:57
 #: .\templates\booking_confirmation\booking_confirmation_mobile.html:55
 #: .\templates\booking_confirmation\booking_confirmation_tablet.html:55
+#: .\templates\change_password.html:30 .\templates\change_password.html:32
 msgid "email"
 msgstr "Email-adress"
 
@@ -145,7 +159,7 @@ msgid "telephone_nr"
 msgstr "Telephone number"
 
 #: .\templates\booking_confirmation\booking_confirmation_desktop.html:71
-#: .\templates\index\index_desktop.html:92
+#: .\templates\change_password.html:53 .\templates\index\index_desktop.html:92
 #: .\templates\index\index_mobile.html:98
 #: .\templates\index\index_tablet.html:98
 #: .\templates\restaurant_portal\show_reservations\show_reservations_desktop.html:69
@@ -253,6 +267,28 @@ msgstr "Cancel reservation"
 msgid "are_you_sure_you_want_to_delete_your_reservation"
 msgstr "Are you sure you want to delete your reservation"
 
+#: .\templates\change_password.html:7 .\templates\change_password.html:19
+#: .\templates\login\login_desktop.html:30
+#: .\templates\succesfull_password_change.html:7
+msgid "change_password"
+msgstr "Change password"
+
+#: .\templates\change_password.html:30 .\templates\change_password.html:32
+msgid "username"
+msgstr "Username"
+
+#: .\templates\change_password.html:37 .\templates\change_password.html:39
+msgid "old_password"
+msgstr "Old Password"
+
+#: .\templates\change_password.html:42 .\templates\change_password.html:51
+msgid "show_password"
+msgstr "Show password"
+
+#: .\templates\change_password.html:46 .\templates\change_password.html:48
+msgid "new_password"
+msgstr "New Password"
+
 #: .\templates\components\footer.html:5 .\templates\login\login_desktop.html:20
 #: .\templates\login\login_mobile.html:20
 #: .\templates\login\login_tablet.html:20
@@ -277,7 +313,7 @@ msgstr "Home"
 
 #: .\templates\components\sidebar.html:19
 msgid "show_reservations"
-msgstr "Make reservation"
+msgstr "Show reservations"
 
 #: .\templates\components\sidebar.html:29
 msgid "view_menu"
@@ -297,7 +333,7 @@ msgstr "Custom Opening Hours"
 
 #: .\templates\components\sidebar.html:102
 msgid "view_tables"
-msgstr "Book a table at"
+msgstr "View Tables"
 
 #: .\templates\components\sidebar.html:134
 msgid "logout"
@@ -312,7 +348,7 @@ msgid "user_not_authenticated_go_to_login"
 msgstr "User not authenticated, go to Login"
 
 #: .\templates\go_to_login_page.html:12 .\templates\login\login_desktop.html:14
-#: .\templates\login\login_desktop.html:25
+#: .\templates\login\login_desktop.html:26
 #: .\templates\login\login_mobile.html:14
 #: .\templates\login\login_mobile.html:25
 #: .\templates\login\login_tablet.html:14
@@ -371,12 +407,12 @@ msgid "contact_support_if_this_is_incorrect"
 msgstr "Contact Support if this is incorrect"
 
 #: .\templates\restaurant_portal.html:15
-#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability.html:15
+#: .\templates\restaurant_portal\custom_restaurant_availability\custom_restaurant_availability.html:20
 #: .\templates\restaurant_portal\restaurant_settings\restaurant_settings.html:15
-#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables.html:15
+#: .\templates\restaurant_portal\restaurant_tables\restaurant_tables.html:20
 #: .\templates\restaurant_portal\show_dashboard\show_dashboard.html:15
-#: .\templates\restaurant_portal\show_reservations\show_reservations.html:19
-#: .\templates\restaurant_portal\table_management\table_management.html:15
+#: .\templates\restaurant_portal\show_reservations\show_reservations.html:20
+#: .\templates\restaurant_portal\table_management\table_management.html:20
 #: .\templates\restaurant_portal\view_menu\view_menu.html:15
 msgid "restaurant_not_confirmed_yet"
 msgstr "Restaurant not confirmed yet"
@@ -604,87 +640,129 @@ msgstr "Hours"
 msgid "restaurant_open_monday"
 msgstr "Restaurant open Monday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:115
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:136
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:157
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:178
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:199
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:220
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:241
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:115
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:136
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:157
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:178
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:199
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:220
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:241
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:115
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:136
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:157
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:178
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:199
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:220
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:241
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:116
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:128
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:151
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:163
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:186
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:198
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:222
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:234
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:257
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:269
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:292
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:304
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:327
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:339
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:116
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:128
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:151
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:163
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:186
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:198
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:222
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:234
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:257
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:269
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:292
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:304
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:327
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:339
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:116
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:128
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:151
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:163
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:186
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:198
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:222
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:234
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:257
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:269
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:292
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:304
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:327
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:339
 msgid "restaurant_opening_time"
 msgstr "Enter time"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:120
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:141
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:162
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:183
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:204
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:225
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:246
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:120
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:141
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:162
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:183
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:204
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:225
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:246
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:120
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:141
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:162
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:183
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:204
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:225
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:246
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:121
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:133
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:156
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:168
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:191
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:203
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:227
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:239
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:262
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:274
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:297
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:309
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:332
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:344
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:121
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:133
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:156
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:168
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:191
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:203
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:227
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:239
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:262
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:274
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:297
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:309
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:332
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:344
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:121
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:133
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:156
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:168
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:191
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:203
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:227
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:239
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:262
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:274
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:297
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:309
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:332
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:344
 msgid "restaurant_closing_time"
 msgstr "Enter time"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:129
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:129
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:129
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:143
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:143
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:143
 msgid "restaurant_open_tuesday"
 msgstr "Restaurant Open Tuesday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:150
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:150
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:150
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:178
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:178
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:178
 msgid "restaurant_open_wednesday"
 msgstr "Restaurant Open Wednesday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:171
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:171
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:171
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:214
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:214
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:214
 msgid "restaurant_open_thursday"
 msgstr "Restaurant Open Thursday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:192
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:192
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:192
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:249
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:249
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:249
 msgid "restaurant_open_friday"
 msgstr "Restaurant Open Friday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:213
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:213
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:213
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:284
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:284
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:284
 msgid "restaurant_open_saturday"
 msgstr "Restaurant Open Saturday"
 
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:234
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:234
-#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:234
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_desktop.html:319
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_mobile.html:319
+#: .\templates\restaurant_portal\restaurant_settings\restaurant_settings_tablet.html:319
 msgid "restaurant_open_sunday"
 msgstr "Restaurant Open Sunday"
 
@@ -732,8 +810,8 @@ msgstr "Add tables"
 #: .\templates\restaurant_portal\show_reservations\show_reservations_tablet.html:567
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:33
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:150
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:33
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:140
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:39
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:149
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:33
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:140
 msgid "table_nr"
@@ -1001,13 +1079,14 @@ msgid "table_management"
 msgstr "Table Management"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:30
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:30
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:25
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:53
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:30
 msgid "select_table"
 msgstr "Select table"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:169
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:159
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:168
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:159
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:44
 #: .\templates\restaurant_portal\view_menu\view_menu_desktop.html:45
@@ -1022,25 +1101,25 @@ msgid "dish_name"
 msgstr "Dish name"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:172
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:162
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:171
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:162
 msgid "quantity"
 msgstr "Quantity"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:175
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:165
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:174
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:165
 msgid "amount"
 msgstr "Amount"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:218
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:208
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:217
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:208
 msgid "total"
 msgstr "Total"
 
 #: .\templates\restaurant_portal\table_management\table_management_desktop.html:233
-#: .\templates\restaurant_portal\table_management\table_management_mobile.html:223
+#: .\templates\restaurant_portal\table_management\table_management_mobile.html:232
 #: .\templates\restaurant_portal\table_management\table_management_tablet.html:223
 msgid "clear_table"
 msgstr "Clear table"
@@ -1167,6 +1246,14 @@ msgstr "Delete dish"
 #: .\templates\restaurant_portal\view_menu\view_menu_tablet.html:125
 msgid "cancel_adding_courses_or_dishes"
 msgstr "Cancel adding courses or dishes"
+
+#: .\templates\succesfull_password_change.html:19
+msgid "password_change_succesfull"
+msgstr "Password change succesfull"
+
+#: .\templates\succesfull_password_change.html:22
+msgid "go_to_login"
+msgstr "Go to Login"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
 msgid "Messages"
@@ -2394,11 +2481,6 @@ msgstr ""
 #: .\we_book\settings.py:165
 msgid "Español"
 msgstr ""
-
-#, fuzzy
-#~| msgid "go_to_own_website"
-#~ msgid "go_to_login_page"
-#~ msgstr "Go to own website"
 
 #~ msgid "get_support"
 #~ msgstr "Get support"
