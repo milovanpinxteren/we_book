@@ -18,6 +18,7 @@
     <div class="form-div">
         <form class="login-form form_main" role="form" method="POST">
             <p class="heading">{% trans "partner_login" %}</p>
+            <h4 style="z-index: 1000">{{ message }}</h4>
             {% csrf_token %}
             <div class="login-form-contents">
                 {{ form.as_p }}
@@ -26,7 +27,7 @@
             <div class="language-picker-div">
                 {% include 'components/language_picker.html' %}
             </div>
-            <a class="forgotLink" href="{% url 'show_change_password_page' %}">{% trans 'forgot_password' %}</a>
+            <a class="forgotLink" href="{% url 'show_change_password_page' %}">{% trans 'change_password' %}</a>
         </form>
     </div>
     {% include 'components/footer.html' %}

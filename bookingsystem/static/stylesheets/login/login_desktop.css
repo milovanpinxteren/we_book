@@ -80,8 +80,8 @@ body {
 
 .forgotLink {
     position: absolute;
-    top: 205px;
-    left: 200px;
+    bottom: 0;
+    right: 0;
     z-index: 2;
     font-size: .7em;
     font-weight: 500;
