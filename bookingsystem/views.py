@@ -191,7 +191,11 @@ def confirm_booking(request):
                 , 'restaurant_email': request.session['restaurant_email'],
                        'restaurant_website': request.session['restaurant_website']}
             render(request, 'booking_confirmation.html', context)
-
+    elif request.method == 'GET':
+        print(request)
+        bookingconfirmer = BookingConfirmer()
+        context = bookingconfirmer.confirm_booking(request.GET['reservationID'], request.GET['name'], request.GET['email'], request.GET['telephone_nr'])
+        return JsonResponse(context)
     else:
         confirmation_form = ConfirmBookingForm()
         request.session['status'] = 'booking_failed'

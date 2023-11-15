@@ -157,7 +157,6 @@ class Widget {
     }
 
     submitTimeForm(restaurantSqid, reservationDate, numberOfPersons) {
-        console.log('ASDFASDFSDAFSDFASDF', restaurantSqid, reservationDate, this.selectedTime)
         this.messageContainer.innerHTML = '<h2>Fill in Contact info:</h2>';
         const url = `http://127.0.0.1:8000/make_reservation?restaurantSQID=${restaurantSqid}&reservation_date=${reservationDate}&number_of_persons=${numberOfPersons}&reservation_time=${this.selectedTime}`
         fetch(url, {
@@ -172,18 +171,27 @@ class Widget {
                     const contactInfoForm = document.createElement('form');
                     contactInfoForm.classList.add('content')
 
+                    const nameLabel = document.createElement('label');
+                    nameLabel.for = 'nameInput';
+                    nameLabel.textContent = 'Name: ';
                     const nameInput = document.createElement('input');
                     nameInput.required = true;
                     nameInput.id = 'nameInput';
                     nameInput.type = 'text';
                     nameInput.placeholder = 'Fill in name';
 
+                    const emailLabel = document.createElement('label');
+                    emailLabel.for = 'emailInput';
+                    emailLabel.textContent = 'Email: ';
                     const emailInput = document.createElement('input');
                     emailInput.required = true;
                     emailInput.id = 'emailInput';
                     emailInput.type = 'text'; // Change type to text for the datepicker to work
                     emailInput.placeholder = 'Fill in email';
 
+                    const telephoneLabel = document.createElement('label');
+                    telephoneLabel.for = 'telephoneInput';
+                    telephoneLabel.textContent = 'Telephone: ';
                     const telephoneInput = document.createElement('input');
                     telephoneInput.required = true;
                     telephoneInput.id = 'telephoneInput';
@@ -194,29 +202,55 @@ class Widget {
                     btn.textContent = 'Submit';
                     btn.classList.add('submit-time-button')
 
+                    contactInfoForm.appendChild(nameLabel)
                     contactInfoForm.appendChild(nameInput)
+                    contactInfoForm.appendChild(emailLabel)
                     contactInfoForm.appendChild(emailInput)
+                    contactInfoForm.appendChild(telephoneLabel)
                     contactInfoForm.appendChild(telephoneInput)
                     contactInfoForm.appendChild(btn);
-                    contactInfoForm.addEventListener('submit', (event) => this.submitContactInfo(event, responseData.held_reservation_id));
+                    contactInfoForm.addEventListener('submit', (event) => {
+                        event.preventDefault()
+                        const customerName = event.target.elements.nameInput.value
+                        const customerEmail = event.target.elements.emailInput.value
+                        const customerTelephone = event.target.elements.telephoneInput.value
 
+                        this.submitContactInfo(responseData.held_reservation_id, customerName, customerEmail, customerTelephone);
+                    });
                     this.messageContainer.appendChild(contactInfoForm)
-
                 }
-
             }).catch(error => {
             console.error('Error:', error);
             this.messageContainer.innerHTML = '<h2>Error</h2>';
         });
     }
 
-    submitContactInfo(event, responseData) {
-        console.log('event', event)
-        console.log('submit contact info', responseData)
+    submitContactInfo(reservationID, customerName, customerEmail, customerTelephone) {
+        console.log('submit contact info', customerName, customerEmail, customerTelephone)
         // reservationID, name, email, telephone_nr
-        // const url = `http://127.0.0.1:8000/confirm_booking?restaurantSQID=${restaurantSqid}&reservation_date=${reservationDate}&number_of_persons=${numberOfPersons}&reservation_time=${this.selectedTime}`
-
-        this.messageContainer.innerHTML = '<h2>Reservation made</h2>';
+        const url = `http://127.0.0.1:8000/confirm_booking?reservationID=${reservationID}&name=${customerName}&email=${customerEmail}&telephone_nr=${customerTelephone}`
+        fetch(url, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json',},
+        }).then(response => response.json())
+            .then(responseData => {
+                console.log('responsedata', responseData)
+                if (responseData.confirmed_reservation) {
+                    this.messageContainer.innerHTML = `
+                    <h2> Reservation Made at ${responseData.restaurant}</h2>
+                    <div class="reservation-confirmed-text">
+                    <p>Reservation date: ${responseData.reservation_date}</p>
+                    <p>Reservation time: ${responseData.start_time}</p>
+                    <p>Number of Persons: ${responseData.number_of_persons}</p>
+                    <p>Name: ${responseData.name}</p>
+                    </div>
+                    `
+                }
+                // this.messageContainer.innerHTML = 'Reservation Made';
+            }).catch(error => {
+            console.error('Error:', error);
+            this.messageContainer.innerHTML = '<h2>Error</h2>';
+        });
     }
 
     toggleSelected(selectedItem, time) {

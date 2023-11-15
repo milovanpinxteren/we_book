@@ -136,6 +136,11 @@ const styles = `
                 width: 100%;
             }
             
+            .reservation-confirmed-text {
+                font-size: 1.5em;
+                margin-left: 5%;
+            }
+            
         `.replace(/^\s+|\n/gm, ''); // Remove leading spaces and line breaks
 
 export default styles;
