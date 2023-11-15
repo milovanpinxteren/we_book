@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/components/language_picker.css' %}"/>
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
-
     <script src="https://unpkg.com/htmx.org@1.9.5"
             integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO"
             crossorigin="anonymous"></script>
@@ -207,7 +206,7 @@
     function populateTimeSlots() {
         const selectElement = document.getElementById('timeSlotSelect');
         for (let hour = 0; hour <= 23; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
+            for (let minute = 0; minute < 60; minute += 30) {
                 const hourFormatted = String(hour).padStart(2, '0');
                 const minuteFormatted = String(minute).padStart(2, '0');
                 const timeSlot = `${hourFormatted}:${minuteFormatted}`;
@@ -224,5 +223,7 @@
     // Call the function to populate the time slots
     populateTimeSlots();
 </script>
+
+<script type="module" id="widgetScript" src="{% static 'widget/app.js' %}" data-restaurant-sqid="W79sS"></script>
 </body>
 </html>

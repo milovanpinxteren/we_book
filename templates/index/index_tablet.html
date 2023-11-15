@@ -285,7 +285,7 @@
     function populateTimeSlots() {
         const selectElement = document.getElementById('timeSlotSelect');
         for (let hour = 0; hour <= 23; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
+            for (let minute = 0; minute < 60; minute += 30) {
                 const hourFormatted = String(hour).padStart(2, '0');
                 const minuteFormatted = String(minute).padStart(2, '0');
                 const timeSlot = `${hourFormatted}:${minuteFormatted}`;

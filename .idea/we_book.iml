@@ -22,9 +22,6 @@
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="jquery-ui" level="application" />
     <orderEntry type="library" name="jtsage-datebox-bootstrap3" level="application" />
-    <orderEntry type="library" name="jquery-ui" level="application" />
-    <orderEntry type="library" name="jquery-3.6.0" level="application" />
-    <orderEntry type="library" name="htmx.org" level="application" />
     <orderEntry type="library" name="jtsage-datebox-jqm" level="application" />
   </component>
   <component name="TemplatesService">
